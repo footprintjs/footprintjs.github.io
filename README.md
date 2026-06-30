@@ -38,7 +38,7 @@ flowchart TD
 
 ---
 
-## The tenets
+## Principles
 
 1. **Collect at traversal time.** Reads, writes, and decisions are captured structurally as the run executes — no manual logging.
 2. **One canonical footprint.** The trace *is* the execution record — built inline, never rebuilt after the fact.
