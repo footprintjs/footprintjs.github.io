@@ -1,0 +1,696 @@
+/* ============================================================================
+   footprintjs.github.io — the ecosystem home.
+   One static page, no build step. Brand tokens reused from agentfootprint so the
+   whole family looks consistent: brand yellow, soft off-white light / deep dark,
+   content "pops" by elevation (cards on --bg-elev above the calm --bg).
+   ============================================================================ */
+
+/* ── theme tokens ─────────────────────────────────────────────────────────── */
+:root {
+  --bg: #fbfaf8; /* soft warm off-white (not pure #fff — easier on the eyes; cards pop above it) */
+  --bg-elev: #ffffff;
+  --fg: #18181b;
+  --fg-muted: #5f5f63;
+  --fg-faint: #9a9a9a;
+  --border: #e7e7e4;
+  --border-strong: #d6d5d0;
+  --yellow: #ffc700;
+  --yellow-dark: #b88a00;
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.04), 0 18px 44px -22px rgb(0 0 0 / 0.16);
+  --nav-h: 60px;
+  --content: 1080px;
+  --gutter: clamp(20px, 5vw, 48px);
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+html.dark {
+  --bg: #0a0a0b; /* deep near-black — the brand's dramatic dark; cards/marks pop a notch lighter */
+  --bg-elev: #141416;
+  --fg: #fafafa;
+  --fg-muted: #a1a1a1;
+  --fg-faint: #6b6b6b;
+  --border: #262628;
+  --border-strong: #3a3a3d;
+  --yellow-dark: #ffd84d;
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.4), 0 20px 48px -22px rgb(0 0 0 / 0.6);
+}
+
+/* ── base ─────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a {
+  color: inherit;
+}
+img {
+  max-width: 100%;
+}
+
+/* ── header ───────────────────────────────────────────────────────────────── */
+.hd {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: var(--nav-h);
+  padding: 0 var(--gutter);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.hd-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.hd-mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+}
+.hd-word {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--fg-muted);
+}
+.hd-word em {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--fg);
+}
+.hd-gap {
+  flex: 1;
+}
+.hd-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  border: 0;
+  background: transparent;
+  color: var(--fg-muted);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.hd-icon:hover {
+  background: color-mix(in oklab, var(--fg) 8%, transparent);
+  color: var(--fg);
+}
+.ic-sun {
+  display: none;
+}
+html.dark .ic-moon {
+  display: none;
+}
+html.dark .ic-sun {
+  display: inline;
+}
+
+/* ── layout shell ─────────────────────────────────────────────────────────── */
+main {
+  max-width: var(--content);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ── hero ─────────────────────────────────────────────────────────────────── */
+.hero {
+  text-align: center;
+  padding: 84px 0 40px;
+}
+.hero-mascot {
+  width: clamp(120px, 16vw, 168px);
+  height: auto;
+  margin: 0 auto 18px;
+  display: block;
+  animation: float 4.5s ease-in-out infinite;
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 13px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-elev);
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--fg-muted);
+}
+.pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--yellow);
+}
+.hero h1 {
+  font-size: clamp(34px, 5.5vw, 60px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin: 18px 0 16px;
+}
+.hero-sub {
+  max-width: 60ch;
+  margin: 0 auto;
+  font-size: clamp(16px, 2vw, 19px);
+  line-height: 1.6;
+  color: var(--fg-muted);
+  text-wrap: pretty;
+}
+.hero-sub em {
+  font-style: normal;
+  color: var(--fg);
+  box-shadow: inset 0 -0.42em 0 color-mix(in oklab, var(--yellow) 60%, transparent);
+}
+
+/* ── the one idea (article thesis, distilled) ─────────────────────────────── */
+/* Contained in its own band (like the Libraries / UIs sections) so it reads as a highlighted unit
+   rather than floating cards on the page. Recessed fill so the step cards inside still pop. */
+.idea {
+  text-align: center;
+  margin: 34px auto 6px;
+  padding: 34px 26px 30px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: color-mix(in oklab, var(--fg) 3%, var(--bg));
+}
+.idea-eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--yellow-dark);
+}
+.idea-lead {
+  max-width: 54ch;
+  margin: 12px auto 26px;
+  font-size: clamp(17px, 2.2vw, 21px);
+  line-height: 1.5;
+  color: var(--fg);
+  text-wrap: pretty;
+}
+.idea-lead em {
+  font-style: normal;
+  box-shadow: inset 0 -0.4em 0 color-mix(in oklab, var(--yellow) 55%, transparent);
+}
+.idea-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px 30px;
+  text-align: left;
+}
+/* Plain text columns, NOT cards — the steps live inside the idea container already, so boxing each
+   one would be boxes-in-a-box. A hairline divider between columns organizes them without panels. */
+.idea-step {
+  padding: 2px 0;
+}
+.idea-step + .idea-step {
+  border-left: 1px solid var(--border);
+  padding-left: 30px;
+}
+.idea-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: #18181b;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.idea-step b {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+.idea-step small {
+  display: block;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--fg-muted);
+}
+.idea-quote {
+  max-width: 52ch;
+  margin: 28px auto 0;
+  padding-left: 16px;
+  border-left: 3px solid var(--yellow);
+  text-align: left;
+  font-size: clamp(16px, 2vw, 19px);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+/* ── scroll reveal (light fade-up; disabled under reduced-motion) ──────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── architecture flow ────────────────────────────────────────────────────── */
+.arch {
+  margin: 26px auto 8px;
+}
+.arch-band {
+  position: relative;
+  /* shrink-wrap to the nodes inside instead of spanning the full content width — otherwise the
+     nodes float in the centre of a wide band with big empty sides. (The card bands stay full-width;
+     they hold grids that fill the row. These diagram bands only hold a few nodes, so they hug.) */
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg-elev);
+  padding: 26px 32px 22px;
+  box-shadow: var(--shadow);
+}
+.arch-engine {
+  border-color: color-mix(in oklab, var(--yellow) 45%, var(--border));
+}
+.arch-tag {
+  position: absolute;
+  top: -10px;
+  left: 22px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.arch-engine .arch-tag {
+  border-color: color-mix(in oklab, var(--yellow) 50%, var(--border));
+  color: var(--yellow-dark);
+}
+.arch-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 18px;
+}
+.arch-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 150px;
+  padding: 12px 18px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: var(--bg);
+}
+.arch-node b {
+  font-size: 15px;
+  font-weight: 700;
+}
+.arch-node small {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--fg-faint);
+}
+.arch-node.core {
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--yellow) 18%, transparent);
+}
+.arch-edge {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+.arch-dot {
+  color: var(--fg-faint);
+}
+.arch-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 0;
+}
+.arch-link::before {
+  content: '';
+  width: 1px;
+  height: 14px;
+  background: var(--border-strong);
+}
+.arch-link span {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--fg-faint);
+  padding: 3px 0;
+}
+.arch-link::after {
+  content: '↓';
+  font-size: 12px;
+  color: var(--fg-faint);
+  line-height: 1;
+}
+
+/* ── groups + cards ───────────────────────────────────────────────────────── */
+/* Each category is a bounded BAND (Gestalt common region) — the strongest "these belong together /
+   those are separate" signal, far beyond color. Reuses the architecture diagram's corner-tag
+   language so the page reads as one system: the diagram's bands and these card bands match. The
+   band is faintly recessed below the page so the white cards inside read as elevated. */
+.group {
+  position: relative;
+  margin: 34px 0 0;
+  padding: 30px 20px 22px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: color-mix(in oklab, var(--fg) 3%, var(--bg));
+}
+.group-head {
+  position: absolute;
+  top: -10px;
+  left: 22px;
+  margin: 0;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.group-sub {
+  margin: 0 0 16px;
+  color: var(--fg-muted);
+  font-size: 14px;
+}
+/* functional role icon (NOT a logo) — a glyph for what each tool DOES, in the card's accent.
+   Pre-attentive + accessible: tells the products apart without relying on color. */
+.card-ic {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  color: var(--accent, var(--fg-muted));
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+.cards-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-elev);
+  box-shadow: var(--shadow);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+/* (top accent stripe removed per request — colour identity now lives in the role icon + tag) */
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.05), 0 22px 50px -22px color-mix(in oklab, var(--accent, #000) 40%, transparent);
+}
+.card-hd {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.card-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  flex: none;
+}
+.card-hd h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.card-tag {
+  margin-left: auto;
+  padding: 3px 9px;
+  border-radius: 999px;
+  /* tinted with the card's accent (adapts to light/dark by mixing with bg / fg) */
+  background: color-mix(in oklab, var(--accent, var(--yellow)) 15%, var(--bg-elev));
+  color: color-mix(in oklab, var(--accent, var(--yellow)) 60%, var(--fg));
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.card-desc {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  flex: 1;
+}
+.card-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.card-links a {
+  padding: 6px 13px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--fg);
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.card-links a:first-child {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: #18181b;
+}
+.card-links a:hover {
+  border-color: var(--yellow-dark);
+  color: var(--yellow-dark);
+}
+.card-links a:first-child:hover {
+  color: #18181b;
+  filter: brightness(1.04);
+}
+.card-soon {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--fg-faint);
+}
+/* live npm version suffix inside the npm link (filled in by JS) */
+.lk-ver {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+/* ── the footprint graph (cards as nodes + labeled edges) ─────────────────── */
+.graph {
+  position: relative;
+  margin: 40px 0 0;
+}
+.graph-tag {
+  display: block;
+  text-align: center;
+  margin: 0 0 26px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--yellow-dark);
+}
+/* three centered tiers (footprintjs → agentfootprint → the three UIs), top-to-bottom, with vertical
+   room between them for the D3-style curves to arc through. */
+.gb {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 96px;
+  margin: 0 auto;
+}
+.gb-tier {
+  display: flex;
+  justify-content: center;
+}
+.gb-t1 > .card,
+.gb-t2 > .card {
+  width: 100%;
+  max-width: 360px;
+}
+.gb-t3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  width: 100%;
+  align-items: stretch;
+}
+/* SVG edge overlay — covers the whole graph, behind the cards, never blocks clicks. Paths + labels
+   are drawn/positioned by the JS edge renderer that measures the real card positions. */
+.gb-edges {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.gb-edge-paths path {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.gb-edges marker path {
+  fill: var(--border-strong);
+}
+.gb .card {
+  z-index: 1; /* cards sit above the edge overlay (curves arc through the gaps between them) */
+}
+.gb-elbl {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--fg-muted);
+  white-space: nowrap;
+  pointer-events: none;
+}
+/* mobile: a 2-D graph can't hold — collapse to a vertical stack; relationships stay clear from each
+   card's tag ("built on footprintjs", "for footprintjs", …). Hide the curves + labels. */
+@media (max-width: 760px) {
+  .gb {
+    gap: 14px;
+  }
+  .gb-t3 {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .gb-edges,
+  .gb-elbl {
+    display: none;
+  }
+}
+
+/* ── footer ───────────────────────────────────────────────────────────────── */
+.ft {
+  max-width: var(--content);
+  margin: 64px auto 0;
+  padding: 28px var(--gutter) 40px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.ft-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--fg-faint);
+}
+.ft-legal a {
+  color: var(--fg-muted);
+  text-underline-offset: 2px;
+}
+.ft-legal a:hover {
+  color: var(--yellow-dark);
+}
+.ft-dot {
+  opacity: 0.5;
+}
+
+/* ── responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .cards,
+  .cards-3,
+  .idea-steps {
+    grid-template-columns: 1fr;
+  }
+  .arch-edge {
+    transform: rotate(90deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .hero-mascot {
+    animation: none;
+  }
+  .card {
+    transition: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
