@@ -81,9 +81,10 @@ img {
   text-decoration: none;
 }
 .hd-mark {
-  width: 26px;
-  height: 26px;
-  border-radius: 7px;
+  width: 30px;
+  height: 30px;
+  display: block;
+  object-fit: contain;
 }
 .hd-word {
   font-size: 18px;
