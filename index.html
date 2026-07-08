@@ -6,7 +6,7 @@
     <title>footprintjs — the self-explaining stack</title>
     <meta
       name="description"
-      content="The footprintjs ecosystem: a self-explaining stack from backend pipelines to AI agents. Every run records why it did what it did — footprintjs (core engine), agentfootprint (agentic framework), and the UIs that visualize them (Explainable UI, Lens, Thinking UI)."
+      content="The footprintjs ecosystem: a self-explaining stack from backend pipelines to AI agents. Every run records why it did what it did — footprintjs (core engine), agentfootprint (agentic framework), hcifootprint (turns your app into an agent-operable skill graph over MCP), and the UIs that visualize them (Explainable UI, Lens, Thinking UI)."
     />
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png" />
@@ -20,7 +20,7 @@
     <meta name="theme-color" content="#ffc700" />
     <meta
       name="keywords"
-      content="footprintjs, agentfootprint, explainable AI agents, AI agent framework, LLM agent framework, agent observability, agent debugging, causal trace, context engineering, flowchart pattern, self-explaining systems, Sanjay Krishna Anbalagan"
+      content="footprintjs, agentfootprint, hcifootprint, explainable AI agents, AI agent framework, LLM agent framework, agent observability, agent debugging, causal trace, context engineering, flowchart pattern, self-explaining systems, MCP tool surface, skill graph, Sanjay Krishna Anbalagan"
     />
 
     <!-- Open Graph -->
@@ -39,7 +39,7 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="footprintjs — the self-explaining stack: footprintjs, agentfootprint, Explainable UI, Lens, Thinking UI."
+      content="footprintjs — the self-explaining stack: footprintjs, agentfootprint, hcifootprint, Explainable UI, Lens, Thinking UI."
     />
 
     <!-- Twitter -->
@@ -150,6 +150,15 @@
             "applicationCategory": "DeveloperApplication",
             "url": "https://footprintjs.github.io/agentThinkingUI/",
             "description": "Replay an agent's reasoning and tool loop as an animated, scrubbable story — the non-developer's view of an agent run.",
+            "creator": { "@id": "https://sanjay1909.github.io/#person" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "hcifootprint",
+            "applicationCategory": "DeveloperApplication",
+            "url": "https://footprintjs.github.io/hcifootprint/",
+            "description": "Turn a web app's interaction surface into a typed, traversable skill graph an LLM agent can plan over and act on, served over MCP. The frontend sibling of footprintjs.",
             "creator": { "@id": "https://sanjay1909.github.io/#person" },
             "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
           }
@@ -338,6 +347,23 @@
               <a class="lk-npm" href="https://www.npmjs.com/package/agentthinkingui" target="_blank" rel="noreferrer">npm</a>
             </nav>
           </article>
+
+          <article class="card" style="--accent: #ec4899">
+            <header class="card-hd">
+              <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="5" r="2.3" /><circle cx="6" cy="19" r="2.3" /><circle cx="18" cy="19" r="2.3" /><path d="M12 7.3v3M12 10.3L6 16.7M12 10.3l6 6.4" stroke-linecap="round" /></svg>
+              <h3>HACI&nbsp;Footprint</h3>
+              <span class="card-tag">MCP surface</span>
+            </header>
+            <p class="card-desc">
+              Turn your web app's interaction surface into a typed skill graph an agent can
+              operate — served to it over MCP.
+            </p>
+            <nav class="card-links">
+              <a href="https://footprintjs.github.io/hcifootprint/" target="_blank" rel="noreferrer">Home</a>
+              <a href="https://github.com/footprintjs/hcifootprint" target="_blank" rel="noreferrer">GitHub</a>
+              <span class="chip-beta">beta · pre-1.0</span>
+            </nav>
+          </article>
           </div>
         </div>
       </section>
@@ -427,6 +453,7 @@
           ['.gb-t1 > .card', '.gb-t3 > .card:nth-of-type(1)', 'renders', 'skirt'],
           ['.gb-t2 > .card', '.gb-t3 > .card:nth-of-type(2)', 'renders'],
           ['.gb-t2 > .card', '.gb-t3 > .card:nth-of-type(3)', 'replays'],
+          ['.gb-t2 > .card', '.gb-t3 > .card:nth-of-type(4)', 'operates'],
         ];
         var R = 18; // corner radius for the rounded elbows
         var labels = EDGES.map(function (e) {
