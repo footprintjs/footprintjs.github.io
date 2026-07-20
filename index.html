@@ -6,7 +6,7 @@
     <title>footprintjs — the self-explaining stack</title>
     <meta
       name="description"
-      content="The footprintjs ecosystem: a self-explaining stack from backend pipelines to AI agents. Every run records why it did what it did — footprintjs (core engine), agentfootprint (agentic framework), hcifootprint (turns your app into an agent-operable skill graph over MCP), and the UIs that visualize them (Explainable UI, Lens, Thinking UI)."
+      content="The footprintjs ecosystem: a self-explaining stack from backend pipelines to AI agents. Every run records why it did what it did — footprintjs (core engine), agentfootprint (agentic framework), hcifootprint (turn your app agent-operable over MCP — now on npm), and the UIs that visualize them (Explainable UI, Lens, Thinking UI)."
     />
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png" />
@@ -20,7 +20,7 @@
     <meta name="theme-color" content="#ffc700" />
     <meta
       name="keywords"
-      content="footprintjs, agentfootprint, hcifootprint, explainable AI agents, AI agent framework, LLM agent framework, agent observability, agent debugging, causal trace, context engineering, flowchart pattern, self-explaining systems, MCP tool surface, skill graph, Sanjay Krishna Anbalagan"
+      content="footprintjs, agentfootprint, hcifootprint, explainable AI agents, AI agent framework, LLM agent framework, agent observability, agent debugging, causal trace, context engineering, flowchart pattern, self-explaining systems, MCP tool surface, skill graph, Sanjay Krishna Anbalagan, agent-operable apps, MCP skill graph, context debugging, causal localization, backward slicing, llms.txt, agent-computer interface"
     />
 
     <!-- Open Graph -->
@@ -30,7 +30,7 @@
     <meta property="og:title" content="footprintjs — the self-explaining stack" />
     <meta
       property="og:description"
-      content="From backend pipelines to AI agents — every run records why it did what it did. One trustworthy trace; you choose the lens."
+      content="From backend pipelines to AI agents — every run records why it did what it did. Now turn your app agent-operable over MCP with hcifootprint, on npm."
     />
     <meta property="og:url" content="https://footprintjs.github.io/" />
     <meta property="og:image" content="https://footprintjs.github.io/assets/og.png" />
@@ -122,7 +122,7 @@
             "applicationCategory": "DeveloperApplication",
             "operatingSystem": "Node.js",
             "url": "https://footprintjs.github.io/agentfootprint/",
-            "description": "The agentic framework built on footprintjs — build AI agents whose every LLM call traces back to what was injected, who triggered it, when, and how it cached.",
+            "description": "Build AI agents whose every LLM call traces back to what was injected, who triggered it, and what it cost. When an answer is wrong, localize which piece of context caused it — and prove it by replay.",
             "creator": { "@id": "https://sanjay1909.github.io/#person" },
             "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
           },
@@ -158,7 +158,8 @@
             "name": "hcifootprint",
             "applicationCategory": "DeveloperApplication",
             "url": "https://footprintjs.github.io/hcifootprint/",
-            "description": "Turn a web app's interaction surface into a typed, traversable skill graph an LLM agent can plan over and act on, served over MCP. The frontend sibling of footprintjs.",
+            "sameAs": ["https://www.npmjs.com/package/hcifootprint"],
+            "description": "Turn your web app into an agent-operable app — its buttons and flows become a typed skill graph an agent plans over and acts on, served over MCP.",
             "creator": { "@id": "https://sanjay1909.github.io/#person" },
             "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
           }
@@ -209,6 +210,9 @@
           Trace any answer back to the exact cause, and prove the fix by replaying it.
         </p>
       </section>
+
+      <!-- ── fresh strip (SEO freshness + the hcifootprint-on-npm news) ────── -->
+      <section class="news" aria-label="Latest"><span class="news-tag">new</span> <a href="https://www.npmjs.com/package/hcifootprint" target="_blank" rel="noreferrer">hcifootprint is on npm</a> — turn your app agent-operable · <a href="https://youtu.be/vx5amF94ipI" target="_blank" rel="noreferrer">watch the 37-second demo</a> · <a href="https://github.com/footprintjs/hcifootprint/blob/main/llms.txt" target="_blank" rel="noreferrer">llms.txt for agent consumers</a></section>
 
       <!-- ── the one idea (the flowchart-pattern thesis, distilled) ───────── -->
       <section class="idea reveal" aria-label="The idea behind the ecosystem">
@@ -264,8 +268,9 @@
               <span class="card-tag">core engine</span>
             </header>
             <p class="card-desc">
-              The flowchart pattern for backend code — causal traces, transactional state, and
-              auto-generated tool descriptions. Everything else is built on this.
+              The flowchart pattern for backend code — causal traces, transactional state,
+              variable-first backward slicing, and auto-generated tool descriptions. Everything
+              else is built on this.
             </p>
             <nav class="card-links">
               <a href="https://footprintjs.github.io/footPrint/" target="_blank" rel="noreferrer">Home</a>
@@ -284,7 +289,8 @@
             </header>
             <p class="card-desc">
               Build AI agents whose every LLM call traces back to what was injected, who triggered
-              it, when, and how it cached. Context engineering, abstracted. Built on footprintjs.
+              it, and what it cost. When an answer is wrong, localize which piece of context caused
+              it — and prove it by replay. Built on footprintjs.
             </p>
             <nav class="card-links">
               <a href="https://footprintjs.github.io/agentfootprint/" target="_blank" rel="noreferrer">Home</a>
@@ -303,8 +309,9 @@
               <span class="card-tag">for footprintjs</span>
             </header>
             <p class="card-desc">
-              Visualize a footprintjs run — the flowchart, the causal trace, and the data at every
-              step. Themeable React components.
+              Visualize a footprintjs run — the flowchart, time-travel replay, and a causal rewind
+              that walks any variable back to its birth on the same timeline. Themeable React
+              components.
             </p>
             <nav class="card-links">
               <a href="https://footprintjs.github.io/explainable-ui/" target="_blank" rel="noreferrer">Demo</a>
@@ -320,8 +327,8 @@
               <span class="card-tag">for agentfootprint</span>
             </header>
             <p class="card-desc">
-              Debug an agentfootprint run — messages, prompts, tool calls, decision scope, and cost.
-              Built on Explainable&nbsp;UI.
+              Debug an agentfootprint run — messages, prompts, tool calls, decision scope, and cost,
+              with one time cursor across all of them. Built on Explainable&nbsp;UI.
             </p>
             <nav class="card-links">
               <a href="https://github.com/footprintjs/agentfootprint-lens" target="_blank" rel="noreferrer">GitHub</a>
@@ -338,8 +345,8 @@
             </header>
             <p class="card-desc">
               The non-developer's view of an agent run — its reasoning and tool loop replayed as an
-              animated, scrubbable story, so anyone can see what it did and where it went wrong. No
-              build step.
+              animated, scrubbable story, including a 'why this tool?' rack that scores what the
+              agent could have picked. No build step.
             </p>
             <nav class="card-links">
               <a href="https://footprintjs.github.io/agentThinkingUI/" target="_blank" rel="noreferrer">Demo</a>
@@ -355,13 +362,15 @@
               <span class="card-tag">MCP surface</span>
             </header>
             <p class="card-desc">
-              Turn your web app's interaction surface into a typed skill graph an agent can
-              operate — served to it over MCP.
+              Turn your web app into an agent-operable app — its buttons and flows become a typed
+              skill graph an agent plans over and acts on, served over MCP. Start read-only in guide
+              mode; adopt one rung at a time.
             </p>
             <nav class="card-links">
               <a href="https://footprintjs.github.io/hcifootprint/" target="_blank" rel="noreferrer">Home</a>
               <a href="https://github.com/footprintjs/hcifootprint" target="_blank" rel="noreferrer">GitHub</a>
-              <span class="chip-beta">beta · pre-1.0</span>
+              <a class="lk-npm" href="https://www.npmjs.com/package/hcifootprint" target="_blank" rel="noreferrer">npm</a>
+              <a href="https://youtu.be/vx5amF94ipI" target="_blank" rel="noreferrer">Demo (37s)</a>
             </nav>
           </article>
           </div>
