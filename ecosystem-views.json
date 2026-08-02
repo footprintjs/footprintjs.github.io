@@ -1,0 +1,388 @@
+{
+  "defaultView": "product",
+  "views": {
+    "product": {
+      "label": "Product",
+      "hero": {
+        "title": "Software that leaves evidence.",
+        "subtitle": "Build systems that can explain what they did, why they did it, who or what caused it, and what humans or agents can safely do next — without reconstructing the story from logs."
+      },
+      "idea": {
+        "eyebrow": "Different journeys · one design rule",
+        "lead": "Record every path at the moment it happens, keep its cause attached, and give each person the lens they need to understand, replay, compare, or challenge the same evidence.",
+        "steps": [
+          {
+            "title": "Capture the real journey",
+            "description": "Backend runs, agent decisions, app actions, and visual explorations record themselves while they happen."
+          },
+          {
+            "title": "Keep the cause attached",
+            "description": "Every result stays connected to the reads, context, choices, people, and agents that produced it."
+          },
+          {
+            "title": "Choose the right lens",
+            "description": "Engineers can debug the same evidence that people inspect, replay, compare, and challenge."
+          }
+        ],
+        "quote": "The journey stays the same. The lens changes."
+      },
+      "graph": {
+        "label": "The ecosystem · organized by the problem it solves",
+        "legend": {
+          "dependency": "foundation",
+          "consumer": "human or developer lens",
+          "principle": "shared design rule"
+        }
+      }
+    },
+    "technical": {
+      "label": "Technical",
+      "hero": {
+        "title": "The provenance-native ecosystem.",
+        "subtitle": "Execution, context, capabilities, and exploration are recorded structurally at runtime so causes can be sliced, replayed, compared, and rendered without reconstructing them from logs."
+      },
+      "idea": {
+        "eyebrow": "How the ecosystem works",
+        "lead": "Different systems produce different typed footprints, but every implementation follows the same rule: create the evidence inline, never infer it afterward.",
+        "steps": [
+          {
+            "title": "Record at traversal time",
+            "description": "Typed reads, writes, decisions, context injections, and interactions are captured at the boundary where they occur."
+          },
+          {
+            "title": "Preserve causal structure",
+            "description": "Linear runs, parent-linked trails, and capability graphs retain dependencies, principals, branches, and rejected actions."
+          },
+          {
+            "title": "Compose evidence consumers",
+            "description": "Slicing, replay, comparison, MCP tools, and React lenses operate on the recorded structure instead of parsing logs."
+          }
+        ],
+        "quote": "Inline recording is truth. Post-processing is reconstruction."
+      },
+      "graph": {
+        "label": "The ecosystem · runtimes, interaction substrates, and evidence consumers",
+        "legend": {
+          "dependency": "package or runtime dependency",
+          "consumer": "renders or consumes evidence",
+          "principle": "shared provenance pattern"
+        }
+      }
+    }
+  },
+  "nodes": [
+    {
+      "id": "footprintjs",
+      "name": "footprintjs",
+      "tier": 1,
+      "accent": "#ffc700",
+      "icon": "flowchart",
+      "links": [
+        {
+          "href": "https://footprintjs.github.io/footPrint/",
+          "productLabel": "See it in action",
+          "technicalLabel": "Docs"
+        },
+        {
+          "href": "https://github.com/footprintjs/footPrint",
+          "productLabel": "GitHub",
+          "technicalLabel": "Source"
+        },
+        {
+          "href": "https://www.npmjs.com/package/footprintjs",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "execution evidence",
+          "title": "Understand a backend decision",
+          "description": "Rewind any output or state value to the reads, writes, branches, and routing decisions that produced it."
+        },
+        "technical": {
+          "tag": "provenance substrate",
+          "title": "Execution provenance runtime",
+          "description": "A pre-declared flowchart runtime with transactional state, typed reads and writes, decision evidence, variable-first backward slicing, replay, and generated tool descriptions."
+        }
+      }
+    },
+    {
+      "id": "agentfootprint",
+      "name": "AgentFootprint",
+      "tier": 2,
+      "accent": "#f97316",
+      "icon": "agent",
+      "links": [
+        {
+          "href": "https://footprintjs.github.io/agentfootprint/",
+          "productLabel": "Explore",
+          "technicalLabel": "Docs"
+        },
+        {
+          "href": "https://github.com/footprintjs/agentfootprint",
+          "productLabel": "GitHub",
+          "technicalLabel": "Source"
+        },
+        {
+          "href": "https://www.npmjs.com/package/agentfootprint",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "causal agent debugging",
+          "title": "Debug why your agent failed",
+          "description": "Find the context that changed an answer, narrow the suspects, remove one, replay the run, and prove whether it caused the failure."
+        },
+        "technical": {
+          "tag": "context provenance",
+          "title": "Context provenance runtime",
+          "description": "Captures context injections, execution state, decisions, model calls, tools, and cost; slicing, influence ranking, ablation, and counterfactual replay localize failures."
+        }
+      }
+    },
+    {
+      "id": "hcifootprint",
+      "name": "HACI Footprint",
+      "packageName": "hcifootprint",
+      "tier": 2,
+      "accent": "#ec4899",
+      "icon": "capabilities",
+      "links": [
+        {
+          "href": "https://footprintjs.github.io/hcifootprint/",
+          "productLabel": "See the journey",
+          "technicalLabel": "Docs"
+        },
+        {
+          "href": "https://github.com/footprintjs/hcifootprint",
+          "productLabel": "GitHub",
+          "technicalLabel": "Source"
+        },
+        {
+          "href": "https://www.npmjs.com/package/hcifootprint",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        },
+        {
+          "href": "https://youtu.be/vx5amF94ipI",
+          "productLabel": "Watch 37s demo",
+          "technicalLabel": "Demo"
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "safe app operation",
+          "title": "Make applications agent-operable",
+          "description": "Give agents a typed map of the app's real capabilities while preserving permissions, confirmation gates, and the signed-in user's control."
+        },
+        "technical": {
+          "tag": "capability graph · MCP",
+          "title": "Typed capability and action graph",
+          "description": "Exposes live application capabilities as a typed skill graph over MCP, with preconditions, permissions, guide mode, action boundaries, and confirmation gates."
+        }
+      }
+    },
+    {
+      "id": "vizfootprint",
+      "name": "VizFootprint",
+      "tier": 2,
+      "accent": "#06b6d4",
+      "icon": "trail",
+      "status": "pre-alpha",
+      "links": [
+        {
+          "href": "https://github.com/footprintjs/vizfootprint",
+          "productLabel": "Explore the project",
+          "technicalLabel": "Source"
+        },
+        {
+          "href": "https://footprintjs.github.io/blog/the-trail-pattern/",
+          "productLabel": "Read the story",
+          "technicalLabel": "Trail pattern"
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "accountable exploration",
+          "title": "Preserve every exploration path",
+          "description": "Keep every human and agent branch of an analysis, compare paths, replay findings, and preserve statistical obligations even when a path is abandoned."
+        },
+        "technical": {
+          "tag": "foottrail provenance",
+          "title": "Branchable exploration provenance",
+          "description": "Append-only parent-linked commits, mixed-principal causes, named branches, comparison, replay and adoption, declared analyses, and a shared online-FDR ledger."
+        }
+      }
+    },
+    {
+      "id": "explainable-ui",
+      "name": "Explainable UI",
+      "tier": 3,
+      "accent": "#3b82f6",
+      "icon": "chart",
+      "links": [
+        {
+          "href": "https://footprintjs.github.io/explainable-ui/",
+          "productLabel": "Try the demo",
+          "technicalLabel": "Demo"
+        },
+        {
+          "href": "https://github.com/footprintjs/explainable-ui",
+          "productLabel": "GitHub",
+          "technicalLabel": "Source"
+        },
+        {
+          "href": "https://www.npmjs.com/package/footprint-explainable-ui",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "backend run lens",
+          "title": "See exactly how a run unfolded",
+          "description": "Inspect the flowchart, time-travel through the run, and rewind any variable to its origin on the same timeline."
+        },
+        "technical": {
+          "tag": "React evidence consumer",
+          "title": "Render a footprintjs trace",
+          "description": "Themeable React components for flowchart traversal, transactional state, time travel, and causal rewind over the footprintjs execution record."
+        }
+      }
+    },
+    {
+      "id": "lens",
+      "name": "Lens",
+      "tier": 3,
+      "accent": "#10b981",
+      "icon": "lens",
+      "links": [
+        {
+          "href": "https://github.com/footprintjs/agentfootprint-lens",
+          "productLabel": "Explore the debugger",
+          "technicalLabel": "Source"
+        },
+        {
+          "href": "https://www.npmjs.com/package/agentfootprint-lens",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "engineer debugging lens",
+          "title": "Pinpoint what changed the answer",
+          "description": "Move through messages, prompts, tools, decisions, and cost with one time cursor while you test the suspected cause."
+        },
+        "technical": {
+          "tag": "agent trace consumer",
+          "title": "Inspect an agentfootprint run",
+          "description": "A React debugger that aligns messages, prompts, tool calls, decision scope, causal slices, and cost on one execution cursor."
+        }
+      }
+    },
+    {
+      "id": "thinking-ui",
+      "name": "Thinking UI",
+      "packageName": "agentthinkingui",
+      "tier": 3,
+      "accent": "#8b5cf6",
+      "icon": "replay",
+      "links": [
+        {
+          "href": "https://footprintjs.github.io/agentThinkingUI/",
+          "productLabel": "Watch a replay",
+          "technicalLabel": "Demo"
+        },
+        {
+          "href": "https://github.com/footprintjs/agentThinkingUI",
+          "productLabel": "GitHub",
+          "technicalLabel": "Source"
+        },
+        {
+          "href": "https://www.npmjs.com/package/agentthinkingui",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "human understanding lens",
+          "title": "Explain agent actions to a person",
+          "description": "Replay reasoning, evidence, tools, and alternatives as an animated story a person can scrub, inspect, and challenge."
+        },
+        "technical": {
+          "tag": "role replay consumer",
+          "title": "Replay the agent tool loop",
+          "description": "A build-free, scrubbable role replay that consumes agentfootprint evidence and exposes scored alternatives behind each tool choice."
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "footprintjs",
+      "to": "agentfootprint",
+      "type": "dependency",
+      "views": {
+        "product": "enables agent debugging",
+        "technical": "runtime dependency"
+      }
+    },
+    {
+      "from": "footprintjs",
+      "to": "hcifootprint",
+      "type": "principle",
+      "views": {
+        "product": "guides safe operation",
+        "technical": "shared pattern"
+      }
+    },
+    {
+      "from": "footprintjs",
+      "to": "vizfootprint",
+      "type": "dependency",
+      "views": {
+        "product": "preserves exploration",
+        "technical": "executes analyses"
+      }
+    },
+    {
+      "from": "footprintjs",
+      "to": "explainable-ui",
+      "type": "consumer",
+      "route": "outer-left",
+      "views": {
+        "product": "visualizes runs",
+        "technical": "renders traces"
+      }
+    },
+    {
+      "from": "agentfootprint",
+      "to": "lens",
+      "type": "consumer",
+      "views": {
+        "product": "debugs",
+        "technical": "renders"
+      }
+    },
+    {
+      "from": "agentfootprint",
+      "to": "thinking-ui",
+      "type": "consumer",
+      "views": {
+        "product": "explains",
+        "technical": "replays"
+      }
+    }
+  ]
+}

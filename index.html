@@ -6,7 +6,7 @@
     <title>footprintjs — the self-explaining stack</title>
     <meta
       name="description"
-      content="The footprintjs ecosystem: a self-explaining stack from backend pipelines to AI agents. Every run records why it did what it did — footprintjs (core engine), agentfootprint (agentic framework), hcifootprint (turn your app agent-operable over MCP — now on npm), and the UIs that visualize them (Explainable UI, Lens, Thinking UI)."
+      content="The footprintjs ecosystem records evidence as software runs: execution provenance with footprintjs, causal agent debugging with AgentFootprint, agent-operable apps with HACI Footprint, accountable visual analysis with VizFootprint, and the UIs that make every journey inspectable."
     />
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png" />
@@ -20,7 +20,7 @@
     <meta name="theme-color" content="#ffc700" />
     <meta
       name="keywords"
-      content="footprintjs, agentfootprint, hcifootprint, explainable AI agents, AI agent framework, LLM agent framework, agent observability, agent debugging, causal trace, context engineering, flowchart pattern, self-explaining systems, MCP tool surface, skill graph, Sanjay Krishna Anbalagan, agent-operable apps, MCP skill graph, context debugging, causal localization, backward slicing, llms.txt, agent-computer interface"
+      content="footprintjs, agentfootprint, hcifootprint, vizfootprint, foottrail, explainable AI agents, AI agent framework, LLM agent framework, agent observability, agent debugging, causal trace, context engineering, flowchart pattern, trail pattern, self-explaining systems, MCP tool surface, skill graph, Sanjay Krishna Anbalagan, agent-operable apps, visual analysis provenance, context debugging, causal localization, backward slicing, llms.txt, agent-computer interface"
     />
 
     <!-- Open Graph -->
@@ -30,7 +30,7 @@
     <meta property="og:title" content="footprintjs — the self-explaining stack" />
     <meta
       property="og:description"
-      content="From backend pipelines to AI agents — every run records why it did what it did. Now turn your app agent-operable over MCP with hcifootprint, on npm."
+      content="A provenance-native ecosystem for execution, agents, application interaction, and visual analysis. The journey stays the same; choose the Product or Technical lens."
     />
     <meta property="og:url" content="https://footprintjs.github.io/" />
     <meta property="og:image" content="https://footprintjs.github.io/assets/og.png" />
@@ -39,7 +39,7 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="footprintjs — the self-explaining stack: footprintjs, agentfootprint, hcifootprint, Explainable UI, Lens, Thinking UI."
+      content="The footprintjs ecosystem: footprintjs, AgentFootprint, HACI Footprint, VizFootprint, Explainable UI, Lens, and Thinking UI."
     />
 
     <!-- Twitter -->
@@ -162,6 +162,15 @@
             "description": "Turn your web app into an agent-operable app — its buttons and flows become a typed skill graph an agent plans over and acts on, served over MCP.",
             "creator": { "@id": "https://sanjay1909.github.io/#person" },
             "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "vizfootprint",
+            "applicationCategory": "DeveloperApplication",
+            "url": "https://github.com/footprintjs/vizfootprint",
+            "description": "Causal provenance for coordinated visual analysis with append-only parent-linked exploration history, named paths, replay, comparison, mixed human-agent causes, and statistical accountability.",
+            "creator": { "@id": "https://sanjay1909.github.io/#person" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
           }
         ]
       }
@@ -176,6 +185,15 @@
         <img class="hd-mark" src="./assets/logo-foot.png" width="30" height="30" alt="" />
         <span class="hd-word">footprint<em>js</em></span>
       </a>
+      <div class="lens-toggle" role="group" aria-label="Choose ecosystem view">
+        <span class="lens-toggle-label">Lens</span>
+        <button class="lens-option active" type="button" data-view="product" aria-pressed="true">
+          Product
+        </button>
+        <button class="lens-option" type="button" data-view="technical" aria-pressed="false">
+          Technical
+        </button>
+      </div>
       <div class="hd-gap"></div>
       <a class="hd-nav" href="/blog/">Blog</a>
       <a
@@ -204,10 +222,10 @@
       <!-- ── hero ────────────────────────────────────────────────────────── -->
       <section class="hero">
         <span class="pill"><span class="pill-dot"></span> open source · MIT</span>
-        <h1>The self-explaining&nbsp;stack.</h1>
+        <h1 class="view-copy">Software that leaves evidence.</h1>
         <p class="hero-sub">
-          From backend pipelines to AI agents — every run records <em>why</em> it did what it did.
-          Trace any answer back to the exact cause, and prove the fix by replaying it.
+          Build systems that can explain what they did, why they did it, who or what caused it, and
+          what humans or agents can safely do next — without reconstructing the story from logs.
         </p>
       </section>
 
@@ -216,165 +234,46 @@
 
       <!-- ── the one idea (the flowchart-pattern thesis, distilled) ───────── -->
       <section class="idea reveal" aria-label="The idea behind the ecosystem">
-        <span class="idea-eyebrow">Why it's one ecosystem</span>
+        <span class="idea-eyebrow view-copy">Different journeys · one design rule</span>
         <p class="idea-lead">
-          Every run records itself <em>as it happens</em> — not reconstructed from logs afterward.
-          One trustworthy trace, and you choose the lens.
+          Record every path at the moment it happens, keep its cause attached, and give each person
+          the lens they need to understand, replay, compare, or challenge the same evidence.
         </p>
         <div class="idea-steps">
           <div class="idea-step">
             <span class="idea-num">1</span>
-            <b>Collect at traversal time</b>
-            <small>Reads, writes, and decisions are captured structurally as the run executes — no manual logging.</small>
+            <b>Capture the real journey</b>
+            <small>Backend runs, agent decisions, app actions, and visual explorations record themselves while they happen.</small>
           </div>
           <div class="idea-step">
             <span class="idea-num">2</span>
-            <b>One canonical footprint</b>
-            <small>The trace <i>is</i> the execution record — built inline, never rebuilt after the fact.</small>
+            <b>Keep the cause attached</b>
+            <small>Every result stays connected to the reads, context, choices, people, and agents that produced it.</small>
           </div>
           <div class="idea-step">
             <span class="idea-num">3</span>
-            <b>You choose the lens</b>
-            <small>Metrics, narrative, visualization, agent debugging — every tool composes on the same record.</small>
+            <b>Choose the right lens</b>
+            <small>Engineers can debug the same evidence that people inspect, replay, compare, and challenge.</small>
           </div>
         </div>
-        <blockquote class="idea-quote">Inline recording is truth. Post-processing is reconstruction.</blockquote>
+        <blockquote class="idea-quote view-copy">The journey stays the same. The lens changes.</blockquote>
       </section>
 
       <!-- ── the footprint graph: the ecosystem drawn as its own graph ─────────── -->
-      <!-- One unified section replacing the separate diagram + card bands: the REAL product cards
-           ARE the graph nodes, connected by labeled edges (powers / renders / replays). Engine tier
-           on top, lens tier below, so the library/UI grouping is encoded as structure rather than a
-           duplicated section. Edges are an SVG layer (desktop); on mobile it collapses to a stack. -->
+      <!-- The real ecosystem cards are the graph nodes: provenance foundation first, product
+           journeys second, and evidence lenses third. Edges are an SVG layer on desktop; mobile
+           keeps the same tier order and collapses the graph to a readable stack. -->
       <section class="graph" aria-label="The footprintjs ecosystem as a graph">
-        <span class="graph-tag">the ecosystem · as its own footprint graph</span>
-        <div class="gb">
-          <!-- D3-style curved edges, drawn top-to-bottom by JS that measures the real card
-               positions (see the edge renderer near the bottom of the file). Decorative + pointer-
-               transparent so the cards stay clickable. -->
-          <svg class="gb-edges" aria-hidden="true">
-            <defs>
-              <marker id="gb-arrow" markerWidth="9" markerHeight="9" refX="5.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-                <path d="M0 0 L7 3 L0 6 Z" />
-              </marker>
-            </defs>
-            <g class="gb-edge-paths"></g>
-          </svg>
-          <div class="gb-tier gb-t1">
-          <article class="card" style="--accent: #ffc700">
-            <header class="card-hd">
-              <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="6" cy="6" r="2.3" /><circle cx="6" cy="18" r="2.3" /><circle cx="18" cy="12" r="2.3" /><path d="M8 7l8 4M8 17l8-4" stroke-linecap="round" /></svg>
-              <h3>footprintjs</h3>
-              <span class="card-tag">core engine</span>
-            </header>
-            <p class="card-desc">
-              The flowchart pattern for backend code — causal traces, transactional state,
-              variable-first backward slicing, and auto-generated tool descriptions. Everything
-              else is built on this.
-            </p>
-            <nav class="card-links">
-              <a href="https://footprintjs.github.io/footPrint/" target="_blank" rel="noreferrer">Home</a>
-              <a href="https://github.com/footprintjs/footPrint" target="_blank" rel="noreferrer">GitHub</a>
-              <a class="lk-npm" href="https://www.npmjs.com/package/footprintjs" target="_blank" rel="noreferrer">npm</a>
-            </nav>
-          </article>
-          </div>
-
-          <div class="gb-tier gb-t2">
-          <article class="card" style="--accent: #f97316">
-            <header class="card-hd">
-              <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6" stroke-linecap="round" /><path d="M20 4v4h-4" stroke-linecap="round" stroke-linejoin="round" /></svg>
-              <h3>agentfootprint</h3>
-              <span class="card-tag">agentic framework</span>
-            </header>
-            <p class="card-desc">
-              Build AI agents whose every LLM call traces back to what was injected, who triggered
-              it, and what it cost. When an answer is wrong, localize which piece of context caused
-              it — and prove it by replay. Built on footprintjs.
-            </p>
-            <nav class="card-links">
-              <a href="https://footprintjs.github.io/agentfootprint/" target="_blank" rel="noreferrer">Home</a>
-              <a href="https://footprintjs.github.io/agentfootprint/docs" target="_blank" rel="noreferrer">Docs</a>
-              <a href="https://github.com/footprintjs/agentfootprint" target="_blank" rel="noreferrer">GitHub</a>
-              <a class="lk-npm" href="https://www.npmjs.com/package/agentfootprint" target="_blank" rel="noreferrer">npm</a>
-            </nav>
-          </article>
+        <span class="graph-tag view-copy">the ecosystem · organized by the problem it solves</span>
+        <div id="ecosystem-graph" class="gb">
+          <p class="gb-loading">Loading the ecosystem…</p>
         </div>
-
-          <div class="gb-tier gb-t3">
-          <article class="card" style="--accent: #3b82f6">
-            <header class="card-hd">
-              <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 20V13M12 20V6M19 20v-9" stroke-linecap="round" /></svg>
-              <h3>Explainable&nbsp;UI</h3>
-              <span class="card-tag">for footprintjs</span>
-            </header>
-            <p class="card-desc">
-              Visualize a footprintjs run — the flowchart, time-travel replay, and a causal rewind
-              that walks any variable back to its birth on the same timeline. Themeable React
-              components.
-            </p>
-            <nav class="card-links">
-              <a href="https://footprintjs.github.io/explainable-ui/" target="_blank" rel="noreferrer">Demo</a>
-              <a href="https://github.com/footprintjs/explainable-ui" target="_blank" rel="noreferrer">GitHub</a>
-              <a class="lk-npm" href="https://www.npmjs.com/package/footprint-explainable-ui" target="_blank" rel="noreferrer">npm</a>
-            </nav>
-          </article>
-
-          <article class="card" style="--accent: #10b981">
-            <header class="card-hd">
-              <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M20 20l-5-5" stroke-linecap="round" /></svg>
-              <h3>Lens</h3>
-              <span class="card-tag">for agentfootprint</span>
-            </header>
-            <p class="card-desc">
-              Debug an agentfootprint run — messages, prompts, tool calls, decision scope, and cost,
-              with one time cursor across all of them. Built on Explainable&nbsp;UI.
-            </p>
-            <nav class="card-links">
-              <a href="https://github.com/footprintjs/agentfootprint-lens" target="_blank" rel="noreferrer">GitHub</a>
-              <a class="lk-npm" href="https://www.npmjs.com/package/agentfootprint-lens" target="_blank" rel="noreferrer">npm</a>
-              <span class="card-soon">demo soon</span>
-            </nav>
-          </article>
-
-          <article class="card" style="--accent: #8b5cf6">
-            <header class="card-hd">
-              <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M10.5 8.5l5 3.5-5 3.5z" fill="currentColor" stroke="none" /></svg>
-              <h3>Thinking&nbsp;UI</h3>
-              <span class="card-tag">role replay</span>
-            </header>
-            <p class="card-desc">
-              The non-developer's view of an agent run — its reasoning and tool loop replayed as an
-              animated, scrubbable story, including a 'why this tool?' rack that scores what the
-              agent could have picked. No build step.
-            </p>
-            <nav class="card-links">
-              <a href="https://footprintjs.github.io/agentThinkingUI/" target="_blank" rel="noreferrer">Demo</a>
-              <a href="https://github.com/footprintjs/agentThinkingUI" target="_blank" rel="noreferrer">GitHub</a>
-              <a class="lk-npm" href="https://www.npmjs.com/package/agentthinkingui" target="_blank" rel="noreferrer">npm</a>
-            </nav>
-          </article>
-
-          <article class="card" style="--accent: #ec4899">
-            <header class="card-hd">
-              <svg class="card-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="5" r="2.3" /><circle cx="6" cy="19" r="2.3" /><circle cx="18" cy="19" r="2.3" /><path d="M12 7.3v3M12 10.3L6 16.7M12 10.3l6 6.4" stroke-linecap="round" /></svg>
-              <h3>HACI&nbsp;Footprint</h3>
-              <span class="card-tag">MCP surface</span>
-            </header>
-            <p class="card-desc">
-              Turn your web app into an agent-operable app — its buttons and flows become a typed
-              skill graph an agent plans over and acts on, served over MCP. Start read-only in guide
-              mode; adopt one rung at a time.
-            </p>
-            <nav class="card-links">
-              <a href="https://footprintjs.github.io/hcifootprint/" target="_blank" rel="noreferrer">Home</a>
-              <a href="https://github.com/footprintjs/hcifootprint" target="_blank" rel="noreferrer">GitHub</a>
-              <a class="lk-npm" href="https://www.npmjs.com/package/hcifootprint" target="_blank" rel="noreferrer">npm</a>
-              <a href="https://youtu.be/vx5amF94ipI" target="_blank" rel="noreferrer">Demo (37s)</a>
-            </nav>
-          </article>
-          </div>
+        <div id="ecosystem-legend" class="edge-legend view-copy" aria-label="Relationship legend">
+          <span data-edge-type="dependency"><i class="edge-dependency"></i><span class="edge-legend-label">foundation</span></span>
+          <span data-edge-type="consumer"><i class="edge-consumer"></i><span class="edge-legend-label">human or developer lens</span></span>
+          <span data-edge-type="principle"><i class="edge-principle"></i><span class="edge-legend-label">shared design rule</span></span>
         </div>
+        <noscript>The ecosystem view requires JavaScript to switch between Product and Technical copy.</noscript>
       </section>
     </main>
 
@@ -425,108 +324,7 @@
         );
         els.forEach(function (e) { io.observe(e); });
       })();
-
-      // auto-populate the latest published version on each npm link — fetched live from the
-      // registry (CORS-open), so it never goes stale. Falls back to plain "npm" if the fetch fails.
-      (function () {
-        document.querySelectorAll('.lk-npm').forEach(function (a) {
-          var m = (a.getAttribute('href') || '').match(/\/package\/(.+)$/);
-          if (!m) return;
-          fetch('https://registry.npmjs.org/' + m[1] + '/latest')
-            .then(function (r) { return r.ok ? r.json() : null; })
-            .then(function (d) {
-              if (d && d.version) a.innerHTML = 'npm <span class="lk-ver">v' + d.version + '</span>';
-            })
-            .catch(function () {});
-        });
-      })();
-
-      // ── footprint-graph edge renderer ──────────────────────────────────────────────────────
-      // Draws D3-style bezier curves top-to-bottom by measuring the REAL card positions, so the
-      // wiring is always accurate and responsive. footprintjs → agentfootprint (powers) and
-      // footprintjs → Explainable UI (renders); agentfootprint → Lens (renders) + Thinking UI
-      // (replays). Curves arc through the gaps between the tiers; labels sit at each midpoint.
-      (function () {
-        var gb = document.querySelector('.gb');
-        if (!gb) return;
-        var svg = gb.querySelector('.gb-edges');
-        var pathsG = gb.querySelector('.gb-edge-paths');
-        // [parentSel, childSel, label, mode] — elbow connectors (down → turn → down) with ROUNDED
-        // bends (quadratic corners), the classic flowchart routing. Default mode = a smoothstep
-        // elbow that turns at the mid-gap (renders straight when parent & child share an x).
-        // 'skirt' = the long footprintjs→Explainable UI edge: it turns LEFT in the gap right below
-        // footprintjs (above the agentfootprint tier), then runs straight down the left gutter into
-        // Explainable UI — so it never crosses behind the middle card.
-        var EDGES = [
-          ['.gb-t1 > .card', '.gb-t2 > .card', 'powers'],
-          ['.gb-t1 > .card', '.gb-t3 > .card:nth-of-type(1)', 'renders', 'skirt'],
-          ['.gb-t2 > .card', '.gb-t3 > .card:nth-of-type(2)', 'renders'],
-          ['.gb-t2 > .card', '.gb-t3 > .card:nth-of-type(3)', 'replays'],
-          ['.gb-t2 > .card', '.gb-t3 > .card:nth-of-type(4)', 'operates'],
-        ];
-        var R = 18; // corner radius for the rounded elbows
-        var labels = EDGES.map(function (e) {
-          var s = document.createElement('span');
-          s.className = 'gb-elbl';
-          s.textContent = e[2];
-          gb.appendChild(s);
-          return s;
-        });
-        // Rounded elbow: vertical from (sx,sy) to turnY, quadratic corner, horizontal to ex,
-        // quadratic corner, vertical down to (ex,ey). Falls back to a straight line when aligned.
-        function elbow(sx, sy, ex, ey, turnY) {
-          if (Math.abs(ex - sx) < 8) return 'M' + sx + ' ' + sy + ' L ' + sx + ' ' + ey;
-          var dir = ex > sx ? 1 : -1;
-          var r = Math.min(R, Math.abs(ex - sx) / 2, Math.abs(turnY - sy), Math.abs(ey - turnY));
-          return 'M' + sx + ' ' + sy +
-            ' L ' + sx + ' ' + (turnY - r) +
-            ' Q ' + sx + ' ' + turnY + ' ' + (sx + dir * r) + ' ' + turnY +
-            ' L ' + (ex - dir * r) + ' ' + turnY +
-            ' Q ' + ex + ' ' + turnY + ' ' + ex + ' ' + (turnY + r) +
-            ' L ' + ex + ' ' + ey;
-        }
-        function draw() {
-          var g = gb.getBoundingClientRect();
-          svg.setAttribute('viewBox', '0 0 ' + g.width + ' ' + g.height);
-          var out = '';
-          EDGES.forEach(function (e, i) {
-            var p = gb.querySelector(e[0]);
-            var c = gb.querySelector(e[1]);
-            if (!p || !c) { labels[i].style.display = 'none'; return; }
-            labels[i].style.display = '';
-            var pr = p.getBoundingClientRect();
-            var cr = c.getBoundingClientRect();
-            var ex = cr.left - g.left + cr.width / 2;
-            var ey = cr.top - g.top - 7;
-            var sx = pr.left - g.left + pr.width / 2;
-            var sy = pr.bottom - g.top + 2;
-            var lx, ly;
-            if (e[3] === 'skirt') {
-              // Turn left in the gap between footprintjs and agentfootprint, biased below the
-              // "powers" label (which sits at the gap midpoint) but still above the middle card.
-              var mid = gb.querySelector('.gb-t2 > .card');
-              var afTop = mid ? mid.getBoundingClientRect().top - g.top : sy + 90;
-              var turnY = (sy + afTop) / 2 + 16;
-              out += '<path d="' + elbow(sx, sy, ex, ey, turnY) + '" marker-end="url(#gb-arrow)" />';
-              lx = ex; ly = (turnY + ey) / 2; // label rides the long left gutter run
-            } else {
-              var midY = (sy + ey) / 2;
-              out += '<path d="' + elbow(sx, sy, ex, ey, midY) + '" marker-end="url(#gb-arrow)" />';
-              lx = Math.abs(ex - sx) < 8 ? sx : (sx + ex) / 2;
-              ly = midY;
-            }
-            labels[i].style.left = lx + 'px';
-            labels[i].style.top = ly + 'px';
-          });
-          pathsG.innerHTML = out;
-        }
-        draw();
-        window.addEventListener('resize', draw);
-        window.addEventListener('load', draw);
-        if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
-        setTimeout(draw, 150);
-        setTimeout(draw, 700);
-      })();
     </script>
+    <script src="./ecosystem-view.js"></script>
   </body>
 </html>

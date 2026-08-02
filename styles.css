@@ -74,6 +74,54 @@ img {
   background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
+.lens-toggle {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--bg-elev) 88%, transparent);
+  box-shadow: 0 8px 28px -18px rgb(0 0 0 / 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transform: translateX(-50%);
+}
+.lens-toggle-label {
+  padding: 0 6px 0 9px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+.lens-option {
+  min-width: 86px;
+  padding: 7px 13px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--fg-muted);
+  font: 650 12.5px/1 var(--sans);
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease;
+}
+.lens-option:hover {
+  color: var(--fg);
+}
+.lens-option.active {
+  background: var(--yellow);
+  color: #18181b;
+}
+.lens-option:focus-visible {
+  outline: 2px solid var(--yellow-dark);
+  outline-offset: 2px;
+}
 .hd-brand {
   display: inline-flex;
   align-items: center;
@@ -513,6 +561,9 @@ main {
   box-shadow: var(--shadow);
   transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
+.ecosystem-card {
+  min-height: 286px;
+}
 /* (top accent stripe removed per request — colour identity now lives in the role icon + tag) */
 .card:hover {
   transform: translateY(-3px);
@@ -520,11 +571,15 @@ main {
   box-shadow: 0 1px 3px rgb(0 0 0 / 0.05), 0 22px 50px -22px color-mix(in oklab, var(--accent, #000) 40%, transparent);
 }
 .card-hd {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-items: flex-start;
   gap: 6px 10px;
   margin-bottom: 10px;
+}
+.card-name-wrap {
+  min-width: 0;
+  flex: 1;
 }
 .card-mark {
   width: 28px;
@@ -538,8 +593,26 @@ main {
   font-weight: 700;
   letter-spacing: -0.01em;
 }
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 15px;
+  margin-top: 1px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--fg-faint);
+}
+.card-status {
+  padding: 1px 6px;
+  border: 1px solid color-mix(in oklab, var(--accent) 34%, var(--border));
+  border-radius: 999px;
+  color: color-mix(in oklab, var(--accent) 62%, var(--fg));
+}
 .card-tag {
-  margin-left: auto;
+  grid-column: 2;
+  justify-self: start;
+  margin-left: 0;
   padding: 3px 9px;
   border-radius: 999px;
   /* tinted with the card's accent (adapts to light/dark by mixing with bg / fg) */
@@ -551,12 +624,20 @@ main {
   letter-spacing: 0.03em;
   white-space: nowrap;
 }
+.card-copy {
+  flex: 1;
+}
+.card-title {
+  margin: 2px 0 7px;
+  font-size: 15px;
+  line-height: 1.35;
+  letter-spacing: -0.008em;
+}
 .card-desc {
   margin: 0 0 16px;
   font-size: 14px;
   line-height: 1.6;
   color: var(--fg-muted);
-  flex: 1;
 }
 .card-links {
   display: flex;
@@ -631,8 +712,19 @@ main {
   text-transform: uppercase;
   color: var(--yellow-dark);
 }
-/* three centered tiers (footprintjs → agentfootprint → the three UIs), top-to-bottom, with vertical
-   room between them for the D3-style curves to arc through. */
+.view-copy,
+.hero-sub,
+.idea-lead,
+.idea-steps {
+  transition: opacity 0.16s ease;
+}
+.ecosystem-changing .view-copy,
+.ecosystem-changing .hero-sub,
+.ecosystem-changing .idea-lead,
+.ecosystem-changing .idea-steps {
+  opacity: 0.38;
+}
+/* Three stable tiers: provenance foundation → product journeys → evidence lenses. */
 .gb {
   position: relative;
   display: flex;
@@ -640,9 +732,36 @@ main {
   gap: 96px;
   margin: 0 auto;
 }
+.gb-loading {
+  margin: 0;
+  padding: 48px 0;
+  color: var(--fg-muted);
+  text-align: center;
+}
 .gb-tier {
   display: flex;
   justify-content: center;
+}
+.gb-tier-1 {
+  display: grid;
+  grid-template-columns: minmax(0, 360px);
+}
+.gb-tier-2,
+.gb-tier-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  width: 100%;
+  align-items: stretch;
+}
+.gb-tier-2 .ecosystem-card {
+  min-height: 348px;
+}
+.gb-tier-3 .ecosystem-card {
+  min-height: 303px;
+}
+.gb-tier-1 > .card {
+  width: 100%;
 }
 .gb-t1 > .card,
 .gb-t2 > .card {
@@ -674,8 +793,25 @@ main {
   stroke-linejoin: round;
   stroke-linecap: round;
 }
-.gb-edges marker path {
-  fill: var(--border-strong);
+.gb-edge-paths .edge-dependency {
+  stroke: color-mix(in oklab, var(--yellow-dark) 68%, var(--border-strong));
+  stroke-width: 1.8;
+}
+.gb-edge-paths .edge-consumer {
+  stroke: color-mix(in oklab, #3b82f6 54%, var(--border-strong));
+}
+.gb-edge-paths .edge-principle {
+  stroke: var(--fg-faint);
+  stroke-dasharray: 5 6;
+}
+.gb-edges marker .edge-dependency {
+  fill: color-mix(in oklab, var(--yellow-dark) 68%, var(--border-strong));
+}
+.gb-edges marker .edge-consumer {
+  fill: color-mix(in oklab, #3b82f6 54%, var(--border-strong));
+}
+.gb-edges marker .edge-principle {
+  fill: var(--fg-faint);
 }
 .gb .card {
   z-index: 1; /* cards sit above the edge overlay (curves arc through the gaps between them) */
@@ -694,15 +830,73 @@ main {
   white-space: nowrap;
   pointer-events: none;
 }
+.gb-elbl.edge-dependency {
+  border-color: color-mix(in oklab, var(--yellow) 42%, var(--border));
+}
+.gb-elbl.edge-consumer {
+  border-color: color-mix(in oklab, #3b82f6 30%, var(--border));
+}
+.gb-elbl.edge-principle {
+  border-style: dashed;
+}
+.edge-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 18px;
+  margin-top: 26px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--fg-faint);
+}
+.edge-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.edge-legend i {
+  display: block;
+  width: 30px;
+  height: 0;
+  border-top: 2px solid var(--border-strong);
+}
+.edge-legend .edge-dependency {
+  border-color: color-mix(in oklab, var(--yellow-dark) 68%, var(--border-strong));
+}
+.edge-legend .edge-consumer {
+  border-color: color-mix(in oklab, #3b82f6 54%, var(--border-strong));
+}
+.edge-legend .edge-principle {
+  border-color: var(--fg-faint);
+  border-top-style: dashed;
+}
+.gb-error {
+  display: block;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--fg-muted);
+  text-align: center;
+}
 /* mobile: a 2-D graph can't hold — collapse to a vertical stack; relationships stay clear from each
    card's tag ("built on footprintjs", "for footprintjs", …). Hide the curves + labels. */
 @media (max-width: 760px) {
   .gb {
     gap: 14px;
   }
-  .gb-t3 {
+  .gb-t3,
+  .gb-tier-2,
+  .gb-tier-3 {
     grid-template-columns: 1fr;
     gap: 14px;
+  }
+  .ecosystem-card {
+    min-height: 0;
+  }
+  .gb-tier-2 .ecosystem-card,
+  .gb-tier-3 .ecosystem-card {
+    min-height: 0;
   }
   .gb-edges,
   .gb-elbl {
@@ -741,6 +935,20 @@ main {
 
 /* ── responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 760px) {
+  :root {
+    --nav-h: 108px;
+  }
+  .hd {
+    align-items: flex-start;
+    padding-top: 12px;
+  }
+  .lens-toggle {
+    top: auto;
+    bottom: 9px;
+  }
+  .hd-word {
+    display: none;
+  }
   .cards,
   .cards-3,
   .idea-steps {
@@ -759,6 +967,13 @@ main {
     animation: none;
   }
   .card {
+    transition: none;
+  }
+  .view-copy,
+  .hero-sub,
+  .idea-lead,
+  .idea-steps,
+  .lens-option {
     transition: none;
   }
   .reveal {
