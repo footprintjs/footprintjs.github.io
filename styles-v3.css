@@ -1,0 +1,1269 @@
+/* ============================================================================
+   footprintjs.github.io — the ecosystem home, v3 layout.
+   One static page, no build step, no CDN. The v3 design's layout, hierarchy and
+   motion vocabulary over the site's real content and real theme tokens.
+
+   Type: the design specified Space Grotesk / Instrument Sans / Geist Mono over a
+   Google Fonts CDN. This repo is self-contained GitHub Pages and ships no
+   webfonts, so we keep the site's system stacks and reproduce the design's
+   TREATMENT instead — tight display tracking (-0.04em), 600 weight, 0.98
+   leading, and mono at 10.5–12.5px for metadata.
+   ============================================================================ */
+
+/* ── theme tokens ─────────────────────────────────────────────────────────── */
+:root {
+  --bg: #fbfaf8;
+  --bg-elev: #ffffff;
+  --chip: #f4f3ee;
+  --fg: #18181b;
+  --fg-muted: #55585f;
+  --fg-faint: #898c93;
+  --border: #e7e5df;
+  --border-strong: #d6d5d0;
+  --yellow: #ffc700;
+  --yellow-ink: #7a5d00;
+  --yellow-bg: #fff6d6;
+  --yellow-line: #e6c25a;
+  /* the two zone tints (from the design) — engine vs interface, never
+     backend/frontend: the engine pair runs in browsers too */
+  --teal: #0c8577;
+  --teal-bg: #e7f4f1;
+  --teal-line: #7fc4ba;
+  --purple: #6d5ae0;
+  --purple-bg: #eeebfb;
+  --purple-line: #b3a8ec;
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.04), 0 18px 44px -22px rgb(0 0 0 / 0.16);
+  --shadow-tip: 0 8px 26px rgb(0 0 0 / 0.14);
+  --nav-h: 58px;
+  --content: 1160px;
+  --gutter: clamp(18px, 4vw, 24px);
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --display: var(--sans);
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+html.dark {
+  --bg: #0a0a0b;
+  --bg-elev: #141416;
+  --chip: #1c1f26;
+  --fg: #fafafa;
+  --fg-muted: #a1a1a1;
+  --fg-faint: #70727a;
+  --border: #262628;
+  --border-strong: #3a3a3d;
+  --yellow-ink: #ffd84d;
+  --yellow-bg: #2a2308;
+  --yellow-line: #6b5a14;
+  --teal: #3ad0ba;
+  --teal-bg: #0f2f2a;
+  --teal-line: #2a6f64;
+  --purple: #a79aff;
+  --purple-bg: #201c3a;
+  --purple-line: #4b4390;
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.4), 0 20px 48px -22px rgb(0 0 0 / 0.6);
+  --shadow-tip: 0 8px 26px rgb(0 0 0 / 0.55);
+}
+
+/* ── base ─────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  color: var(--yellow-ink);
+}
+img {
+  max-width: 100%;
+}
+::selection {
+  background: var(--yellow);
+  color: #17181a;
+}
+:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+}
+.wrap {
+  max-width: var(--content);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* ── motion vocabulary (from the design) ──────────────────────────────────── */
+@keyframes fpBeam {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes fpSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes fpPulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+@keyframes fpRise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ── header ───────────────────────────────────────────────────────────────── */
+.hd {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.hd-in {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  min-height: var(--nav-h);
+  max-width: var(--content);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.hd-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.hd-brand:hover { color: inherit; }
+.hd-mark {
+  display: block;
+  border-radius: 7px;
+}
+.hd-word em {
+  font-style: normal;
+  color: var(--yellow-ink);
+}
+/* the zone rail — where you are on the page */
+.zones {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5px;
+  padding: 4px 2px;
+}
+.zone {
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--border);
+  transition: background 0.3s ease;
+}
+.zone.on { background: var(--yellow); }
+.hd-gap { flex: 1; }
+.lens-toggle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--chip);
+}
+.lens-toggle-label {
+  padding: 0 7px 0 8px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+.lens-option {
+  border: 0;
+  border-radius: 7px;
+  padding: 6px 13px;
+  background: transparent;
+  color: var(--fg-muted);
+  font: 500 13px/1 var(--sans);
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease;
+}
+.lens-option:hover { color: var(--fg); }
+.lens-option.active {
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 600;
+}
+.hd-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.hd-nav { color: var(--fg-muted); }
+.hd-pill {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--fg-faint);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+.hd-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--bg-elev);
+  color: var(--fg-muted);
+  cursor: pointer;
+  transition: color 0.16s ease, border-color 0.16s ease;
+}
+.hd-icon:hover {
+  color: var(--fg);
+  border-color: var(--border-strong);
+}
+html.light .ic-moon,
+html.dark .ic-sun {
+  display: none;
+}
+
+/* ── hero ─────────────────────────────────────────────────────────────────── */
+.hero {
+  border-bottom: 1px solid var(--border);
+}
+/* the design's hero: copy left, the solar system beside it, wrapping under
+   on narrow. The headline block stays real HTML text — SEO loses nothing. */
+.hero-in {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  max-width: var(--content);
+  margin: 0 auto;
+  padding: 48px var(--gutter) 44px;
+  min-height: min(66vh, 620px);
+}
+.hero-copy {
+  flex: 1 1 480px;
+  min-width: 0;
+}
+.hero-art {
+  flex: 1 1 400px;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+#hero-orrery {
+  position: relative;
+  width: 100%;
+  max-width: 568px;
+}
+.orrery-3d canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.orrery-labels {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  pointer-events: none;
+}
+.orrery-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  pointer-events: auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.25;
+  color: var(--fg);
+  white-space: nowrap;
+  text-shadow: 0 0 6px var(--bg), 0 0 6px var(--bg);
+  transition: opacity 0.25s ease;
+}
+a.orrery-label:hover { color: var(--yellow-ink); }
+.orrery-label-sub { color: var(--fg-faint); font-size: 10px; }
+/* the 2D system: the design's own art, for narrow screens and no-WebGL */
+.orrery-2d {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.orrery-2d-label text {
+  fill: var(--fg);
+  font-family: var(--mono);
+  font-size: 11px;
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.orrery-2d-label .orrery-2d-sub { fill: var(--fg-faint); font-size: 10px; }
+.orrery-2d-sunlabel {
+  fill: var(--yellow-ink);
+  font-family: var(--mono);
+  font-size: 11.5px;
+}
+/* SVG text scales with the viewBox, so squeezing the art into a phone width
+   shrinks the labels with it. The art used to answer that by keeping its
+   natural width and scrolling sideways; now render2D crops the viewBox to what
+   is actually drawn, which buys back enough scale for the whole system to FIT
+   the phone — so the hero needs no sideways scroll at all. The labels take the
+   rest of that budget: bumped here so they land at the site's own type floor. */
+@media (max-width: 760px) {
+  #hero-orrery { overflow-x: auto; }
+  .orrery-2d { min-width: 0; }
+  .orrery-2d-label text { font-size: 16px; }
+  .orrery-2d-label .orrery-2d-sub { font-size: 14px; }
+  .orrery-2d-sunlabel { font-size: 16.5px; }
+}
+/* the news strip, in the design's hero-pill form — real, current claims */
+.news {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  border: 1px solid var(--yellow-line);
+  background: var(--yellow-bg);
+  border-radius: 99px;
+  padding: 7px 15px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--fg);
+}
+.news-dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 99px;
+  background: var(--yellow);
+  border: 1px solid var(--yellow-ink);
+}
+.news a {
+  color: var(--yellow-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.news-sep { color: var(--fg-faint); }
+.hero h1 {
+  margin: 26px 0 0;
+  font-size: clamp(40px, 6.6vw, 76px);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  max-width: 780px;
+  text-wrap: balance;
+}
+.hero-sub {
+  margin: 22px 0 0;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  max-width: 660px;
+  text-wrap: pretty;
+}
+.hero-quote {
+  margin: 16px 0 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--yellow-ink);
+}
+.hero-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 13px 22px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.btn-primary {
+  background: var(--fg);
+  color: var(--bg);
+  border: 1px solid var(--fg);
+}
+.btn-primary:hover { color: var(--bg); opacity: 0.88; }
+.btn-ghost {
+  background: var(--bg-elev);
+  color: var(--fg);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { color: var(--fg); border-color: var(--border-strong); }
+
+/* ── the orrery (hero art) ────────────────────────────────────────────────── */
+.orrery-wrap {
+  flex: 1 1 380px;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+.orrery {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 568px;
+}
+.orrery svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0.9;
+}
+.orrery-body,
+.orrery-trail {
+  cursor: pointer;
+}
+.orrery-g {
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+.orrery.dimmed .orrery-g { opacity: 0.22; }
+.orrery.dimmed .orrery-g.lit { opacity: 1; }
+.orrery-g.focus { filter: drop-shadow(0 0 10px var(--glow, rgb(255 199 0 / 0.6))); }
+.orrery-cap {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  min-height: 20px;
+  padding: 0 6px;
+  font-size: 12.5px;
+}
+.orrery-cap b {
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.orrery-cap span { color: var(--fg-muted); }
+.orrery-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px 16px;
+  padding: 0 6px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--fg-faint);
+}
+.orrery-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.orrery-legend i {
+  flex: none;
+  border-radius: 99px;
+  background: var(--k, var(--yellow));
+}
+
+/* ── the story strip: logs → trace → causal trace → the payoff ───────────── */
+.story {
+  border-block: 1px solid var(--border);
+  background: var(--chip);
+}
+.story-in {
+  max-width: var(--content);
+  margin: 0 auto;
+  padding: 32px var(--gutter) 28px;
+}
+.story-beats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.beat {
+  position: relative;
+  padding: 4px 22px 4px 20px;
+  border-left: 1px solid var(--border-strong);
+}
+.beat:first-child { padding-left: 0; border-left: 0; }
+/* the differentiator carries the emphasis */
+.beat-emph {
+  border-left-color: var(--yellow);
+}
+.beat-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg-faint);
+}
+.beat-emph .beat-num { color: var(--yellow-ink); }
+.beat-label {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--display);
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.beat-emph .beat-label {
+  color: var(--yellow-ink);
+  font-size: 17px;
+}
+.beat-text {
+  margin: 7px 0 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  text-wrap: pretty;
+}
+.beat-emph .beat-text { color: var(--fg); }
+.story-closing {
+  margin: 24px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--fg-muted);
+  text-wrap: pretty;
+}
+
+/* ── section eyebrow ──────────────────────────────────────────────────────── */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.eyebrow-dot {
+  width: 9px;
+  height: 9px;
+  flex: none;
+  border-radius: 99px;
+  background: var(--border);
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+.eyebrow-dot.on {
+  background: var(--yellow);
+  box-shadow: 0 0 10px rgb(255 199 0 / 0.7);
+}
+.eyebrow-label,
+.eyebrow-note {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--fg-faint);
+}
+.eyebrow-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.eyebrow-note {
+  font-size: 11px;
+}
+
+/* ── the ecosystem graph ──────────────────────────────────────────────────── */
+#traceWrap {
+  position: relative;
+  max-width: calc(var(--content) + 48px);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.trace-line {
+  position: absolute;
+  left: 29px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--yellow);
+  opacity: 0.4;
+  transform-origin: top;
+  transform: scaleY(0);
+  pointer-events: none;
+}
+.trace-dot {
+  position: absolute;
+  left: 25.5px;
+  top: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 99px;
+  background: var(--yellow);
+  box-shadow: 0 0 12px rgb(255 199 0 / 0.85);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.graph {
+  padding: 44px 0 52px 36px;
+}
+.graph h2 {
+  margin: 0;
+  font-size: 30px;
+}
+.graph-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.graph-lead {
+  margin: 8px 0 0;
+  max-width: 640px;
+  font-size: 15px;
+  color: var(--fg-muted);
+  text-wrap: pretty;
+}
+.edge-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin: 18px 0 4px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--fg-faint);
+}
+.edge-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.edge-legend i {
+  width: 26px;
+  height: 0;
+  flex: none;
+  border-top: 1.5px solid currentColor;
+}
+.edge-legend i.edge-dependency { border-top-style: solid; color: var(--fg-muted); }
+.edge-legend i.edge-consumer { border-top-style: dotted; color: var(--fg-faint); }
+.edge-legend i.edge-principle { border-top-style: dashed; color: var(--yellow-ink); }
+
+/* ── the ecosystem map ────────────────────────────────────────────────────── */
+.map {
+  margin: 22px 0 0;
+  overflow-x: auto;
+}
+.map-svg {
+  display: block;
+  width: 100%;
+  min-width: 760px;
+  height: auto;
+}
+/* zone tints — the visual carries the division; the wording stays engine/interface */
+.tint-teal {
+  --tint: var(--teal);
+  --tint-bg: var(--teal-bg);
+  --tint-line: var(--teal-line);
+}
+.tint-purple {
+  --tint: var(--purple);
+  --tint-bg: var(--purple-bg);
+  --tint-line: var(--purple-line);
+}
+.map-zone-box {
+  fill: var(--tint-bg);
+  fill-opacity: 0.4;
+  stroke: var(--tint-line);
+  stroke-width: 1.3;
+  stroke-dasharray: 7 6;
+}
+.map-zone-label {
+  fill: var(--tint);
+  font-family: var(--display);
+  font-weight: 600;
+}
+.map-zone-cap {
+  fill: var(--fg-muted);
+  font-family: var(--mono);
+}
+.map-lawlink {
+  stroke: var(--fg-faint);
+  stroke-width: 1.3;
+  stroke-dasharray: 3 5;
+}
+.mk-solid { fill: var(--fg-muted); }
+.mk-faint { fill: var(--fg-faint); }
+.mk-yellow { fill: var(--yellow); stroke: var(--yellow-ink); stroke-width: 0.6; }
+
+.map-node-box {
+  stroke-width: 1.3;
+  transition: stroke-width 0.2s ease;
+}
+.map-node-box.fill-tint { fill: var(--tint-bg); stroke: var(--tint-line); }
+.map-node-box.fill-card { fill: var(--bg-elev); stroke: var(--tint-line); }
+/* an idea, not a package: dashed, and it carries no npm chip or repo link */
+.is-idea .map-node-box { stroke-dasharray: 6 5; }
+.map-node-name {
+  fill: var(--fg);
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.map-node-sub { font-family: var(--mono); }
+.map-node-sub.tone-teal { fill: var(--teal); }
+.map-node-sub.tone-purple { fill: var(--purple); }
+.map-node-sub.tone-muted { fill: var(--fg-muted); }
+.map-node-sub.tone-faint { fill: var(--fg-faint); }
+.map-node-glyph { color: var(--fg-faint); }
+.map-node {
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+.map-node[role='img'] { cursor: default; }
+.map-node:focus { outline: none; }
+.map-node:focus-visible .map-node-box,
+.map-node.focus .map-node-box {
+  stroke: var(--tint);
+  stroke-width: 2.4;
+}
+
+.map-edge { transition: opacity 0.3s ease; }
+.map-edge-path { stroke-width: 1.5; }
+.kind-builds .map-edge-path { stroke: var(--fg-muted); }
+.kind-idea .map-edge-path {
+  stroke: var(--fg-faint);
+  stroke-width: 1.3;
+  stroke-dasharray: 3 5;
+}
+.kind-emit .map-edge-path {
+  stroke: var(--fg-faint);
+  stroke-width: 1;
+  opacity: 0.75;
+}
+.kind-recall .map-edge-path { stroke: var(--yellow); stroke-width: 2; }
+.map-edge-label {
+  fill: var(--fg-muted);
+  font-family: var(--mono);
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 6px;
+  stroke-linejoin: round;
+}
+.map-edge-label.strong { font-weight: 600; }
+.kind-recall .map-edge-label { fill: var(--yellow-ink); }
+.map-beam {
+  stroke-width: 2.4;
+  stroke: var(--yellow);
+}
+.map-beam.kind-emit { stroke: var(--yellow); stroke-width: 2; }
+.map-beam.kind-recall { stroke: var(--yellow); stroke-width: 3; }
+.map-beam.kind-band { stroke: var(--yellow); stroke-width: 2.4; }
+.map-band-box {
+  fill: var(--yellow-bg);
+  stroke: var(--yellow);
+  stroke-width: 1.4;
+}
+.map-band-title {
+  fill: var(--fg);
+  font-family: var(--display);
+  font-weight: 600;
+}
+.map-band-sub {
+  fill: var(--yellow-ink);
+  font-family: var(--mono);
+  font-weight: 400;
+}
+.map-emit-dot { fill: var(--yellow-ink); }
+
+/* hover / focus: emphasis only — nothing is hidden, the rest just recedes */
+.map-svg.dimmed .map-node,
+.map-svg.dimmed .map-edge { opacity: 0.16; }
+.map-svg.dimmed .map-node.lit,
+.map-svg.dimmed .map-edge.lit { opacity: 1; }
+
+.edge-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin-top: 14px;
+}
+.edge-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--fg-faint);
+}
+.edge-swatch {
+  width: 30px;
+  height: 12px;
+  flex: none;
+}
+.edge-swatch-line { stroke: currentColor; stroke-width: 1.5; }
+.edge-legend-item.kind-idea .edge-swatch-line { stroke-dasharray: 3 4; }
+.edge-legend-item.kind-emit .edge-swatch-line { stroke-width: 1; }
+.edge-legend-item.kind-recall { color: var(--yellow-ink); }
+
+.solar-caption {
+  margin: 10px 0 0;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--fg-faint);
+}
+.layer-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin-top: 14px;
+}
+.layer-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--fg-muted);
+}
+.layer-glyph {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+.card-layer {
+  width: 14px;
+  height: 14px;
+  color: var(--fg-faint);
+}
+
+/* ── the cards: the full inventory, in three clusters ─────────────────────── */
+/* the inventory stacks its groups; each group keeps the old card grid inside,
+   so a card is laid out exactly as before — only its neighbourhood changed */
+.cards {
+  margin-top: 30px;
+}
+.card-group + .card-group {
+  margin-top: 30px;
+}
+.card-group-hd {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.card-group-hd[hidden] {
+  display: none;
+}
+.card-group-title {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--fg-muted);
+}
+.card-group-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 14px;
+}
+.gb-loading,
+.gb-error {
+  padding: 40px 0;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--fg-faint);
+}
+.card-name-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* cards */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-elev);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, opacity 0.35s ease,
+    transform 0.2s ease;
+}
+.card:hover {
+  border-color: var(--accent, var(--yellow));
+  box-shadow: 0 2px 14px rgb(0 0 0 / 0.07);
+  transform: translateY(-2px);
+}
+/* clicking a body in the orrery jumps to its card and flashes it */
+@keyframes fpFlash {
+  0%, 100% { border-color: var(--border); }
+  20%, 60% { border-color: var(--accent, var(--yellow)); }
+}
+.card.flash { animation: fpFlash 1.2s ease; }
+/* hovering a body in the solar system marks its card */
+.card.linked {
+  border-color: var(--accent, var(--yellow));
+  box-shadow: 0 2px 14px rgb(0 0 0 / 0.07);
+}
+.card-hd {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-ic {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--accent, var(--yellow));
+}
+.card-name-wrap { min-width: 0; }
+.card-hd h3 {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+.card-package,
+.card-status {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--fg-faint);
+}
+.card-status {
+  padding: 1px 6px;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+}
+.card-tag {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--accent, var(--yellow));
+}
+.card-title {
+  margin: 5px 0 0;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+.card-desc {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  text-wrap: pretty;
+}
+.card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+.card-links a {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  padding: 7px 11px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--fg-muted);
+  transition: border-color 0.16s ease, color 0.16s ease;
+}
+.card-links a:hover {
+  color: var(--fg);
+  border-color: var(--border-strong);
+}
+.lk-ver { color: var(--fg-faint); }
+
+/* ── writing ──────────────────────────────────────────────────────────────── */
+.writing {
+  border-top: 1px solid var(--border);
+}
+.writing-in {
+  max-width: var(--content);
+  margin: 0 auto;
+  padding: 48px var(--gutter);
+}
+.writing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+.writing-grid a {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-elev);
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+.writing-grid a:hover {
+  color: inherit;
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+.writing-kind {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--fg-faint);
+}
+.writing-title {
+  font-size: 14.5px;
+  font-weight: 600;
+}
+.writing-note {
+  font-size: 12.5px;
+  color: var(--fg-muted);
+}
+
+/* ── footer ───────────────────────────────────────────────────────────────── */
+.ft {
+  border-top: 1px solid var(--border);
+}
+.ft-in {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+  max-width: var(--content);
+  margin: 0 auto;
+  padding: 44px var(--gutter) 48px;
+}
+.ft-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 600;
+}
+.ft-blurb {
+  margin: 12px 0 0;
+  max-width: 280px;
+  font-size: 13px;
+  color: var(--fg-muted);
+  text-wrap: pretty;
+}
+.ft-col {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 14px;
+}
+.ft-col-h {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--fg-faint);
+}
+.ft-col a { color: var(--fg-muted); }
+.ft-col.mono a {
+  font-family: var(--mono);
+  font-size: 13px;
+}
+.ft-bottom {
+  border-top: 1px solid var(--border);
+}
+.ft-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: var(--content);
+  margin: 0 auto;
+  padding: 16px var(--gutter);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--fg-faint);
+}
+.ft-dot { opacity: 0.6; }
+
+/* ── reveal ───────────────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+}
+.reveal.in {
+  animation: fpRise 0.55s ease both;
+}
+
+/* ── responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-in { padding: 44px var(--gutter) 40px; }
+  .graph h2 { font-size: 25px; }
+
+  /* The nav has to wrap here, so give it two DELIBERATE rows instead of
+     letting the toggle strand itself in a corner while the links fall under
+     it: row one is identity + actions, row two is the lens toggle across the
+     full width, where it reads as the segmented control it is. */
+  .hd-in { row-gap: 6px; padding-top: 6px; padding-bottom: 6px; }
+  .zones { display: none; }
+  /* the flex spacer would wrap onto a line of its own here; margin does the
+     same job without claiming a row */
+  .hd-gap { display: none; }
+  .hd-brand { order: 1; margin-right: auto; }
+  .hd-right { order: 3; }
+  .lens-toggle { order: 4; width: 100%; justify-content: center; padding: 1px; }
+
+  /* touch targets: every control clears 44px. The hit area grows, the type
+     does not — nothing here changes size or wording. */
+  .hd-brand,
+  .hd-nav {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .hd-icon {
+    width: 44px;
+    height: 44px;
+  }
+  .lens-option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 18px;
+  }
+  .card-links a {
+    display: inline-flex;
+    align-items: center;
+    /* flex drops the whitespace text node between "npm" and its version chip,
+       so the gap has to be declared */
+    gap: 5px;
+    min-height: 44px;
+  }
+  /* the footer's link rows become tappable without the column doubling in
+     height — the row padding replaces the gap that used to separate them */
+  .ft-col { gap: 0; }
+  .ft-col a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .ft-col-h { margin-bottom: 8px; }
+
+  /* The map is a diagram, not a picture. Squeezed to fit it renders at 66%,
+     which drops its sub-labels to ~6.6px — unreadable. It already scrolls
+     inside its own container, so let it scroll at its designed size instead:
+     every label comes back to the size the design chose for it. */
+  .map-svg { min-width: 1160px; }
+}
+@media (max-width: 860px) {
+  /* the story stacks two-up, then one-up, keeping the beat order readable */
+  .story-beats { grid-template-columns: repeat(2, 1fr); gap: 22px 0; }
+  .beat:nth-child(3) { padding-left: 0; border-left: 0; }
+}
+@media (max-width: 760px) {
+  .graph { padding-left: 0; }
+  #traceWrap .trace-line,
+  #traceWrap .trace-dot { display: none; }
+  .story-beats { grid-template-columns: 1fr; gap: 20px 0; }
+  .beat {
+    padding: 0 0 0 16px;
+    border-left: 2px solid var(--border-strong);
+  }
+  .beat:first-child,
+  .beat:nth-child(3) { padding-left: 16px; border-left: 2px solid var(--border-strong); }
+  .beat-emph { border-left-color: var(--yellow); }
+  /* the diagram scrolls inside its own container rather than the page */
+  .solar { margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+  .zones { display: none; }
+  .hd-pill { display: none; }
+  .hd-in { column-gap: 10px; }
+  .hero h1 { font-size: clamp(34px, 10vw, 46px); }
+  .hero-sub { font-size: 16px; }
+  .rule-in { gap: 10px 20px; }
+
+  /* The news strip is a pill on a wide screen, where it is one line. Four
+     lines deep on a phone, a 99px radius turns it into a blob whose own
+     corners crowd the first and last links — so it becomes a rounded notice
+     card, tighter, with the dot aligned to the first line. */
+  .news {
+    align-items: flex-start;
+    gap: 3px 8px;
+    border-radius: 14px;
+    padding: 9px 12px;
+    font-size: 11.5px;
+    line-height: 1.6;
+  }
+  .news-dot { margin-top: 5px; }
+
+  /* Two things scroll sideways inside their own box here: the hero art and
+     the ecosystem map. Give both a slim, quiet scrollbar so the swipe is
+     discoverable without a chunky OS bar sitting in the layout, and stop the
+     swipe from dragging the page with it. */
+  #hero-orrery,
+  .map {
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+  }
+  #hero-orrery::-webkit-scrollbar,
+  .map::-webkit-scrollbar { height: 5px; }
+  #hero-orrery::-webkit-scrollbar-track,
+  .map::-webkit-scrollbar-track { background: transparent; }
+  #hero-orrery::-webkit-scrollbar-thumb,
+  .map::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 99px;
+  }
+
+  /* one column of cards, so the group headers do all the separating work */
+  .card-group + .card-group { margin-top: 34px; }
+  .card-group-hd { margin-bottom: 10px; }
+
+  /* stacked beats read as a list; they need the air the columns used to give */
+  .story-beats { gap: 24px 0; }
+  .story-in { padding: 28px var(--gutter) 26px; }
+
+  /* the eyebrow's label and its note each wrapped to two cramped columns —
+     give the note its own line instead */
+  .eyebrow { flex-wrap: wrap; row-gap: 4px; }
+  .eyebrow-note { flex-basis: 100%; }
+}
+@media (max-width: 520px) {
+  .lens-toggle-label { display: none; }
+  .card-hd { flex-wrap: wrap; }
+}

@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en" class="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>footprintjs — the self-explaining stack</title>
+    <meta
+      name="description"
+      content="The footprintjs ecosystem records evidence as software runs: execution provenance with footprintjs, causal agent debugging with AgentFootprint, agent-operable apps with HACI Footprint, accountable visual analysis with VizFootprint, and the UIs that make every journey inspectable."
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./assets/favicon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="./assets/favicon-512x512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon-180x180.png" />
+
+    <link rel="canonical" href="https://footprintjs.github.io/" />
+    <meta name="author" content="Sanjay Krishna Anbalagan" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#ffc700" />
+    <meta
+      name="keywords"
+      content="footprintjs, agentfootprint, hcifootprint, vizfootprint, foottrail, explainable AI agents, AI agent framework, LLM agent framework, agent observability, agent debugging, causal trace, context engineering, flowchart pattern, trail pattern, self-explaining systems, MCP tool surface, skill graph, Sanjay Krishna Anbalagan, agent-operable apps, visual analysis provenance, context debugging, causal localization, backward slicing, llms.txt, agent-computer interface"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="footprintjs" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="footprintjs — the self-explaining stack" />
+    <meta
+      property="og:description"
+      content="A provenance-native ecosystem for execution, agents, application interaction, and visual analysis. The journey stays the same; choose the Product or Technical lens."
+    />
+    <meta property="og:url" content="https://footprintjs.github.io/" />
+    <meta property="og:image" content="https://footprintjs.github.io/assets/og.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="The footprintjs ecosystem: footprintjs, AgentFootprint, HACI Footprint, VizFootprint, Explainable UI, Lens, and Thinking UI."
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="footprintjs — the self-explaining stack" />
+    <meta
+      name="twitter:description"
+      content="From backend pipelines to AI agents — every run records why it did what it did."
+    />
+    <meta name="twitter:site" content="@1909sanjay" />
+    <meta name="twitter:creator" content="@1909sanjay" />
+    <meta name="twitter:image" content="https://footprintjs.github.io/assets/og.png" />
+
+    <link rel="stylesheet" href="./styles.css" />
+
+    <!-- set the theme BEFORE first paint so there's no flash -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          var el = document.documentElement;
+          el.classList.remove('light', 'dark');
+          el.classList.add(t);
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Structured data: the site, the org, the creator (Sanjay) with every profile, and each
+         project credited to him — so search engines reconcile "Sanjay Krishna Anbalagan" as the
+         creator of the footprintjs ecosystem. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://footprintjs.github.io/#website",
+            "url": "https://footprintjs.github.io/",
+            "name": "footprintjs",
+            "description": "The self-explaining stack — from backend pipelines to AI agents, every run records why it did what it did.",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://footprintjs.github.io/#org" }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://footprintjs.github.io/#org",
+            "name": "footprintjs",
+            "url": "https://footprintjs.github.io/",
+            "sameAs": ["https://github.com/footprintjs"],
+            "founder": { "@id": "https://sanjay1909.github.io/#person" }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://sanjay1909.github.io/#person",
+            "name": "Sanjay Krishna Anbalagan",
+            "alternateName": "Sanjay",
+            "url": "https://github.com/sanjay1909",
+            "sameAs": [
+              "https://github.com/sanjay1909",
+              "https://www.linkedin.com/in/sanjay-krishna-anbalagan/",
+              "https://x.com/1909sanjay",
+              "https://sanjay1909.github.io/"
+            ]
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "footprintjs",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Node.js",
+            "url": "https://github.com/footprintjs/footPrint",
+            "description": "The flowchart pattern for backend code — self-explainable systems with causal traces, transactional state, and auto-generated tool descriptions.",
+            "license": "https://github.com/footprintjs/footPrint/blob/main/LICENSE",
+            "creator": { "@id": "https://sanjay1909.github.io/#person" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "agentfootprint",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Node.js",
+            "url": "https://footprintjs.github.io/agentfootprint/",
+            "description": "Build AI agents whose every LLM call traces back to what was injected, who triggered it, and what it cost. When an answer is wrong, localize which piece of context caused it — and prove it by replay.",
+            "creator": { "@id": "https://sanjay1909.github.io/#person" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "footprint-explainable-ui",
+            "applicationCategory": "DeveloperApplication",
+            "url": "https://footprintjs.github.io/explainable-ui/",
+            "description": "Themeable React components that visualize a footprintjs run — the flowchart, the causal trace, and the data at every step.",
+            "creator": { "@id": "https://sanjay1909.github.io/#person" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "agentfootprint-lens",
+            "applicationCategory": "DeveloperApplication",
+            "url": "https://github.com/footprintjs/agentfootprint-lens",
+            "description": "React components for debugging an agentfootprint run — messages, prompts, tool calls, decision scope, and cost. Built on footprint-explainable-ui.",
+            "creator": { "@id": "https://sanjay1909.github.io/#person" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "agentthinkingui",
+            "applicationCategory": "DeveloperApplication",
+            "url": "https://footprintjs.github.io/agentThinkingUI/",
+            "description": "Replay an agent's reasoning and tool loop as an animated, scrubbable story — the non-developer's view of an agent run.",
+            "creator": { "@id": "https://sanjay1909.github.io/#person" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "hcifootprint",
+            "applicationCategory": "DeveloperApplication",
+            "url": "https://footprintjs.github.io/hcifootprint/",
+            "sameAs": ["https://www.npmjs.com/package/hcifootprint"],
+            "description": "Turn your web app into an agent-operable app — its buttons and flows become a typed skill graph an agent plans over and acts on, served over MCP.",
+            "creator": { "@id": "https://sanjay1909.github.io/#person" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "vizfootprint",
+            "applicationCategory": "DeveloperApplication",
+            "url": "https://github.com/footprintjs/vizfootprint",
+            "description": "Causal provenance for coordinated visual analysis with append-only parent-linked exploration history, named paths, replay, comparison, mixed human-agent causes, and statistical accountability.",
+            "creator": { "@id": "https://sanjay1909.github.io/#person" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <!-- ── header ─────────────────────────────────────────────────────────── -->
+    <header class="hd">
+      <a class="hd-brand" href="/" aria-label="footprintjs — home">
+        <!-- the ecosystem's own mark: the foot drawn as a flowchart (toe nodes, a blue trace down,
+             a green arrow back up). Round badge PNG with transparent corners → sits on any theme. -->
+        <img class="hd-mark" src="./assets/logo-foot.png" width="30" height="30" alt="" />
+        <span class="hd-word">footprint<em>js</em></span>
+      </a>
+      <div class="lens-toggle" role="group" aria-label="Choose ecosystem view">
+        <span class="lens-toggle-label">Lens</span>
+        <button class="lens-option active" type="button" data-view="product" aria-pressed="true">
+          Product
+        </button>
+        <button class="lens-option" type="button" data-view="technical" aria-pressed="false">
+          Technical
+        </button>
+      </div>
+      <div class="hd-gap"></div>
+      <a class="hd-nav" href="/blog/">Blog</a>
+      <a
+        class="hd-icon"
+        href="https://github.com/footprintjs"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="footprintjs on GitHub"
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+          <path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.05-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.39 1.24-3.23-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.05.14 3 .4 2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.92 1.24 3.23 0 4.62-2.81 5.64-5.49 5.94.43.37.81 1.1.81 2.22 0 1.6-.01 2.89-.01 3.28 0 .32.22.7.83.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z" />
+        </svg>
+      </a>
+      <button id="theme-toggle" class="hd-icon" type="button" aria-label="Toggle dark mode">
+        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" stroke-linecap="round" />
+        </svg>
+        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+        </svg>
+      </button>
+    </header>
+
+    <main>
+      <!-- ── hero ────────────────────────────────────────────────────────── -->
+      <section class="hero">
+        <span class="pill"><span class="pill-dot"></span> open source · MIT</span>
+        <h1 class="view-copy">Software that leaves evidence.</h1>
+        <p class="hero-sub">
+          Build systems that can explain what they did, why they did it, who or what caused it, and
+          what humans or agents can safely do next — without reconstructing the story from logs.
+        </p>
+      </section>
+
+      <!-- ── fresh strip (SEO freshness + the hcifootprint-on-npm news) ────── -->
+      <section class="news" aria-label="Latest"><span class="news-tag">new</span> <a href="https://www.npmjs.com/package/hcifootprint" target="_blank" rel="noreferrer">hcifootprint is on npm</a> — turn your app agent-operable · <a href="https://youtu.be/vx5amF94ipI" target="_blank" rel="noreferrer">watch the 37-second demo</a> · <a href="https://github.com/footprintjs/hcifootprint/blob/main/llms.txt" target="_blank" rel="noreferrer">llms.txt for agent consumers</a></section>
+
+      <!-- ── the one idea (the flowchart-pattern thesis, distilled) ───────── -->
+      <section class="idea reveal" aria-label="The idea behind the ecosystem">
+        <span class="idea-eyebrow view-copy">Different journeys · one design rule</span>
+        <p class="idea-lead">
+          Record every path at the moment it happens, keep its cause attached, and give each person
+          the lens they need to understand, replay, compare, or challenge the same evidence.
+        </p>
+        <div class="idea-steps">
+          <div class="idea-step">
+            <span class="idea-num">1</span>
+            <b>Capture the real journey</b>
+            <small>Backend runs, agent decisions, app actions, and visual explorations record themselves while they happen.</small>
+          </div>
+          <div class="idea-step">
+            <span class="idea-num">2</span>
+            <b>Keep the cause attached</b>
+            <small>Every result stays connected to the reads, context, choices, people, and agents that produced it.</small>
+          </div>
+          <div class="idea-step">
+            <span class="idea-num">3</span>
+            <b>Choose the right lens</b>
+            <small>Engineers can debug the same evidence that people inspect, replay, compare, and challenge.</small>
+          </div>
+        </div>
+        <blockquote class="idea-quote view-copy">The journey stays the same. The lens changes.</blockquote>
+      </section>
+
+      <!-- ── the footprint graph: the ecosystem drawn as its own graph ─────────── -->
+      <!-- The real ecosystem cards are the graph nodes: provenance foundation first, product
+           journeys second, and evidence lenses third. Edges are an SVG layer on desktop; mobile
+           keeps the same tier order and collapses the graph to a readable stack. -->
+      <section class="graph" aria-label="The footprintjs ecosystem as a graph">
+        <span class="graph-tag view-copy">the ecosystem · organized by the problem it solves</span>
+        <div id="ecosystem-graph" class="gb">
+          <p class="gb-loading">Loading the ecosystem…</p>
+        </div>
+        <div id="ecosystem-legend" class="edge-legend view-copy" aria-label="Relationship legend">
+          <span data-edge-type="dependency"><i class="edge-dependency"></i><span class="edge-legend-label">foundation</span></span>
+          <span data-edge-type="consumer"><i class="edge-consumer"></i><span class="edge-legend-label">human or developer lens</span></span>
+          <span data-edge-type="principle"><i class="edge-principle"></i><span class="edge-legend-label">shared design rule</span></span>
+        </div>
+        <noscript>The ecosystem view requires JavaScript to switch between Product and Technical copy.</noscript>
+      </section>
+    </main>
+
+    <!-- ── footer ──────────────────────────────────────────────────────────── -->
+    <footer class="ft">
+      <div class="ft-legal">
+        <span>open source</span>
+        <span class="ft-dot">·</span>
+        <a href="https://github.com/footprintjs/footPrint/blob/main/LICENSE" target="_blank" rel="noreferrer">MIT</a>
+        <span class="ft-dot">·</span>
+        <span>© 2024–present Sanjay Krishna Anbalagan</span>
+        <span class="ft-dot">·</span>
+        <span>Created by <a href="https://github.com/sanjay1909" target="_blank" rel="author noreferrer">Sanjay</a></span>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('theme-toggle').addEventListener('click', function () {
+        var el = document.documentElement;
+        var dark = el.classList.contains('dark');
+        el.classList.remove('light', 'dark');
+        el.classList.add(dark ? 'light' : 'dark');
+        try {
+          localStorage.setItem('theme', dark ? 'light' : 'dark');
+        } catch (e) {}
+      });
+
+      // light scroll-reveal — fade-up sections as they enter; instant if reduced-motion.
+      (function () {
+        var els = document.querySelectorAll('.reveal');
+        var reduce =
+          !('IntersectionObserver' in window) ||
+          (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+        if (reduce) {
+          els.forEach(function (e) { e.classList.add('in'); });
+          return;
+        }
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (en) {
+              if (en.isIntersecting) {
+                en.target.classList.add('in');
+                io.unobserve(en.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -10% 0px' }
+        );
+        els.forEach(function (e) { io.observe(e); });
+      })();
+    </script>
+    <script src="./ecosystem-view.js"></script>
+  </body>
+</html>

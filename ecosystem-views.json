@@ -7,6 +7,47 @@
         "title": "Software that leaves evidence.",
         "subtitle": "Build systems that can explain what they did, why they did it, who or what caused it, and what humans or agents can safely do next — without reconstructing the story from logs."
       },
+      "story": {
+        "beats": [
+          {
+            "label": "logs",
+            "text": "Logs tell you what happened — a pile of facts with no thread."
+          },
+          {
+            "label": "trace",
+            "text": "A trace puts the facts in order — you can follow the path."
+          },
+          {
+            "label": "causal trace",
+            "emphasis": true,
+            "text": "A causal trace keeps the decisions — every fork your system took, and why it took it."
+          },
+          {
+            "label": "the payoff",
+            "text": "Which means you can ask your app follow-up questions — and it answers from its own record."
+          }
+        ],
+        "closing": "No extra instrumentation — the structure your app runs on is the structure that explains it."
+      },
+      "layers": {
+        "engine": "works behind the scenes",
+        "interface": "what your users see"
+      },
+      "groups": {
+        "engine": "works behind the scenes",
+        "interface": "what your users see",
+        "monitoring": "watch it run"
+      },
+      "map": {
+        "heading": "The ecosystem · organized by the problem it solves",
+        "lawSubline": "every project records why, as it runs",
+        "zones": {
+          "engine": "works behind the scenes",
+          "interface": "what your users see"
+        },
+        "evidenceSubline": "every journey leaves the same kind of evidence",
+        "agentTag": "causal agent debugging"
+      },
       "idea": {
         "eyebrow": "Different journeys · one design rule",
         "lead": "Record every path at the moment it happens, keep its cause attached, and give each person the lens they need to understand, replay, compare, or challenge the same evidence.",
@@ -41,6 +82,47 @@
         "title": "The provenance-native ecosystem.",
         "subtitle": "Execution, context, capabilities, and exploration are recorded structurally at runtime so causes can be sliced, replayed, compared, and rendered without reconstructing them from logs."
       },
+      "story": {
+        "beats": [
+          {
+            "label": "logs",
+            "text": "Logs are unstructured emissions — raw data of what happened, useful only forensically."
+          },
+          {
+            "label": "trace",
+            "text": "A trace records execution order — which steps ran, in what sequence."
+          },
+          {
+            "label": "causal trace",
+            "emphasis": true,
+            "text": "A causal trace captures the decision structure — every branch condition, its evidence, and read/write provenance — collected as the chart runs, never reconstructed after."
+          },
+          {
+            "label": "the payoff",
+            "text": "The commit log becomes a queryable substrate: an LLM walks the same structure that executed, so answers cite decisions, not guesses."
+          }
+        ],
+        "closing": "The fluent builder emits the chart; one traversal executes it and captures everything — the shape that runs is the shape that answers."
+      },
+      "layers": {
+        "engine": "engine layer",
+        "interface": "interface layer"
+      },
+      "groups": {
+        "engine": "Engine",
+        "interface": "Interface",
+        "monitoring": "Monitoring"
+      },
+      "map": {
+        "heading": "Two ecosystems, one law",
+        "lawSubline": "the causal trace — captured during execution, never reconstructed",
+        "zones": {
+          "engine": "Engine ecosystem",
+          "interface": "Interface ecosystem"
+        },
+        "evidenceSubline": "each library records its own causal trace — same law, no shared runtime",
+        "agentTag": "context provenance"
+      },
       "idea": {
         "eyebrow": "How the ecosystem works",
         "lead": "Different systems produce different typed footprints, but every implementation follows the same rule: create the evidence inline, never infer it afterward.",
@@ -70,11 +152,75 @@
       }
     }
   },
+  "solarSystem": {
+    "sun": {
+      "label": "the causal trace",
+      "accent": "#ffc700",
+      "size": 0.78
+    },
+    "caption": "viewed through explainable-ui + lens",
+    "planets": [
+      {
+        "id": "flowchart-pattern",
+        "label": "The Flowchart Pattern",
+        "accent": "#0c8577",
+        "orbitRadius": 5.7,
+        "orbitSeconds": 78,
+        "size": 0.55,
+        "reference": {
+          "name": "footprintjs",
+          "card": "footprintjs",
+          "layer": "engine"
+        },
+        "satellites": [
+          {
+            "name": "agentfootprint",
+            "card": "agentfootprint",
+            "layer": "engine",
+            "accent": "#0c8577",
+            "orbitRadius": 1.45,
+            "orbitSeconds": 13,
+            "size": 0.28
+          }
+        ]
+      },
+      {
+        "id": "footprint-trail",
+        "label": "The Footprint Trail",
+        "accent": "#6d5ae0",
+        "orbitRadius": 9.2,
+        "orbitSeconds": 124,
+        "size": 0.48,
+        "satellites": [
+          {
+            "name": "hcifootprint",
+            "card": "hcifootprint",
+            "layer": "interface",
+            "accent": "#6d5ae0",
+            "orbitRadius": 1.3,
+            "orbitSeconds": 11,
+            "size": 0.24
+          },
+          {
+            "name": "vizfootprint",
+            "card": "vizfootprint",
+            "layer": "interface",
+            "accent": "#6d5ae0",
+            "orbitRadius": 2.1,
+            "orbitSeconds": 19,
+            "size": 0.22
+          }
+        ]
+      }
+    ]
+  },
   "nodes": [
     {
       "id": "footprintjs",
       "name": "footprintjs",
       "tier": 1,
+      "layer": "engine",
+      "group": "engine",
       "accent": "#ffc700",
       "icon": "flowchart",
       "links": [
@@ -112,6 +258,8 @@
       "id": "agentfootprint",
       "name": "AgentFootprint",
       "tier": 2,
+      "layer": "engine",
+      "group": "engine",
       "accent": "#f97316",
       "icon": "agent",
       "links": [
@@ -150,6 +298,9 @@
       "name": "HACI Footprint",
       "packageName": "hcifootprint",
       "tier": 2,
+      "layer": "interface",
+      "group": "interface",
+      "status": "beta",
       "accent": "#ec4899",
       "icon": "capabilities",
       "links": [
@@ -192,9 +343,11 @@
       "id": "vizfootprint",
       "name": "VizFootprint",
       "tier": 2,
+      "layer": "interface",
+      "group": "interface",
       "accent": "#06b6d4",
       "icon": "trail",
-      "status": "pre-alpha",
+      "status": "alpha",
       "links": [
         {
           "href": "https://github.com/footprintjs/vizfootprint",
@@ -224,6 +377,8 @@
       "id": "explainable-ui",
       "name": "Explainable UI",
       "tier": 3,
+      "layer": "interface",
+      "group": "monitoring",
       "accent": "#3b82f6",
       "icon": "chart",
       "links": [
@@ -261,6 +416,8 @@
       "id": "lens",
       "name": "Lens",
       "tier": 3,
+      "layer": "interface",
+      "group": "monitoring",
       "accent": "#10b981",
       "icon": "lens",
       "links": [
@@ -294,6 +451,8 @@
       "name": "Thinking UI",
       "packageName": "agentthinkingui",
       "tier": 3,
+      "layer": "interface",
+      "group": "monitoring",
       "accent": "#8b5cf6",
       "icon": "replay",
       "links": [
