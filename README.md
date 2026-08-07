@@ -29,9 +29,9 @@ flowchart TD
         V["VizFootprint<br/>visual analysis"]
     end
     subgraph MON["Monitoring — watch it run"]
-        E["Explainable UI<br/>for footprintjs"]
+        E["Flow Lens<br/>for footprintjs"]
         L["Lens<br/>for agentfootprint"]
-        T["Thinking UI<br/>role replay"]
+        T["Story Lens<br/>role replay"]
     end
 
     F -->|powers| A
@@ -61,9 +61,9 @@ flowchart TD
 
 | Project | Role | Links |
 |---|---|---|
-| **Explainable UI** | visualize a footprintjs run | [demo](https://footprintjs.github.io/explainable-ui/) · [repo](https://github.com/footprintjs/explainable-ui) · [npm](https://www.npmjs.com/package/footprint-explainable-ui) |
+| **Flow Lens** | visualize a footprintjs run | [demo](https://footprintjs.github.io/explainable-ui/) · [repo](https://github.com/footprintjs/explainable-ui) · [npm](https://www.npmjs.com/package/footprint-explainable-ui) |
 | **Lens** | debug an agentfootprint run | [repo](https://github.com/footprintjs/agentfootprint-lens) · [npm](https://www.npmjs.com/package/agentfootprint-lens) |
-| **Thinking UI** | replay an agent run for non-developers | [demo](https://footprintjs.github.io/agentThinkingUI/) · [repo](https://github.com/footprintjs/agentThinkingUI) · [npm](https://www.npmjs.com/package/agentthinkingui) |
+| **Story Lens** | replay an agent run for non-developers | [demo](https://footprintjs.github.io/agentThinkingUI/) · [repo](https://github.com/footprintjs/agentThinkingUI) · [npm](https://www.npmjs.com/package/agentthinkingui) |
 
 ---
 

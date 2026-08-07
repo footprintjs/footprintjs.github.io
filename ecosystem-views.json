@@ -158,7 +158,7 @@
       "accent": "#ffc700",
       "size": 0.78
     },
-    "caption": "viewed through explainable-ui + lens",
+    "caption": "viewed through Flow, Why, and Story — three lenses, one trace",
     "planets": [
       {
         "id": "flowchart-pattern",
@@ -375,7 +375,8 @@
     },
     {
       "id": "explainable-ui",
-      "name": "Explainable UI",
+      "name": "Flow Lens",
+      "packageName": "footprint-explainable-ui",
       "tier": 3,
       "layer": "interface",
       "group": "monitoring",
@@ -402,19 +403,20 @@
       "views": {
         "product": {
           "tag": "backend run lens",
-          "title": "See exactly how a run unfolded",
+          "title": "every step: watch the flowchart unfold",
           "description": "Inspect the flowchart, time-travel through the run, and rewind any variable to its origin on the same timeline."
         },
         "technical": {
           "tag": "React evidence consumer",
-          "title": "Render a footprintjs trace",
+          "title": "every step: watch the flowchart unfold",
           "description": "Themeable React components for flowchart traversal, transactional state, time travel, and causal rewind over the footprintjs execution record."
         }
       }
     },
     {
       "id": "lens",
-      "name": "Lens",
+      "name": "Why Lens",
+      "packageName": "agentfootprint-lens",
       "tier": 3,
       "layer": "interface",
       "group": "monitoring",
@@ -436,19 +438,19 @@
       "views": {
         "product": {
           "tag": "engineer debugging lens",
-          "title": "Pinpoint what changed the answer",
+          "title": "grouped by what matters: pinpoint why this answer",
           "description": "Move through messages, prompts, tools, decisions, and cost with one time cursor while you test the suspected cause."
         },
         "technical": {
           "tag": "agent trace consumer",
-          "title": "Inspect an agentfootprint run",
+          "title": "grouped by what matters: pinpoint why this answer",
           "description": "A React debugger that aligns messages, prompts, tool calls, decision scope, causal slices, and cost on one execution cursor."
         }
       }
     },
     {
       "id": "thinking-ui",
-      "name": "Thinking UI",
+      "name": "Story Lens",
       "packageName": "agentthinkingui",
       "tier": 3,
       "layer": "interface",
@@ -476,12 +478,12 @@
       "views": {
         "product": {
           "tag": "human understanding lens",
-          "title": "Explain agent actions to a person",
+          "title": "the story: explain it to a person",
           "description": "Replay reasoning, evidence, tools, and alternatives as an animated story a person can scrub, inspect, and challenge."
         },
         "technical": {
           "tag": "role replay consumer",
-          "title": "Replay the agent tool loop",
+          "title": "the story: explain it to a person",
           "description": "A build-free, scrubbable role replay that consumes agentfootprint evidence and exposes scored alternatives behind each tool choice."
         }
       }
