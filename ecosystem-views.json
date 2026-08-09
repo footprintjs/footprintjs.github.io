@@ -150,6 +150,88 @@
           "principle": "shared provenance pattern"
         }
       }
+    },
+    "business": {
+      "label": "Business",
+      "hero": {
+        "title": "Software that leaves evidence.",
+        "subtitle": "Your systems already do the work. These libraries make them keep the reasons — so a customer's follow-up is answered from the record instead of becoming a ticket, an incident is read instead of reconstructed, and the decisions that need a person are the only ones that wait for one."
+      },
+      "solarCaption": "viewed through Flow, Why, and Story — one record, whoever is asking",
+      "story": {
+        "beats": [
+          {
+            "label": "logs",
+            "text": "Logs are a pile of facts. Putting them back in order is work someone is paid to do, after the fact."
+          },
+          {
+            "label": "trace",
+            "text": "A trace puts the facts in order. You can see what happened — you still cannot see why it happened."
+          },
+          {
+            "label": "causal trace",
+            "emphasis": true,
+            "text": "A causal trace keeps the decisions: the call the system made, the evidence behind it, who or what asked for it, and what it cost."
+          },
+          {
+            "label": "the payoff",
+            "text": "So the follow-up question — why did you tell me that? — is answered from the record, with the reason cited, instead of becoming an escalation."
+          }
+        ],
+        "closing": "No separate audit system to buy or keep in sync — the structure the work already runs on is the structure that explains it."
+      },
+      "layers": {
+        "engine": "does the work",
+        "interface": "faces your customers"
+      },
+      "groups": {
+        "engine": "does the work",
+        "interface": "faces your customers",
+        "monitoring": "shows you why"
+      },
+      "map": {
+        "heading": "The ecosystem · organized by what it saves or proves",
+        "lawSubline": "every part keeps its own record, as the work happens",
+        "zones": {
+          "engine": "runs the business logic",
+          "interface": "what your customers see"
+        },
+        "evidenceSubline": "one record — it answers support, engineering, and audit",
+        "agentTag": "why an answer came out that way"
+      },
+      "idea": {
+        "eyebrow": "One record · three audiences",
+        "lead": "Keep the reasons at the moment the work happens, and every group gets what it needs from the same record: support answers the follow-up, engineering finds the cause, and the people accountable can see the decisions made on their behalf.",
+        "steps": [
+          {
+            "title": "Record the work as it happens",
+            "description": "Runs, agent decisions, app actions, and analyses keep their own record while they run — not afterwards, and not by hand."
+          },
+          {
+            "title": "Keep the reason attached",
+            "description": "Every result stays connected to what it read, what it chose, what it cost, and who or what asked for it."
+          },
+          {
+            "title": "Give each group its view",
+            "description": "Support, engineering, and the people accountable read the same record through the view that answers their question."
+          }
+        ],
+        "quote": "The work stays the same. The evidence is what you keep."
+      },
+      "graph": {
+        "label": "The ecosystem · organized by what it saves or proves",
+        "legend": {
+          "dependency": "built on",
+          "consumer": "who reads the record",
+          "principle": "the same rule, kept separately"
+        }
+      },
+      "edgeLegend": {
+        "builds": "built on",
+        "idea": "same idea, built separately",
+        "emit": "leaves a record",
+        "recall": "reads its own record"
+      }
     }
   },
   "solarSystem": {
@@ -251,6 +333,11 @@
           "tag": "provenance substrate",
           "title": "Execution provenance runtime",
           "description": "A pre-declared flowchart runtime with transactional state, typed reads and writes, decision evidence, variable-first backward slicing, replay, and generated tool descriptions."
+        },
+        "business": {
+          "tag": "decisions on the record",
+          "title": "Trace any outcome back to the decision behind it",
+          "description": "Every run keeps what it read, the path it took, and why it took that path — so a disputed price, refund, or routing is looked up instead of reconstructed. Reconstructing it is the expensive part."
         }
       }
     },
@@ -290,6 +377,11 @@
           "tag": "context provenance",
           "title": "Context provenance runtime",
           "description": "Captures context injections, execution state, decisions, model calls, tools, and cost; slicing, influence ranking, ablation, and counterfactual replay localize failures."
+        },
+        "business": {
+          "tag": "fewer escalations",
+          "title": "Your agent can answer the follow-up question",
+          "description": "An agent that keeps its causal trace can say what it used, what it chose, and what it cost — so \"why did you tell me that?\" gets a cited answer from the record instead of becoming a ticket."
         }
       }
     },
@@ -336,6 +428,11 @@
           "tag": "capability graph · MCP",
           "title": "Typed capability and action graph",
           "description": "Exposes live application capabilities as a typed skill graph over MCP, with preconditions, permissions, guide mode, action boundaries, and confirmation gates."
+        },
+        "business": {
+          "tag": "oversight without a bottleneck",
+          "title": "Let agents operate your app — inside the gates you already have",
+          "description": "Agents act through the app's real permissions and confirmation gates. The calls that need a person come with the evidence to decide on; the routine ones prove themselves."
         }
       }
     },
@@ -370,6 +467,11 @@
           "tag": "foottrail provenance",
           "title": "Branchable exploration provenance",
           "description": "Append-only parent-linked commits, mixed-principal causes, named branches, comparison, replay and adoption, declared analyses, and a shared online-FDR ledger."
+        },
+        "business": {
+          "tag": "defensible analysis",
+          "title": "Show how a number was arrived at",
+          "description": "Every path a person or an agent explored is kept, including the ones abandoned — so a figure in a report can be shown with the work behind it, and a reviewer can follow the same route."
         }
       }
     },
@@ -410,6 +512,11 @@
           "tag": "React evidence consumer",
           "title": "every step: watch the flowchart unfold",
           "description": "Themeable React components for flowchart traversal, transactional state, time travel, and causal rewind over the footprintjs execution record."
+        },
+        "business": {
+          "tag": "engineering hours",
+          "title": "every step: read the run, not the logs",
+          "description": "Engineers walk the recorded run — each step, each value, each branch — instead of rebuilding the incident from logs. The rebuilding is the part you pay for."
         }
       }
     },
@@ -445,6 +552,11 @@
           "tag": "agent trace consumer",
           "title": "grouped by what matters: pinpoint why this answer",
           "description": "A React debugger that aligns messages, prompts, tool calls, decision scope, causal slices, and cost on one execution cursor."
+        },
+        "business": {
+          "tag": "root cause, not opinion",
+          "title": "grouped by what matters: find the cause and test it",
+          "description": "Messages, prompts, tools, decisions, and spend sit on one timeline — so a suspected cause can be removed, the run repeated, and the claim settled instead of argued."
         }
       }
     },
@@ -485,6 +597,11 @@
           "tag": "role replay consumer",
           "title": "the story: explain it to a person",
           "description": "A build-free, scrubbable role replay that consumes agentfootprint evidence and exposes scored alternatives behind each tool choice."
+        },
+        "business": {
+          "tag": "explain it to anyone",
+          "title": "the story: explain it to a person",
+          "description": "Replay what the system did as a story a customer-facing team, a reviewer, or a manager can follow — and push back on — without reading a log."
         }
       }
     }
@@ -496,7 +613,8 @@
       "type": "dependency",
       "views": {
         "product": "enables agent debugging",
-        "technical": "runtime dependency"
+        "technical": "runtime dependency",
+        "business": "gives agents the same record"
       }
     },
     {
@@ -505,7 +623,8 @@
       "type": "principle",
       "views": {
         "product": "guides safe operation",
-        "technical": "shared pattern"
+        "technical": "shared pattern",
+        "business": "same rule for your app"
       }
     },
     {
@@ -514,7 +633,8 @@
       "type": "dependency",
       "views": {
         "product": "preserves exploration",
-        "technical": "executes analyses"
+        "technical": "executes analyses",
+        "business": "keeps the analysis honest"
       }
     },
     {
@@ -524,7 +644,8 @@
       "route": "outer-left",
       "views": {
         "product": "visualizes runs",
-        "technical": "renders traces"
+        "technical": "renders traces",
+        "business": "shows the run"
       }
     },
     {
@@ -533,7 +654,8 @@
       "type": "consumer",
       "views": {
         "product": "debugs",
-        "technical": "renders"
+        "technical": "renders",
+        "business": "finds the cause"
       }
     },
     {
@@ -542,7 +664,8 @@
       "type": "consumer",
       "views": {
         "product": "explains",
-        "technical": "replays"
+        "technical": "replays",
+        "business": "tells the story"
       }
     }
   ]

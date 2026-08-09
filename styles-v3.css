@@ -21,6 +21,10 @@
   --border: #e7e5df;
   --border-strong: #d6d5d0;
   --yellow: #ffc700;
+  /* ink for text sitting ON the accent fill. --yellow stays the same colour in
+     both themes, so this stays with it and is deliberately NOT re-declared in
+     html.dark — the fill never turns dark, so its ink must never turn light. */
+  --yellow-on: #18181b;
   --yellow-ink: #7a5d00;
   --yellow-bg: #fff6d6;
   --yellow-line: #e6c25a;
@@ -71,6 +75,9 @@ html.dark {
 }
 html {
   scroll-behavior: smooth;
+  /* an in-page jump has to clear the header AND the lens dock that sticks under
+     it, or the anchor it lands on hides behind the pill */
+  scroll-padding-top: calc(var(--nav-h) + 76px);
 }
 body {
   margin: 0;
@@ -190,40 +197,6 @@ h3 {
 }
 .zone.on { background: var(--yellow); }
 .hd-gap { flex: 1; }
-.lens-toggle {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  padding: 2px;
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  background: var(--chip);
-}
-.lens-toggle-label {
-  padding: 0 7px 0 8px;
-  font-family: var(--mono);
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--fg-faint);
-}
-.lens-option {
-  border: 0;
-  border-radius: 7px;
-  padding: 6px 13px;
-  background: transparent;
-  color: var(--fg-muted);
-  font: 500 13px/1 var(--sans);
-  cursor: pointer;
-  transition: background 0.16s ease, color 0.16s ease;
-}
-.lens-option:hover { color: var(--fg); }
-.lens-option.active {
-  background: var(--fg);
-  color: var(--bg);
-  font-weight: 600;
-}
 .hd-right {
   display: flex;
   align-items: center;
@@ -261,6 +234,91 @@ h3 {
 html.light .ic-moon,
 html.dark .ic-sun {
   display: none;
+}
+
+/* ── the lens dock ──────────────────────────────────────────────────────────
+   The lens toggle is this site's thesis in miniature — one record, read through
+   the view that answers your question — so it is not a nav item. It rides just
+   under the header for the whole scroll, centered, and it is the ONLY control
+   on the page wearing the accent yellow: nothing else can be mistaken for it.
+
+   Sticky, not fixed, and the dock keeps its own row in the flow — so at rest
+   the pill covers nothing, and there is no scroll listener to get wrong. The
+   strip around the pill is transparent and click-through, so the page slides
+   UNDER a floating control instead of being pushed around by it.
+   ------------------------------------------------------------------------- */
+.lens-dock {
+  position: sticky;
+  /* clears the header bar, which is a single row at every width now that the
+     toggle has moved out of it */
+  top: calc(var(--nav-h) + 10px);
+  /* under the header's 50 on purpose: the two never meet (the offset above
+     clears the bar), and if a browser ever disagrees, the header wins */
+  z-index: 45;
+  display: flex;
+  justify-content: center;
+  padding: 12px var(--gutter) 14px;
+  pointer-events: none;
+}
+.lens-dock > .lens-toggle { pointer-events: auto; }
+.lens-toggle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--yellow-line);
+  border-radius: 999px;
+  background: var(--bg-elev);
+  box-shadow: var(--shadow);
+  /* the page's own arrival motion, reused. The global reduced-motion block
+     switches every animation off; the dock is named again there so the
+     intent is explicit rather than inherited. */
+  animation: fpRise 0.5s ease both;
+}
+/* "View as" — the purpose, said out loud. Quieter than the options it
+   introduces, so the eye lands on the choice, not the caption. */
+.lens-toggle-label {
+  padding: 0 9px 0 13px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+  white-space: nowrap;
+}
+.lens-option {
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 15px;
+  background: transparent;
+  color: var(--fg-muted);
+  font: 500 13px/1 var(--sans);
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease;
+}
+.lens-option:hover {
+  color: var(--fg);
+  background: var(--yellow-bg);
+}
+/* the accent fill is the same yellow in both themes, so its ink is fixed too —
+   --fg would go white-on-yellow in dark mode */
+.lens-option.active {
+  background: var(--yellow);
+  color: var(--yellow-on);
+  font-weight: 600;
+}
+/* the arrow keys move focus between options, so the ring has to be visible */
+.lens-option:focus-visible {
+  outline: 2px solid var(--yellow-ink);
+  outline-offset: 2px;
+}
+/* a lens the data file does not carry is hidden by the script. This has to
+   outrank the responsive `display: inline-flex` further down — class +
+   attribute beats class alone, so the option stays gone at every width. */
+.lens-option[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .lens-toggle { animation: none; }
 }
 
 /* ── hero ─────────────────────────────────────────────────────────────────── */
@@ -1134,10 +1192,8 @@ a.orrery-label:hover { color: var(--yellow-ink); }
   .hero-in { padding: 44px var(--gutter) 40px; }
   .graph h2 { font-size: 25px; }
 
-  /* The nav has to wrap here, so give it two DELIBERATE rows instead of
-     letting the toggle strand itself in a corner while the links fall under
-     it: row one is identity + actions, row two is the lens toggle across the
-     full width, where it reads as the segmented control it is. */
+  /* The nav keeps to ONE row at every width — the lens toggle lives in its own
+     dock below, so identity and actions are all the bar has to carry. */
   .hd-in { row-gap: 6px; padding-top: 6px; padding-bottom: 6px; }
   .zones { display: none; }
   /* the flex spacer would wrap onto a line of its own here; margin does the
@@ -1145,7 +1201,6 @@ a.orrery-label:hover { color: var(--yellow-ink); }
   .hd-gap { display: none; }
   .hd-brand { order: 1; margin-right: auto; }
   .hd-right { order: 3; }
-  .lens-toggle { order: 4; width: 100%; justify-content: center; padding: 1px; }
 
   /* touch targets: every control clears 44px. The hit area grows, the type
      does not — nothing here changes size or wording. */
@@ -1263,7 +1318,31 @@ a.orrery-label:hover { color: var(--yellow-ink); }
   .eyebrow { flex-wrap: wrap; row-gap: 4px; }
   .eyebrow-note { flex-basis: 100%; }
 }
+/* the toggle on a phone: "View as" moves ABOVE the options rather than being
+   dropped, because the caption is what makes the control self-explanatory —
+   and the three options then get the whole row as equal thirds, so the last one
+   can never be pushed onto a line of its own by a longer word or a wider font.
+   At 390px that leaves each option ~114px for a ~78px word. */
+@media (max-width: 560px) {
+  .lens-dock { padding: 10px var(--gutter) 12px; }
+  .lens-toggle {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 22px;
+  }
+  .lens-toggle-label {
+    flex: 1 0 100%;
+    padding: 4px 0 3px;
+    text-align: center;
+  }
+  .lens-option {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0 8px;
+  }
+}
 @media (max-width: 520px) {
-  .lens-toggle-label { display: none; }
   .card-hd { flex-wrap: wrap; }
 }

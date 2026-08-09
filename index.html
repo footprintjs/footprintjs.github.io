@@ -30,7 +30,7 @@
     <meta property="og:title" content="footprintjs — the self-explaining stack" />
     <meta
       property="og:description"
-      content="A provenance-native ecosystem for execution, agents, application interaction, and visual analysis. The journey stays the same; choose the Product or Technical lens."
+      content="A provenance-native ecosystem for execution, agents, application interaction, and visual analysis. The journey stays the same; choose the Product, Technical, or Business lens."
     />
     <meta property="og:url" content="https://footprintjs.github.io/" />
     <meta property="og:image" content="https://footprintjs.github.io/assets/og.png" />
@@ -193,15 +193,6 @@
           <span class="zone"></span>
         </div>
         <div class="hd-gap"></div>
-        <div class="lens-toggle" role="group" aria-label="Choose ecosystem view">
-          <span class="lens-toggle-label">Lens</span>
-          <button class="lens-option active" type="button" data-view="product" aria-pressed="true">
-            Product
-          </button>
-          <button class="lens-option" type="button" data-view="technical" aria-pressed="false">
-            Technical
-          </button>
-        </div>
         <div class="hd-right">
           <a class="hd-nav" href="/blog/">Blog</a>
           <a
@@ -225,6 +216,30 @@
         </div>
       </div>
     </header>
+
+    <!-- ── the lens dock ──────────────────────────────────────────────────────
+         The toggle is the site's thesis in miniature — one record, read through
+         the view that answers your question — so it does not hide in the header
+         nav. It rides just under the header the whole way down the page: a
+         centered pill, the accent yellow reserved for it, with an explicit
+         "View as" so a first-time reader knows it re-aims the WHOLE page rather
+         than filtering a list.
+         The strip itself is transparent and click-through (pointer-events);
+         only the pill takes the pointer. -->
+    <div class="lens-dock">
+      <div class="lens-toggle" role="group" aria-label="View as — Product, Technical, or Business">
+        <span class="lens-toggle-label" aria-hidden="true">View as</span>
+        <button class="lens-option active" type="button" data-view="product" aria-pressed="true">
+          Product
+        </button>
+        <button class="lens-option" type="button" data-view="technical" aria-pressed="false">
+          Technical
+        </button>
+        <button class="lens-option" type="button" data-view="business" aria-pressed="false">
+          Business
+        </button>
+      </div>
+    </div>
 
     <main>
       <!-- ── hero ────────────────────────────────────────────────────────── -->
@@ -299,7 +314,7 @@
           <div id="ecosystem-cards" class="cards">
             <p class="gb-loading">Loading the ecosystem…</p>
           </div>
-          <noscript>The ecosystem view requires JavaScript to switch between Product and Technical copy.</noscript>
+          <noscript>The ecosystem view requires JavaScript to switch between the Product, Technical, and Business copy.</noscript>
         </section>
       </div>
 

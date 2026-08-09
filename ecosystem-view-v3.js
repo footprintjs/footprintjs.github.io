@@ -2,9 +2,14 @@
    footprintjs.github.io — v3 ecosystem view.
 
    One data file (ecosystem-views.json) drives the page: the four-beat story
-   strip, the two-zone ecosystem map, the project cards, both copy lenses, and
-   the live npm versions. (The hero's 3D solar system reads the same file —
-   see hero-orrery.js.)
+   strip, the two-zone ecosystem map, the project cards, all three copy lenses
+   (Product, Technical, Business), and the live npm versions. (The hero's 3D
+   solar system reads the same file — see hero-orrery.js.)
+
+   The lens toggle is the page's own thesis in miniature: one record, read
+   through the view that answers your question. Nothing but COPY changes between
+   lenses — statuses, links, npm names, the map's shape and the cards' order are
+   the same evidence in all three.
 
    The MAP is the design's "two ecosystems, one law" composition with the real
    ecosystem poured in: a law banner on top, two bounded zones, an evidence bar
@@ -129,6 +134,13 @@
     { kind: 'recall', label: 'recall' }
   ];
 
+  /* the default wording, by kind — a lens may override it (views.<lens>.edgeLegend),
+     and anything it leaves out falls back to this */
+  var EDGE_LEGEND_DEFAULT = {};
+  EDGE_LEGEND.forEach(function (entry) {
+    EDGE_LEGEND_DEFAULT[entry.kind] = entry.label;
+  });
+
   var state = {
     data: null,
     view: 'product',
@@ -162,13 +174,21 @@
     return text;
   }
 
+  /* ?view= names a lens by its key. Any lens the data file actually carries is
+     legal — that is what let "business" join Product and Technical without a
+     second list here to keep in sync. An unknown or missing name falls back to
+     the file's own default. */
   function getInitialView(data) {
     var requested = new URLSearchParams(window.location.search).get('view');
-    return requested === 'technical' || requested === 'product'
-      ? requested
-      : data.defaultView || 'product';
+    if (requested && data.views && data.views[requested]) return requested;
+    return data.views && data.views[data.defaultView] ? data.defaultView : 'product';
   }
 
+  /* Product and Technical are load-bearing: the page ships with buttons for them
+     and `defaultView` points at one. Every other lens (Business today) is
+     OPTIONAL — a browser holding a stale ecosystem-views.json simply loses that
+     button instead of erroring, which is why the toggle is synced from the data
+     rather than trusted from the markup. */
   function validateData(data) {
     if (!data || !data.views || !Array.isArray(data.nodes)) {
       throw new Error('The ecosystem data is incomplete.');
@@ -176,6 +196,23 @@
     ['product', 'technical'].forEach(function (view) {
       if (!data.views[view]) throw new Error('Missing ecosystem view: ' + view);
     });
+  }
+
+  function syncToggleOptions(data) {
+    document.querySelectorAll('[data-view]').forEach(function (button) {
+      var view = data.views[button.dataset.view];
+      button.hidden = !view;
+      if (view && view.label) button.textContent = view.label;
+    });
+  }
+
+  function lensButtons() {
+    return Array.prototype.filter.call(
+      document.querySelectorAll('.lens-toggle [data-view]'),
+      function (button) {
+        return !button.hidden;
+      }
+    );
   }
 
   function nodeById(id) {
@@ -526,6 +563,7 @@
     legend.innerHTML = '';
     EDGE_LEGEND.forEach(function (entry) {
       var item = element('span', 'edge-legend-item kind-' + entry.kind);
+      item.dataset.edgeKind = entry.kind;
       var swatch = svgElement('svg');
       setAttrs(swatch, { viewBox: '0 0 30 12', class: 'edge-swatch', 'aria-hidden': 'true' });
       var line = svgElement('path');
@@ -535,7 +573,7 @@
       });
       swatch.appendChild(line);
       item.appendChild(swatch);
-      item.appendChild(element('span', '', entry.label));
+      item.appendChild(element('span', 'edge-legend-label', entry.label));
       legend.appendChild(item);
     });
   }
@@ -681,24 +719,37 @@
     });
   }
 
+  /* every lens-aware write goes through this: a missing string leaves the copy
+     that is already on the page rather than blanking it */
+  function setCopy(selector, text) {
+    var target = document.querySelector(selector);
+    if (target && text) target.textContent = text;
+  }
+
   function applyView(view, updateUrl) {
     if (!state.data || !state.data.views[view]) return;
     var viewData = state.data.views[view];
     state.view = view;
     document.documentElement.dataset.ecosystemView = view;
 
-    document.querySelector('.hero h1').textContent = viewData.hero.title;
-    document.querySelector('.hero-sub').textContent = viewData.hero.subtitle;
-    document.querySelector('.hero-quote').textContent = viewData.idea.quote;
-    document.querySelector('.graph-lead').textContent = viewData.idea.lead;
+    /* optional blocks are read defensively: a browser holding a stale copy of
+       ecosystem-views.json should degrade quietly, never blank the page */
+    var hero = viewData.hero || {};
+    var idea = viewData.idea || {};
+    setCopy('.hero h1', hero.title);
+    setCopy('.hero-sub', hero.subtitle);
+    setCopy('.hero-quote', idea.quote);
+    setCopy('.graph-lead', idea.lead);
 
     renderStory(viewData);
 
-    /* optional blocks are read defensively: a browser holding a stale copy of
-       ecosystem-views.json should degrade quietly, never blank the page */
+    /* the caption under the map: a lens may speak it its own way, otherwise the
+       one shared line from solarSystem stands */
+    setCopy('.solar-caption',
+      viewData.solarCaption || (state.data.solarSystem || {}).caption);
+
     var map = viewData.map || {};
-    document.querySelector('.graph-tag').textContent =
-      map.heading || viewData.graph.label;
+    setCopy('.graph-tag', map.heading || (viewData.graph || {}).label);
     var lawSub = document.getElementById('map-law-sub');
     if (lawSub) lawSub.textContent = map.lawSubline || '';
     var evidenceSub = document.getElementById('map-evidence-sub');
@@ -725,6 +776,15 @@
     document.querySelectorAll('.layer-legend-item').forEach(function (item) {
       var label = item.querySelector('.layer-legend-label');
       if (label) label.textContent = layers[item.dataset.layer] || LAYER_WORD[item.dataset.layer];
+    });
+
+    var edgeLegend = viewData.edgeLegend || {};
+    document.querySelectorAll('[data-edge-kind]').forEach(function (item) {
+      var label = item.querySelector('.edge-legend-label');
+      if (label) {
+        label.textContent =
+          edgeLegend[item.dataset.edgeKind] || EDGE_LEGEND_DEFAULT[item.dataset.edgeKind];
+      }
     });
 
     state.data.nodes.forEach(function (node) {
@@ -771,7 +831,12 @@
           var node = nodeById(anchor.closest('.ecosystem-card').dataset.nodeId);
           if (!node) return;
           var link = node.links[Number(anchor.dataset.linkIndex)];
-          setLinkLabel(anchor, link[state.view + 'Label'] || 'npm');
+          /* the same fallback chain updateNode uses: a lens that does not
+             relabel its links (Business does not — link wording is identical
+             across lenses by design) still gets the product wording, not a
+             generic one */
+          setLinkLabel(anchor,
+            link[state.view + 'Label'] || link.productLabel || link.technicalLabel || 'npm');
         })
         .catch(function () {});
     });
@@ -820,6 +885,29 @@
         switchView(button.dataset.view, true);
       });
     });
+
+    /* Three options make the arrow keys worth having: Tab still steps through
+       each button (they are real buttons, so Enter and Space already work), and
+       Left/Right/Home/End now walk the group the way a segmented control does —
+       moving focus and the lens together. */
+    var group = document.querySelector('.lens-toggle');
+    if (group) {
+      group.addEventListener('keydown', function (event) {
+        var step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
+        var isEdge = event.key === 'Home' || event.key === 'End';
+        if (!step && !isEdge) return;
+        var buttons = lensButtons();
+        if (buttons.length < 2) return;
+        var current = buttons.indexOf(document.activeElement);
+        if (current < 0) return;
+        event.preventDefault();
+        var next = isEdge
+          ? (event.key === 'Home' ? 0 : buttons.length - 1)
+          : (current + step + buttons.length) % buttons.length;
+        buttons[next].focus();
+        switchView(buttons[next].dataset.view, true);
+      });
+    }
     window.addEventListener('popstate', function () {
       switchView(getInitialView(state.data), false);
     });
@@ -845,6 +933,7 @@
       validateData(data);
       state.data = data;
       state.view = getInitialView(data);
+      syncToggleOptions(data);
       renderCards(data);
       renderMap();
       renderEdgeLegend();
