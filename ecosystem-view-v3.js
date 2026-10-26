@@ -859,7 +859,7 @@
   }
 
   /* ── the scroll trace: a line that draws itself as you read ─────────────── */
-  var ZONE_IDS = ['hero', 'story', 'build', 'map', 'writing'];
+  var ZONE_IDS = ['hero', 'story', 'map', 'writing'];
 
   function updateTrace() {
     if (state.scrollRaf) return;
