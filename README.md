@@ -1,91 +1,46 @@
-# footprintjs
+# footprintjs ecosystem
 
-### The flowchart pattern for software — systems that explain themselves.
+**Connected runtime evidence for people and coding agents.**
 
-**→ [footprintjs.github.io](https://footprintjs.github.io/)**
+→ [footprintjs.github.io](https://footprintjs.github.io/)
 
-A flowchart is how a person draws a system: a box for each step, an arrow for what
-happens next. footprintjs makes your code *be* that flowchart — so the thing that
-runs is the thing you read, and every run records **why** it did what it did.
+This repository hosts the static ecosystem homepage. Its **Product**, **Technical** and **Business** views describe the same libraries for different readers. Switching views changes the wording, not package links, dependencies or release status.
 
-One pattern, all the way up the stack: from a backend pipeline to an AI agent.
+## Start with the question
 
----
+An application can run without an LLM and still keep a useful execution record. Build a workflow from named stages, tracked state and explicit decisions; enable the required recorders before it runs. A developer or coding agent can then inspect the recorded dependencies behind an unexpected outcome, test a hypothesis and verify the repair with a regression test and another run.
 
-## The ecosystem — as its own flowchart
+FootPrint captures configured execution evidence. Foottrace queries supported records. An LLM can explain established findings; it does not invent the execution history or fill missing links. Capture gaps, unsupported scope and unknown outcomes remain visible. Recorded dependencies alone do not prove correctness, compliance or real-world cause.
 
-The projects come in three groups: the **engine** that works behind the scenes, the
-**interface** layer your users see, and the **monitoring** UIs you watch a run through.
+## Libraries
 
-```mermaid
-flowchart TD
-    subgraph ENG["Engine — works behind the scenes"]
-        F["footprintjs<br/>core engine"]
-        A["agentfootprint<br/>agentic framework"]
-    end
-    subgraph INT["Interface — what your users see"]
-        TR(["The Footprint Trail<br/>a pattern, not a package"])
-        H["HACI Footprint<br/>agent-operable apps"]
-        V["VizFootprint<br/>visual analysis"]
-    end
-    subgraph MON["Monitoring — watch it run"]
-        E["Flow Lens<br/>for footprintjs"]
-        L["Lens<br/>for agentfootprint"]
-        T["Story Lens<br/>role replay"]
-    end
+| Layer | Libraries | Role |
+| --- | --- | --- |
+| Execution | [FootPrint](https://github.com/footprintjs/footPrint) | Named workflow stages, tracked scope, explicit decisions and runtime recorders. |
+| Records | [Foottrace](https://github.com/footprintjs/foottrace) | Record primitives, deterministic readers, replay, cause/impact queries and optional W3C PROV-O export in JSON-LD. |
+| Agents | [AgentFootprint](https://github.com/footprintjs/agentfootprint) | Agent execution with context, model-call and tool evidence. |
+| Content | [StoryDeck](https://github.com/footprintjs/storydeck) | Article, scroll and presentation views; FootPrint integration is optional. |
+| Media | [StoryReel](https://github.com/footprintjs/storyreel) | A FootPrint production pipeline and making-of record for teaching films. |
+| Platform | [Blueprint](https://www.npmjs.com/package/footprint-blueprint) | Modular platform capabilities with shared execution evidence. |
+| Commerce | [Smallbusiness](https://www.npmjs.com/package/smallbusiness-footprint) | Configurable commerce workflows built on Blueprint. |
+| Data | [Datapipeline](https://www.npmjs.com/package/footprintjs-datapipeline) | Collection and derivation flows using FootPrint and Foottrace. |
+| Interaction | [HACI Footprint](https://github.com/footprintjs/hcifootprint), [VizFootprint](https://github.com/footprintjs/vizfootprint) | Application capabilities and recorded visual exploration, with their own contracts. |
+| Viewers | [Flow Lens](https://github.com/footprintjs/explainable-ui), [Why Lens](https://github.com/footprintjs/agentfootprint-lens), [Story Lens](https://github.com/footprintjs/agentThinkingUI) | Views over supported workflow and agent records. |
 
-    F -->|powers| A
-    F -.->|same idea, zero shared code| TR
-    TR --> H
-    TR --> V
-    F -->|renders| E
-    A -->|renders| L
-    A -->|replays| T
-```
+These are different libraries, with different dependencies and maturity. They do not all require AgentFootprint. A shared design principle does not imply interchangeable record formats or automatic evidence across library boundaries.
 
-### Engine — works behind the scenes
+## Editing and previewing
 
-| Project | Role | Links |
-|---|---|---|
-| **footprintjs** | the flowchart pattern for backend code | [home](https://footprintjs.github.io/footPrint/) · [repo](https://github.com/footprintjs/footPrint) · [npm](https://www.npmjs.com/package/footprintjs) |
-| **agentfootprint** | AI agents that trace every LLM call back to its cause | [home](https://footprintjs.github.io/agentfootprint/) · [docs](https://footprintjs.github.io/agentfootprint/docs) · [repo](https://github.com/footprintjs/agentfootprint) · [npm](https://www.npmjs.com/package/agentfootprint) |
+There is no build step or framework dependency.
 
-### Interface — what your users see
+- `ecosystem-views.json` owns the three views, library cards, links and solar-system labels.
+- `ecosystem-view-v3.js` renders the cards, selected core map and development loop using that data.
+- `index.html` keeps the accessible fallback text, metadata, navigation and optional workflow demo.
+- `styles-v3.css` owns the shared layout and light/dark theme.
+- `hero-orrery.js` and the vendored Three.js module provide the existing decorative hero.
 
-| Project | Role | Links |
-|---|---|---|
-| **HACI Footprint** *(beta)* | makes an app agent-operable — its real capabilities as a typed skill graph over MCP, with permissions and confirmation gates | [home](https://footprintjs.github.io/hcifootprint/) · [repo](https://github.com/footprintjs/hcifootprint) · [npm](https://www.npmjs.com/package/hcifootprint) · [37s demo](https://youtu.be/vx5amF94ipI) |
-| **VizFootprint** *(alpha)* | keeps every branch of a visual analysis — human or agent — comparable and replayable | [repo](https://github.com/footprintjs/vizfootprint) · [the trail pattern](https://footprintjs.github.io/blog/the-trail-pattern/) |
+Keep the fallback text and metadata consistent with the default Product view. New cards need copy in all three views. Show missing evidence as unknown; do not claim measured savings without reproducible evidence, or advertise unreleased features.
 
-### Monitoring — watch it run
+Preview with a local static server, for example `python3 -m http.server 8080`, and check all three views, keyboard navigation, light/dark themes, a narrow viewport and the expanded demo. JavaScript syntax can be checked with `node --check ecosystem-view-v3.js`.
 
-| Project | Role | Links |
-|---|---|---|
-| **Flow Lens** | visualize a footprintjs run | [demo](https://footprintjs.github.io/explainable-ui/) · [repo](https://github.com/footprintjs/explainable-ui) · [npm](https://www.npmjs.com/package/footprint-explainable-ui) |
-| **Lens** | debug an agentfootprint run | [repo](https://github.com/footprintjs/agentfootprint-lens) · [npm](https://www.npmjs.com/package/agentfootprint-lens) |
-| **Story Lens** | replay an agent run for non-developers | [demo](https://footprintjs.github.io/agentThinkingUI/) · [repo](https://github.com/footprintjs/agentThinkingUI) · [npm](https://www.npmjs.com/package/agentthinkingui) |
-
----
-
-## Principles
-
-1. **Collect at traversal time.** Reads, writes, and decisions are captured structurally as the run executes — no manual logging.
-2. **One canonical footprint.** The trace *is* the execution record — built inline, never rebuilt after the fact.
-3. **You choose the lens.** Metrics, narrative, visualization, agent debugging — every tool composes on the same record.
-
-> Inline recording is truth. Post-processing is reconstruction.
-
----
-
-## Built for agents
-
-The hardest question in an agentic system is *why did it do that?* — which context,
-which tool, which decision led to the output. The flowchart pattern answers it by
-construction: **agentfootprint** is the pattern's first real implementation, and the
-rest of the stack renders and replays that record for engineers and non-developers alike.
-
----
-
-<sub>This repo is the source of **[footprintjs.github.io](https://footprintjs.github.io/)** — a static, no-build page. Edit, commit, push to `main`; GitHub Pages rebuilds.</sub>
-
-<sub>open source · [MIT](https://github.com/footprintjs/footPrint/blob/main/LICENSE) · © 2024–present [Sanjay Krishna Anbalagan](https://github.com/sanjay1909)</sub>
+Open a feature PR and complete the owner's review gate before merging. GitHub Pages deploys the merged site; check the deployment and live content before reporting it updated.

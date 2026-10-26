@@ -292,9 +292,7 @@
     setAttrs(svg, {
       viewBox: '-40 -6 1160 664', class: 'map-svg', role: 'img',
       'aria-label':
-        'Ecosystem map: one law on top — every run leaves a trace — over two ' +
-        'bounded zones, engine and interface, with each package emitting into ' +
-        'the evidence bar below.'
+        'Selected core relationships between execution and interaction patterns, with recorded evidence below. The cards list the wider library ecosystem.'
     });
 
     var defs = svgElement('defs');
@@ -647,14 +645,14 @@
     return card;
   }
 
-  /* The inventory reads as three clusters, not one flat wall of seven: what
+  /* The inventory groups foundations, application libraries, interaction and viewers: what
      runs behind the scenes, what your users touch, and the instruments you
      watch a run through. The grouping is DATA — each node carries `group`, and
      the order of the groups is simply the order they first appear in the node
      list, so the JSON stays the single source of truth and nothing here has to
      be kept in sync by hand. `layer` is left alone: it says which glyph a
      project wears (engine or interface), which is a different question from
-     which cluster it sits in — the three instruments are interface-layer
+     which cluster it sits in — the viewers are interface-layer
      packages that belong in the monitoring cluster. */
   function groupOrder(nodes) {
     var seen = {};
@@ -726,6 +724,22 @@
     if (target && text) target.textContent = text;
   }
 
+  function renderDevelopment(copy) {
+    if (!copy) return;
+    setCopy('#development-heading', copy.heading);
+    setCopy('#development-intro', copy.intro);
+    setCopy('#development-note', copy.note);
+    var list = document.getElementById('development-steps');
+    if (!list || !Array.isArray(copy.steps) || !copy.steps.length) return;
+    list.textContent = '';
+    copy.steps.forEach(function (step) {
+      var item = element('li');
+      item.appendChild(element('h3', '', step.title));
+      item.appendChild(element('p', '', step.description));
+      list.appendChild(item);
+    });
+  }
+
   function applyView(view, updateUrl) {
     if (!state.data || !state.data.views[view]) return;
     var viewData = state.data.views[view];
@@ -742,6 +756,8 @@
     setCopy('.graph-lead', idea.lead);
 
     renderStory(viewData);
+    renderDevelopment(viewData.development);
+    setCopy('.map-scope', viewData.mapNote);
 
     /* the caption under the map: a lens may speak it its own way, otherwise the
        one shared line from solarSystem stands */

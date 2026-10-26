@@ -1346,3 +1346,30 @@ a.orrery-label:hover { color: var(--yellow-ink); }
 @media (max-width: 520px) {
   .card-hd { flex-wrap: wrap; }
 }
+
+/* The coding-agent loop uses the existing type, spacing and theme tokens. */
+.development { border-bottom: 1px solid var(--border); }
+.development-in { max-width: var(--content); margin: 0 auto; padding: 58px var(--gutter); }
+.development h2 { max-width: 780px; margin: 16px 0; font-size: clamp(26px, 3.5vw, 38px); line-height: 1.15; letter-spacing: -0.03em; }
+.development-lead { max-width: 780px; color: var(--fg-muted); }
+.development-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; padding: 0; margin: 30px 0; list-style: none; counter-reset: build-step; }
+.development-steps li { border-top: 2px solid var(--border-strong); padding-top: 16px; counter-increment: build-step; }
+.development-steps li::before { content: "0" counter(build-step); font: 12px var(--mono); color: var(--yellow-ink); }
+.development-steps h3 { font-size: 17px; margin: 8px 0; }
+.development-steps p { margin: 0; color: var(--fg-muted); font-size: 14px; }
+.evidence-note { padding: 16px 20px; border-left: 3px solid var(--yellow-line); background: var(--yellow-bg); border-radius: 0 8px 8px 0; font-size: 14px; }
+.development-links, .inventory-nav { display: flex; flex-wrap: wrap; gap: 12px 22px; font-size: 13px; }
+.development-links { margin-top: 20px; }
+.inventory-nav { margin: 20px 0; }
+.map-scope { max-width: 760px; color: var(--fg-muted); font-size: 13px; }
+.workflow-demo { margin-top: 28px; border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.workflow-demo summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+.workflow-demo img { display: block; width: 100%; max-width: 800px; height: auto; margin: 20px auto 0; border-radius: 6px; }
+.workflow-demo p { color: var(--fg-muted); font-size: 13px; }
+@media (max-width: 760px) {
+  .development-in { padding-block: 36px; }
+  .development-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 420px) {
+  .development-steps { grid-template-columns: 1fr; gap: 18px; }
+}
