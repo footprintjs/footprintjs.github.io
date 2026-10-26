@@ -4,132 +4,159 @@
     "product": {
       "label": "Product",
       "hero": {
-        "title": "Software that leaves evidence.",
-        "subtitle": "Build systems that can explain what they did, why they did it, who or what caused it, and what humans or agents can safely do next — without reconstructing the story from logs."
+        "title": "Build software you can investigate.",
+        "subtitle": "Connect a result to the recorded steps, inputs and decisions behind it. Give people and coding agents evidence to inspect, with a clear answer when something was not captured."
       },
       "story": {
         "beats": [
           {
             "label": "logs",
-            "text": "Logs tell you what happened — a pile of facts with no thread."
+            "text": "Messages tell you something happened. The connections may still be missing."
           },
           {
-            "label": "trace",
-            "text": "A trace puts the facts in order — you can follow the path."
+            "label": "record",
+            "text": "Capture the steps, tracked values and explicit decisions as the workflow runs."
           },
           {
-            "label": "causal trace",
-            "emphasis": true,
-            "text": "A causal trace keeps the decisions — every fork your system took, and why it took it."
+            "label": "follow the evidence",
+            "text": "Start at an unexpected result and follow its recorded inputs and choices backward.",
+            "emphasis": true
           },
           {
-            "label": "the payoff",
-            "text": "Which means you can ask your app follow-up questions — and it answers from its own record."
+            "label": "fix and verify",
+            "text": "Use the evidence to investigate, then check the repair with a test and a fresh run."
           }
         ],
-        "closing": "No extra instrumentation — the structure your app runs on is the structure that explains it."
+        "closing": "Recording does not need an LLM. Enable the evidence you need before the run; missing evidence stays unknown."
       },
       "layers": {
         "engine": "works behind the scenes",
         "interface": "what your users see"
       },
       "groups": {
-        "engine": "works behind the scenes",
+        "engine": "execution and recorded evidence",
         "interface": "what your users see",
-        "monitoring": "watch it run"
+        "monitoring": "watch it run",
+        "libraries": "reusable libraries for real applications"
       },
       "map": {
-        "heading": "The ecosystem · organized by the problem it solves",
-        "lawSubline": "every project records why, as it runs",
+        "heading": "The ecosystem · choose the layer you need",
+        "lawSubline": "capture the evidence while the work happens",
         "zones": {
           "engine": "works behind the scenes",
           "interface": "what your users see"
         },
-        "evidenceSubline": "every journey leaves the same kind of evidence",
+        "evidenceSubline": "different libraries, explicit records and capture limits",
         "agentTag": "causal agent debugging"
       },
       "idea": {
         "eyebrow": "Different journeys · one design rule",
-        "lead": "Record every path at the moment it happens, keep its cause attached, and give each person the lens they need to understand, replay, compare, or challenge the same evidence.",
+        "lead": "Start with the execution and record libraries, add the application capabilities you need, and inspect the captured evidence through a viewer. Different libraries have different records and capture limits.",
         "steps": [
           {
             "title": "Capture the real journey",
-            "description": "Backend runs, agent decisions, app actions, and visual explorations record themselves while they happen."
+            "description": "Capture supported activity as it happens, with the required recorders enabled."
           },
           {
             "title": "Keep the cause attached",
-            "description": "Every result stays connected to the reads, context, choices, people, and agents that produced it."
+            "description": "Keep the supported inputs and decisions attached to their recorded results; disclose anything missing."
           },
           {
             "title": "Choose the right lens",
-            "description": "Engineers can debug the same evidence that people inspect, replay, compare, and challenge."
+            "description": "People and agents inspect the recorded evidence through the view suited to their question."
           }
         ],
-        "quote": "The journey stays the same. The lens changes."
+        "quote": "Capture the connections. Keep the gaps visible."
       },
       "graph": {
-        "label": "The ecosystem · organized by the problem it solves",
+        "label": "The ecosystem · choose the layer you need",
         "legend": {
           "dependency": "foundation",
           "consumer": "human or developer lens",
           "principle": "shared design rule"
         }
-      }
+      },
+      "development": {
+        "heading": "Build with a coding agent. Debug from the record.",
+        "intro": "Use FootPrint in an ordinary application. Your coding agent can inspect its recorded run without putting an AI model inside the application.",
+        "steps": [
+          {
+            "title": "Build",
+            "description": "Use named stages, tracked state and explicit decisions."
+          },
+          {
+            "title": "Record",
+            "description": "Run the application with the required recorders enabled."
+          },
+          {
+            "title": "Inspect",
+            "description": "Follow the wrong result back through its recorded dependencies."
+          },
+          {
+            "title": "Verify",
+            "description": "Add a regression test, repair the code and record another run."
+          }
+        ],
+        "note": "Share the relevant trace slice rather than an entire log dump. The context needed depends on the workflow and tooling; no measured token or speed saving is claimed."
+      },
+      "mapNote": "The map shows selected core relationships. The cards below include the record tools, application libraries and viewers.",
+      "solarCaption": "Flow, Why and Story — different views over supported execution evidence"
     },
     "technical": {
       "label": "Technical",
       "hero": {
-        "title": "The provenance-native ecosystem.",
-        "subtitle": "Execution, context, capabilities, and exploration are recorded structurally at runtime so causes can be sliced, replayed, compared, and rendered without reconstructing them from logs."
+        "title": "Capture connections at runtime.",
+        "subtitle": "FootPrint executes the workflow and records tracked state and explicit decisions. Foottrace queries supported records. Deterministic readers follow recorded connections; LLM summaries must stay within those findings."
       },
       "story": {
         "beats": [
           {
-            "label": "logs",
-            "text": "Logs are unstructured emissions — raw data of what happened, useful only forensically."
+            "label": "configure",
+            "text": "Enable the required read, write and decision capture before execution."
           },
           {
-            "label": "trace",
-            "text": "A trace records execution order — which steps ran, in what sequence."
+            "label": "execute",
+            "text": "The engine records supported activity during traversal, within configured limits."
           },
           {
-            "label": "causal trace",
-            "emphasis": true,
-            "text": "A causal trace captures the decision structure — every branch condition, its evidence, and read/write provenance — collected as the chart runs, never reconstructed after."
+            "label": "query",
+            "text": "Follow recorded dependencies backward, or inspect their downstream impact.",
+            "emphasis": true
           },
           {
-            "label": "the payoff",
-            "text": "The commit log becomes a queryable substrate: an LLM walks the same structure that executed, so answers cite decisions, not guesses."
+            "label": "qualify",
+            "text": "Name a cause only when the reader has enough evidence. Otherwise return alternatives and gaps."
           }
         ],
-        "closing": "The fluent builder emits the chart; one traversal executes it and captures everything — the shape that runs is the shape that answers."
+        "closing": "A read-before-write relationship is not proof of semantic derivation. Exact sources, completeness and supported scope determine what a reader can establish."
       },
       "layers": {
         "engine": "engine layer",
         "interface": "interface layer"
       },
       "groups": {
-        "engine": "Engine",
+        "engine": "Execution and record foundations",
         "interface": "Interface",
-        "monitoring": "Monitoring"
+        "monitoring": "Monitoring",
+        "libraries": "Reusable application libraries"
       },
       "map": {
-        "heading": "Two ecosystems, one law",
-        "lawSubline": "the causal trace — captured during execution, never reconstructed",
+        "heading": "Core patterns and their evidence consumers",
+        "lawSubline": "record during execution; query the evidence afterward",
         "zones": {
           "engine": "Engine ecosystem",
           "interface": "Interface ecosystem"
         },
-        "evidenceSubline": "each library records its own causal trace — same law, no shared runtime",
+        "evidenceSubline": "supported records; explicit readers; disclosed gaps",
         "agentTag": "context provenance"
       },
       "idea": {
         "eyebrow": "How the ecosystem works",
-        "lead": "Different systems produce different typed footprints, but every implementation follows the same rule: create the evidence inline, never infer it afterward.",
+        "lead": "FootPrint owns execution; Foottrace owns record primitives and readers. Other libraries compose these at their own boundaries. Shared design principles do not imply a shared runtime or interchangeable record formats.",
         "steps": [
           {
             "title": "Record at traversal time",
-            "description": "Typed reads, writes, decisions, context injections, and interactions are captured at the boundary where they occur."
+            "description": "Capture supported activity as it happens, with the required recorders enabled."
           },
           {
             "title": "Preserve causal structure",
@@ -137,89 +164,115 @@
           },
           {
             "title": "Compose evidence consumers",
-            "description": "Slicing, replay, comparison, MCP tools, and React lenses operate on the recorded structure instead of parsing logs."
+            "description": "People and agents inspect the recorded evidence through the view suited to their question."
           }
         ],
-        "quote": "Inline recording is truth. Post-processing is reconstruction."
+        "quote": "Recorded dependency is evidence, not proof of real-world cause."
       },
       "graph": {
-        "label": "The ecosystem · runtimes, interaction substrates, and evidence consumers",
+        "label": "Core patterns and their evidence consumers",
         "legend": {
           "dependency": "package or runtime dependency",
           "consumer": "renders or consumes evidence",
           "principle": "shared provenance pattern"
         }
-      }
+      },
+      "development": {
+        "heading": "A recorded feedback loop for coding agents",
+        "intro": "The application can run without an LLM. A coding agent consumes a focused record slice during development, using the same public readers and evidence as a human.",
+        "steps": [
+          {
+            "title": "Model",
+            "description": "Declare stages, tracked scope and explicit decision helpers."
+          },
+          {
+            "title": "Capture",
+            "description": "Attach recorders before execution; choose retention and redaction rules."
+          },
+          {
+            "title": "Query",
+            "description": "Inspect writers, read sources, governing decisions and reported gaps."
+          },
+          {
+            "title": "Check",
+            "description": "Separate evidence from hypotheses; verify a repair with regression tests and a new run."
+          }
+        ],
+        "note": "Recording an exact source is opt-in and scope-dependent. Stored evidence, subflows and resumed runs must satisfy the reader’s capture contract; a missing link remains unknown."
+      },
+      "mapNote": "The map shows selected core relationships. The cards below include the record tools, application libraries and viewers.",
+      "solarCaption": "Flow, Why and Story — different views over supported execution evidence"
     },
     "business": {
       "label": "Business",
       "hero": {
-        "title": "Software that leaves evidence.",
-        "subtitle": "Your systems already do the work. These libraries make them keep the reasons — so a customer's follow-up is answered from the record instead of becoming a ticket, an incident is read instead of reconstructed, and the decisions that need a person are the only ones that wait for one."
+        "title": "See the work behind an answer.",
+        "subtitle": "When a price, refund or agent answer is questioned, inspect the recorded steps and decisions behind it. See what is supported, what needs investigation and what the system did not capture."
       },
-      "solarCaption": "viewed through Flow, Why, and Story — one record, whoever is asking",
+      "solarCaption": "Flow, Why and Story — different views over supported execution evidence",
       "story": {
         "beats": [
           {
-            "label": "logs",
-            "text": "Logs are a pile of facts. Putting them back in order is work someone is paid to do, after the fact."
+            "label": "a question",
+            "text": "A customer or colleague asks why an outcome happened."
           },
           {
-            "label": "trace",
-            "text": "A trace puts the facts in order. You can see what happened — you still cannot see why it happened."
+            "label": "the record",
+            "text": "The workflow has kept the steps, values and decisions it was configured to capture."
           },
           {
-            "label": "causal trace",
-            "emphasis": true,
-            "text": "A causal trace keeps the decisions: the call the system made, the evidence behind it, who or what asked for it, and what it cost."
+            "label": "the evidence",
+            "text": "Follow the recorded connections instead of piecing together separate messages.",
+            "emphasis": true
           },
           {
-            "label": "the payoff",
-            "text": "So the follow-up question — why did you tell me that? — is answered from the record, with the reason cited, instead of becoming an escalation."
+            "label": "the next step",
+            "text": "Explain the supported finding, investigate a hypothesis or say which evidence is missing."
           }
         ],
-        "closing": "No separate audit system to buy or keep in sync — the structure the work already runs on is the structure that explains it."
+        "closing": "The record supports an investigation. It does not by itself prove correctness, compliance or the cause of an outside event."
       },
       "layers": {
         "engine": "does the work",
         "interface": "faces your customers"
       },
       "groups": {
-        "engine": "does the work",
+        "engine": "foundations that keep the work inspectable",
         "interface": "faces your customers",
-        "monitoring": "shows you why"
+        "monitoring": "shows you why",
+        "libraries": "building blocks for your product"
       },
       "map": {
-        "heading": "The ecosystem · organized by what it saves or proves",
-        "lawSubline": "every part keeps its own record, as the work happens",
+        "heading": "The ecosystem · from application work to evidence",
+        "lawSubline": "keep the evidence as the work happens",
         "zones": {
           "engine": "runs the business logic",
           "interface": "what your customers see"
         },
-        "evidenceSubline": "one record — it answers support, engineering, and audit",
+        "evidenceSubline": "records support investigation, with visible limits",
         "agentTag": "why an answer came out that way"
       },
       "idea": {
         "eyebrow": "One record · three audiences",
-        "lead": "Keep the reasons at the moment the work happens, and every group gets what it needs from the same record: support answers the follow-up, engineering finds the cause, and the people accountable can see the decisions made on their behalf.",
+        "lead": "Choose an execution foundation, reusable application libraries and the views your team needs. Each has its own responsibilities; the evidence available depends on what your application records and retains.",
         "steps": [
           {
             "title": "Record the work as it happens",
-            "description": "Runs, agent decisions, app actions, and analyses keep their own record while they run — not afterwards, and not by hand."
+            "description": "Capture supported activity as it happens, with the required recorders enabled."
           },
           {
             "title": "Keep the reason attached",
-            "description": "Every result stays connected to what it read, what it chose, what it cost, and who or what asked for it."
+            "description": "Keep the supported inputs and decisions attached to their recorded results; disclose anything missing."
           },
           {
             "title": "Give each group its view",
-            "description": "Support, engineering, and the people accountable read the same record through the view that answers their question."
+            "description": "People and agents inspect the recorded evidence through the view suited to their question."
           }
         ],
-        "quote": "The work stays the same. The evidence is what you keep."
+        "quote": "Keep the work inspectable. Say what is still unknown."
       },
       "graph": {
-        "label": "The ecosystem · organized by what it saves or proves",
+        "label": "The ecosystem · from application work to evidence",
         "legend": {
           "dependency": "built on",
           "consumer": "who reads the record",
@@ -231,16 +284,40 @@
         "idea": "same idea, built separately",
         "emit": "leaves a record",
         "recall": "reads its own record"
-      }
+      },
+      "development": {
+        "heading": "Help your coding agent investigate your application",
+        "intro": "An application does not need a live AI model to keep a useful record. A developer or coding agent can use that record while building and fixing it.",
+        "steps": [
+          {
+            "title": "Build",
+            "description": "Make the important workflow steps explicit."
+          },
+          {
+            "title": "Run",
+            "description": "Keep the evidence required for the questions you expect."
+          },
+          {
+            "title": "Investigate",
+            "description": "Follow an unexpected outcome back to the recorded work."
+          },
+          {
+            "title": "Confirm",
+            "description": "Test the repair and inspect another run before relying on it."
+          }
+        ],
+        "note": "A focused record can make the investigation easier to follow. Actual time, token use and business savings depend on your application and have not been measured here."
+      },
+      "mapNote": "The map shows selected core relationships. The cards below include the record tools, application libraries and viewers."
     }
   },
   "solarSystem": {
     "sun": {
-      "label": "the causal trace",
+      "label": "recorded evidence",
       "accent": "#ffc700",
       "size": 0.78
     },
-    "caption": "viewed through Flow, Why, and Story — three lenses, one trace",
+    "caption": "Flow, Why and Story — different views over supported execution evidence",
     "planets": [
       {
         "id": "flowchart-pattern",
@@ -326,18 +403,18 @@
       "views": {
         "product": {
           "tag": "execution evidence",
-          "title": "Understand a backend decision",
-          "description": "Rewind any output or state value to the reads, writes, branches, and routing decisions that produced it."
+          "title": "Follow a recorded application decision",
+          "description": "Inspect tracked reads, writes and explicit decisions behind an outcome, where the required evidence was captured."
         },
         "technical": {
-          "tag": "provenance substrate",
-          "title": "Execution provenance runtime",
-          "description": "A pre-declared flowchart runtime with transactional state, typed reads and writes, decision evidence, variable-first backward slicing, replay, and generated tool descriptions."
+          "tag": "workflow execution",
+          "title": "Execute and record inspectable workflows",
+          "description": "Named stages, tracked scope and explicit decisions. Opt-in read-source capture links supported reads to their recorded sources; unsupported or incomplete evidence stays unknown."
         },
         "business": {
           "tag": "decisions on the record",
-          "title": "Trace any outcome back to the decision behind it",
-          "description": "Every run keeps what it read, the path it took, and why it took that path — so a disputed price, refund, or routing is looked up instead of reconstructed. Reconstructing it is the expensive part."
+          "title": "Investigate an unexpected outcome",
+          "description": "Inspect what a workflow recorded about a price, refund or routing decision. The record is evidence to investigate, not a guarantee that the result is correct."
         }
       }
     },
@@ -369,19 +446,232 @@
       ],
       "views": {
         "product": {
-          "tag": "causal agent debugging",
-          "title": "Debug why your agent failed",
-          "description": "Find the context that changed an answer, narrow the suspects, remove one, replay the run, and prove whether it caused the failure."
+          "tag": "agent runtime",
+          "title": "Investigate an agent’s answer",
+          "description": "Inspect the recorded context, model calls, tools and decisions. Test suspected causes rather than treating an explanation as proof."
         },
         "technical": {
-          "tag": "context provenance",
-          "title": "Context provenance runtime",
-          "description": "Captures context injections, execution state, decisions, model calls, tools, and cost; slicing, influence ranking, ablation, and counterfactual replay localize failures."
+          "tag": "context and tool evidence",
+          "title": "Build agents with inspectable runs",
+          "description": "An agent runtime with context, tool and model-call evidence. Its cause tools delegate to Foottrace and withhold definite answers when required evidence is incomplete."
         },
         "business": {
-          "tag": "fewer escalations",
-          "title": "Your agent can answer the follow-up question",
-          "description": "An agent that keeps its causal trace can say what it used, what it chose, and what it cost — so \"why did you tell me that?\" gets a cited answer from the record instead of becoming a ticket."
+          "tag": "answers with evidence",
+          "title": "Answer the follow-up from the record",
+          "description": "Review what an agent was shown, which tools ran and what costs were reported. Missing evidence and unknown costs remain visible."
+        }
+      }
+    },
+    {
+      "id": "foottrace",
+      "name": "Foottrace",
+      "packageName": "foottrace",
+      "group": "engine",
+      "icon": "trail",
+      "accent": "#0c8577",
+      "links": [
+        {
+          "href": "https://github.com/footprintjs/foottrace",
+          "productLabel": "GitHub",
+          "technicalLabel": "Source"
+        },
+        {
+          "href": "https://www.npmjs.com/package/foottrace",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "record tools",
+          "title": "Investigate a supported saved run",
+          "description": "Query execution records, follow supported dependencies and inspect reported gaps without running an AI model."
+        },
+        "technical": {
+          "tag": "record layer",
+          "title": "Read, query and export execution evidence",
+          "description": "Owns record primitives and readers for replay, time travel, bounded cause/impact queries, exact read-source evidence and optional W3C PROV-O export in JSON-LD."
+        },
+        "business": {
+          "tag": "evidence you can inspect",
+          "title": "Read the record without an AI service",
+          "description": "Inspect retained execution evidence through deterministic tools. A definite finding depends on the record’s completeness and the question being asked."
+        }
+      }
+    },
+    {
+      "id": "storydeck",
+      "name": "StoryDeck",
+      "packageName": "footprint-storydeck",
+      "group": "libraries",
+      "icon": "replay",
+      "accent": "#6d5ae0",
+      "links": [
+        {
+          "href": "https://github.com/footprintjs/storydeck",
+          "productLabel": "GitHub",
+          "technicalLabel": "Source"
+        },
+        {
+          "href": "https://www.npmjs.com/package/footprint-storydeck",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "structured content",
+          "title": "One story, several ways to read it",
+          "description": "Turn structured content into an article, a scrolling story or a presentation. FootPrint integration is optional."
+        },
+        "technical": {
+          "tag": "content views",
+          "title": "One content model, multiple presentations",
+          "description": "Article, scrollytelling and deck views from structured content. The published package declares FootPrint as an optional peer, not an AgentFootprint dependency."
+        },
+        "business": {
+          "tag": "reusable content",
+          "title": "Present the same material in several formats",
+          "description": "Use one structured source for reading, scrolling and presenting. Choose whether your application needs the optional FootPrint integration."
+        }
+      }
+    },
+    {
+      "id": "storyreel",
+      "name": "StoryReel",
+      "packageName": "footprint-storyreel",
+      "group": "libraries",
+      "icon": "replay",
+      "accent": "#6d5ae0",
+      "links": [
+        {
+          "href": "https://github.com/footprintjs/storyreel",
+          "productLabel": "GitHub",
+          "technicalLabel": "Source"
+        },
+        {
+          "href": "https://www.npmjs.com/package/footprint-storyreel",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "teaching films",
+          "title": "Make a film with a making-of record",
+          "description": "Build teaching films from a storyboard and recipe, with a seekable timeline, captions and a recorded production workflow."
+        },
+        "technical": {
+          "tag": "media pipeline",
+          "title": "A film pipeline built on FootPrint",
+          "description": "StoryReel uses FootPrint and Foottrace directly for its staged production pipeline and making-of record; it does not require AgentFootprint."
+        },
+        "business": {
+          "tag": "explainable production",
+          "title": "Keep the workflow behind the film",
+          "description": "Create teaching material with a recorded production journey. Inspect the captured making-of steps when a result needs review."
+        }
+      }
+    },
+    {
+      "id": "blueprint",
+      "name": "Blueprint",
+      "packageName": "footprint-blueprint",
+      "group": "libraries",
+      "icon": "capabilities",
+      "accent": "#6d5ae0",
+      "links": [
+        {
+          "href": "https://www.npmjs.com/package/footprint-blueprint",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "application foundation",
+          "title": "Compose reusable platform capabilities",
+          "description": "A modular platform framework with focused import paths and shared execution evidence."
+        },
+        "technical": {
+          "tag": "platform framework",
+          "title": "Modular capabilities over FootPrint",
+          "description": "The published framework uses FootPrint and Foottrace, keeping reusable platform capabilities behind focused module boundaries."
+        },
+        "business": {
+          "tag": "reusable platform work",
+          "title": "Build on shared application capabilities",
+          "description": "Compose the platform pieces your application needs and retain the execution evidence those workflows capture."
+        }
+      }
+    },
+    {
+      "id": "smallbusiness",
+      "name": "Smallbusiness",
+      "packageName": "smallbusiness-footprint",
+      "group": "libraries",
+      "icon": "capabilities",
+      "accent": "#6d5ae0",
+      "links": [
+        {
+          "href": "https://www.npmjs.com/package/smallbusiness-footprint",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "commerce workflows",
+          "title": "Configure commerce for your shop",
+          "description": "Reusable commerce workflows built on Blueprint, configurable for different shop types."
+        },
+        "technical": {
+          "tag": "commerce domain layer",
+          "title": "Commerce workflows on Blueprint",
+          "description": "The published package depends on Blueprint, FootPrint and Foottrace. It adds configurable commerce workflows rather than an agent runtime."
+        },
+        "business": {
+          "tag": "commerce building blocks",
+          "title": "Reuse the workflow behind your shop",
+          "description": "Configure commerce capabilities for your business. What can be explained later depends on the evidence the application captures and retains."
+        }
+      }
+    },
+    {
+      "id": "datapipeline",
+      "name": "Datapipeline",
+      "packageName": "footprintjs-datapipeline",
+      "group": "libraries",
+      "icon": "chart",
+      "accent": "#6d5ae0",
+      "links": [
+        {
+          "href": "https://www.npmjs.com/package/footprintjs-datapipeline",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "collection and derivation",
+          "title": "Keep the work behind a data result",
+          "description": "Collection and derivation workflows built on FootPrint, with traceable execution evidence."
+        },
+        "technical": {
+          "tag": "data workflows",
+          "title": "Collection and derivation over FootPrint",
+          "description": "The published package uses FootPrint and Foottrace directly. Captured execution evidence helps investigate a data result; it does not prove a source is correct."
+        },
+        "business": {
+          "tag": "inspectable data work",
+          "title": "Review how a result was produced",
+          "description": "Follow recorded collection and derivation steps when a number is questioned. Missing source evidence remains unknown."
         }
       }
     },
@@ -432,7 +722,7 @@
         "business": {
           "tag": "oversight without a bottleneck",
           "title": "Let agents operate your app — inside the gates you already have",
-          "description": "Agents act through the app's real permissions and confirmation gates. The calls that need a person come with the evidence to decide on; the routine ones prove themselves."
+          "description": "Agents use the application’s declared capabilities, permissions and confirmation gates. People retain control of actions that require approval; the application records the evidence those boundaries capture."
         }
       }
     },
@@ -460,8 +750,8 @@
       "views": {
         "product": {
           "tag": "accountable exploration",
-          "title": "Preserve every exploration path",
-          "description": "Keep every human and agent branch of an analysis, compare paths, replay findings, and preserve statistical obligations even when a path is abandoned."
+          "title": "Preserve recorded exploration paths",
+          "description": "Keep supported human and agent branches of an analysis, compare paths and replay retained findings. Recording settings and declared statistical obligations still matter."
         },
         "technical": {
           "tag": "foottrail provenance",
@@ -471,7 +761,7 @@
         "business": {
           "tag": "defensible analysis",
           "title": "Show how a number was arrived at",
-          "description": "Every path a person or an agent explored is kept, including the ones abandoned — so a figure in a report can be shown with the work behind it, and a reviewer can follow the same route."
+          "description": "Review retained paths through an analysis, including recorded alternatives, so a figure can be inspected alongside the work behind it. Unrecorded source activity remains unknown."
         }
       }
     },
@@ -504,19 +794,19 @@
       ],
       "views": {
         "product": {
-          "tag": "backend run lens",
-          "title": "every step: watch the flowchart unfold",
-          "description": "Inspect the flowchart, time-travel through the run, and rewind any variable to its origin on the same timeline."
+          "tag": "workflow viewer",
+          "title": "Flow Lens · inspect a recorded run",
+          "description": "Explore recorded steps, state and supported variable traces. Choose a recorded subflow invocation where the record format supports it."
         },
         "technical": {
-          "tag": "React evidence consumer",
-          "title": "every step: watch the flowchart unfold",
-          "description": "Themeable React components for flowchart traversal, transactional state, time travel, and causal rewind over the footprintjs execution record."
+          "tag": "React evidence viewer",
+          "title": "Flow Lens · inspect execution evidence",
+          "description": "React views for flowcharts, state, replay and variable tracing over supported FootPrint records. Missing or unsupported evidence is shown explicitly."
         },
         "business": {
-          "tag": "engineering hours",
-          "title": "every step: read the run, not the logs",
-          "description": "Engineers walk the recorded run — each step, each value, each branch — instead of rebuilding the incident from logs. The rebuilding is the part you pay for."
+          "tag": "a view for engineering",
+          "title": "Flow Lens · follow the recorded work",
+          "description": "Walk the captured steps and values behind a workflow result. The viewer shows the evidence available; it cannot recover data that was not recorded."
         }
       }
     },
@@ -544,19 +834,19 @@
       ],
       "views": {
         "product": {
-          "tag": "engineer debugging lens",
-          "title": "grouped by what matters: pinpoint why this answer",
-          "description": "Move through messages, prompts, tools, decisions, and cost with one time cursor while you test the suspected cause."
+          "tag": "agent debugging viewer",
+          "title": "Why Lens · inspect context and tools",
+          "description": "Compare recorded messages, prompts, tool activity, decisions and cost while investigating an agent run."
         },
         "technical": {
-          "tag": "agent trace consumer",
-          "title": "grouped by what matters: pinpoint why this answer",
-          "description": "A React debugger that aligns messages, prompts, tool calls, decision scope, causal slices, and cost on one execution cursor."
+          "tag": "agent trace viewer",
+          "title": "Why Lens · inspect the agent timeline",
+          "description": "A React debugger for supported AgentFootprint records, aligning messages, prompts, tool calls, decision scope and reported cost."
         },
         "business": {
-          "tag": "root cause, not opinion",
-          "title": "grouped by what matters: find the cause and test it",
-          "description": "Messages, prompts, tools, decisions, and spend sit on one timeline — so a suspected cause can be removed, the run repeated, and the claim settled instead of argued."
+          "tag": "a view for investigation",
+          "title": "Why Lens · inspect the evidence behind an answer",
+          "description": "Read the recorded context and tool activity together. A suspected cause still needs to be tested; the viewer does not turn a hypothesis into proof."
         }
       }
     },
@@ -589,19 +879,19 @@
       ],
       "views": {
         "product": {
-          "tag": "human understanding lens",
-          "title": "the story: explain it to a person",
-          "description": "Replay reasoning, evidence, tools, and alternatives as an animated story a person can scrub, inspect, and challenge."
+          "tag": "human-readable replay",
+          "title": "Story Lens · follow the recorded journey",
+          "description": "Present a supported agent record as a story a person can replay and inspect. The story explains captured evidence, not a model’s hidden reasoning."
         },
         "technical": {
-          "tag": "role replay consumer",
-          "title": "the story: explain it to a person",
-          "description": "A build-free, scrubbable role replay that consumes agentfootprint evidence and exposes scored alternatives behind each tool choice."
+          "tag": "record replay",
+          "title": "Story Lens · replay supported agent evidence",
+          "description": "A scrubbable replay of supported AgentFootprint records, exposing captured roles, tools and recorded alternatives."
         },
         "business": {
-          "tag": "explain it to anyone",
-          "title": "the story: explain it to a person",
-          "description": "Replay what the system did as a story a customer-facing team, a reviewer, or a manager can follow — and push back on — without reading a log."
+          "tag": "a view for people",
+          "title": "Story Lens · explain the recorded work",
+          "description": "Give a colleague or reviewer a readable journey through the evidence that was captured, with room to question the interpretation."
         }
       }
     }
