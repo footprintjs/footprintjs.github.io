@@ -650,7 +650,7 @@
       "icon": "agent",
       "links": [
         {
-          "href": "https://footprintjs.github.io/agentfootprint/",
+          "href": "https://agentfootprint.dev/",
           "productLabel": "Explore",
           "technicalLabel": "Docs"
         },
@@ -1161,5 +1161,39 @@
     "hybrid": "code",
     "collectors": "code",
     "lenses": "read"
-  }
+  },
+  "faq": [
+    {
+      "q": "What is footprintjs?",
+      "a": "footprintjs is a family of open source TypeScript libraries for execution provenance. Recorders capture the steps, tracked state and decisions behind a result as connected notes, so people and coding agents can walk back from it, replay it and audit it."
+    },
+    {
+      "q": "What is execution provenance?",
+      "a": "It is a record of how a result was produced: which steps ran, what they read and wrote, and which decisions they took, joined by the edges between them. Logs give you facts. Provenance also gives you the links between them."
+    },
+    {
+      "q": "How is this different from logs and traces?",
+      "a": "Logs record messages, and traces record order. A footprintjs record also keeps the decisions and the data behind them, so you can follow one result back through its dependencies instead of searching everything."
+    },
+    {
+      "q": "How do I debug why an AI agent gave an answer?",
+      "a": "Build the agent with AgentFootprint, which records its context, tool calls, model calls and decisions as it runs. Start at the answer and follow the recorded evidence backward, or inspect the run in Why Lens. An LLM can explain those findings, but it does not invent the history."
+    },
+    {
+      "q": "Do I have to rewrite my app to use it?",
+      "a": "No. Software built in the pattern is stitched by default. For what you cannot rebuild, you stitch in code: HACI Footprint and VizFootprint bind a framework's events into actions, Datapipeline does the same at the collector level, and footprintjs-ml coordinates workflows around your existing trainer."
+    },
+    {
+      "q": "What happens when a link in the record is missing?",
+      "a": "It stays a labelled gap with a reason, such as not-collected or no-match. When backward evidence is incomplete, Foottrace withholds the root cause and reports its gaps instead of guessing."
+    },
+    {
+      "q": "Does recording need an LLM?",
+      "a": "No. An ordinary application can keep an execution record without an LLM. You enable the recorders you need before the run."
+    },
+    {
+      "q": "Can the record be used as an audit trail?",
+      "a": "Yes, as a side effect. The same record that lets you walk back and replay gives security monitoring a trail to read. It is evidence of what was observed. It does not by itself prove correctness, compliance or the cause of an outside event."
+    }
+  ]
 }

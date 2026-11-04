@@ -46,6 +46,8 @@ There is no build step or framework dependency.
 - `styles-v4.css` owns the layout and the light and dark tokens, including the `--f-*` colours the film reads.
 - `assets/logo.svg` is the source of the mark. The favicons and the PNG logo copies, including those in `blog/`, `primer/` and `storydeck/`, are rendered from it. `assets/og.png` is drawn by the film engine on the joined record, just after the gap appears.
 
+What crawlers read is written into the static files, because many of them do not run JavaScript. After changing `ecosystem-views.json`, run `node scripts/seo-sync.mjs`. It writes the library list, the questions and the structured data into `index.html`, and regenerates `llms.txt`. Update `sitemap.xml` when a page is added, and list only real pages there, not redirects.
+
 Keep the fallback text and metadata consistent with the default Product view. New tiles need copy in all three views. Switching views changes the wording, not links, dependencies, positions or release status. Show missing evidence as unknown, and do not claim measured savings without reproducible evidence. The film's numbers describe its illustrative example and nothing else. Do not advertise unreleased features: a planet goes in the solar system only when its library is public.
 
 Preview with a local static server, for example `python3 -m http.server 8123`. Check all three views, both themes, a narrow viewport, keyboard navigation and reduced motion. `FootprintFilm.seek(t)` in the console jumps to any frame. Syntax can be checked with `node --check film.js`.
