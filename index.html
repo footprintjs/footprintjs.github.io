@@ -8,6 +8,7 @@
       name="description"
       content="Build inspectable workflows and AI agents with FootPrint, Foottrace and reusable application libraries. Follow recorded dependencies, inspect decisions and keep missing evidence unknown."
     />
+    <link rel="icon" type="image/svg+xml" href="./assets/logo.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="./assets/favicon-192x192.png" />
@@ -39,7 +40,7 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="The footprintjs ecosystem: footprintjs, AgentFootprint, HACI Footprint, VizFootprint, Flow Lens, Why Lens, and Story Lens."
+      content="A pile of notes with one connected path walking back from a result, ending at a labelled gap."
     />
 
     <!-- Twitter -->
@@ -53,7 +54,7 @@
     <meta name="twitter:creator" content="@1909sanjay" />
     <meta name="twitter:image" content="https://footprintjs.github.io/assets/og.png" />
 
-    <link rel="stylesheet" href="./styles-v3.css" />
+    <link rel="stylesheet" href="./styles-v4.css" />
 
     <!-- set the theme BEFORE first paint so there's no flash -->
     <script>
@@ -65,6 +66,7 @@
           el.classList.remove('light', 'dark');
           el.classList.add(t);
         } catch (e) {}
+        document.documentElement.classList.add('js');
       })();
     </script>
 
@@ -209,6 +211,20 @@
           },
           {
             "@type": "SoftwareApplication",
+            "name": "footprintjs-ml",
+            "applicationCategory": "DeveloperApplication",
+            "url": "https://github.com/footprintjs/footprintjs-ml",
+            "description": "Beta. Typed model references, evaluation receipts and release checks around existing trainers, coordinated by FootPrint."
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "ContextFootprint",
+            "applicationCategory": "DeveloperApplication",
+            "url": "https://github.com/footprintjs/contextfootprint",
+            "description": "Compare host-supplied assertions by identity and find conflicts. It does not decide which assertion is true."
+          },
+          {
+            "@type": "SoftwareApplication",
             "name": "Datapipeline",
             "applicationCategory": "DeveloperApplication",
             "url": "https://www.npmjs.com/package/footprintjs-datapipeline",
@@ -219,260 +235,244 @@
     </script>
   </head>
   <body>
-    <!-- ── header ─────────────────────────────────────────────────────────── -->
+    <a class="skip" href="#libraries">Skip to the libraries</a>
+
+    <!-- ── header. The view switch sits in the bar and rides the whole page. ── -->
     <header class="hd">
       <div class="hd-in">
-        <a class="hd-brand" href="/" aria-label="footprintjs — home">
-          <!-- the ecosystem's own mark: the foot drawn as a flowchart (toe nodes, a blue trace
-               down, a green arrow back up). Round badge PNG with transparent corners. -->
-          <img class="hd-mark" src="./assets/logo-foot.png" width="26" height="26" alt="" />
+        <a class="hd-brand" href="/" aria-label="footprintjs, home">
+          <svg class="hd-mark" viewBox="0 0 64 64" width="28" height="28" aria-hidden="true">
+            <g stroke="#e0a400" stroke-width="2.1" stroke-linecap="round"><path d="M25.2 14.6 21.6 9.2"/><path d="M32 12.4 31.4 7.4"/><path d="M38.2 13 40 8.2"/><path d="M43.2 15.8 46.6 11.8"/><path d="M46.6 20.2 51 17.2"/></g>
+            <g fill="#ffc700" class="logo-toes"><circle cx="19.8" cy="6.9" r="5"/><circle cx="31.2" cy="5.2" r="3.5"/><circle cx="40.8" cy="6.2" r="3.2"/><circle cx="48" cy="10.2" r="2.9"/><circle cx="52.8" cy="16" r="2.6"/></g>
+            <path fill="#0b2a55" stroke="#2f74d6" stroke-width="1.3" d="M33 12.6c8.2-.6 16 3.8 16 12.4 0 8.8-4.6 13.4-6.4 21.2C41.2 52.8 36 60 28.6 60c-7 0-11.4-5.4-10.4-12.2.8-5.4 5.2-8.8 5-14.8-.2-4.6-5.6-5.6-5.6-12 0-5.6 6.6-8 15.4-8.4Z"/>
+            <path class="logo-run" fill="none" stroke="#2bb8ff" stroke-width="3" stroke-linecap="round" stroke-dasharray="3.2 4.2" d="M27.6 19.4c-1.8 4.2.4 8.2 2 12.4 1.4 3.8.4 7.8-.6 11.2"/>
+            <path fill="#2bb8ff" d="M23.4 44.6h11l-5.6 8.6Z"/>
+            <path fill="none" stroke="#8be23a" stroke-width="3" stroke-linecap="round" d="M34.6 49.4c0-5.4 3.8-9 5-14.6.8-3.8.8-7.2.4-10"/>
+            <path fill="#8be23a" d="M34.4 26.6 39.8 17l5.6 8.8Z"/>
+          </svg>
           <span class="hd-word">footprint<em>js</em></span>
         </a>
-        <div class="zones" title="Where you are on the page" aria-hidden="true">
-          <span class="zone"></span>
-          <span class="zone"></span>
-          <span class="zone"></span>
-          <span class="zone"></span>
+        <div class="lens-toggle" role="group" aria-label="View as: Product, Technical or Business">
+          <span class="lens-toggle-label" aria-hidden="true">View as</span>
+          <button class="lens-option active" type="button" data-view="product" aria-pressed="true">Product</button>
+          <button class="lens-option" type="button" data-view="technical" aria-pressed="false">Technical</button>
+          <button class="lens-option" type="button" data-view="business" aria-pressed="false">Business</button>
         </div>
-        <div class="hd-gap"></div>
         <div class="hd-right">
-          <a class="hd-nav" href="/blog/">Blog</a>
-          <a
-            class="hd-nav"
-            href="https://github.com/footprintjs"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="footprintjs on GitHub"
-            >GitHub ↗</a
-          >
-          <span class="hd-pill">open source · MIT</span>
+          <a class="hd-nav hd-nav-opt" href="#libraries">Libraries</a>
+          <a class="hd-nav hd-nav-opt" href="/blog/">Blog</a>
+          <a class="hd-nav" href="https://github.com/footprintjs" target="_blank" rel="noreferrer" aria-label="footprintjs on GitHub">GitHub ↗</a>
           <button id="theme-toggle" class="hd-icon" type="button" aria-label="Toggle dark mode">
-            <svg class="ic-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <circle cx="12" cy="12" r="4" />
-              <path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" stroke-linecap="round" />
-            </svg>
-            <svg class="ic-moon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
-              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-            </svg>
+            <svg class="ic-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" stroke-linecap="round" /></svg>
+            <svg class="ic-moon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
           </button>
         </div>
       </div>
     </header>
 
-    <!-- ── the lens dock ──────────────────────────────────────────────────────
-         The toggle is the site's thesis in miniature — one record, read through
-         the view that answers your question — so it does not hide in the header
-         nav. It rides just under the header the whole way down the page: a
-         centered pill, the accent yellow reserved for it, with an explicit
-         "View as" so a first-time reader knows it re-aims the WHOLE page rather
-         than filtering a list.
-         The strip itself is transparent and click-through (pointer-events);
-         only the pill takes the pointer. -->
-    <div class="lens-dock">
-      <div class="lens-toggle" role="group" aria-label="View as — Product, Technical, or Business">
-        <span class="lens-toggle-label" aria-hidden="true">View as</span>
-        <button class="lens-option active" type="button" data-view="product" aria-pressed="true">
-          Product
-        </button>
-        <button class="lens-option" type="button" data-view="technical" aria-pressed="false">
-          Technical
-        </button>
-        <button class="lens-option" type="button" data-view="business" aria-pressed="false">
-          Business
-        </button>
-      </div>
-    </div>
-
     <main>
-      <!-- ── hero ────────────────────────────────────────────────────────── -->
-      <section class="hero" id="hero">
-        <div class="hero-in">
-          <div class="hero-copy">
-          <!-- the news strip — current, live claims, in the design's hero-pill form -->
-          <p class="news" aria-label="Explore the ecosystem">
-            <span class="news-dot"></span>
-            <a href="#card-group-libraries">StoryDeck · StoryReel · commerce · data workflows</a>
-            <span class="news-sep">·</span>
-            <a href="https://github.com/footprintjs/footPrint#two-ways-to-work-with-ai" target="_blank" rel="noreferrer">build with a coding agent ↗</a>
-          </p>
-          <h1>Build software you can investigate.</h1>
-          <p class="hero-sub">
-            Connect a result to the recorded steps, inputs and decisions behind it. Give people
-            and coding agents evidence to inspect, with a clear answer when something was not captured.
-          </p>
-          <p class="hero-quote">Capture the connections. Keep the gaps visible.</p>
-          <div class="hero-cta">
-            <a class="btn btn-primary" href="https://github.com/footprintjs/footPrint#one-workflow-one-recorded-investigation" target="_blank" rel="noreferrer">Start with an example ↗</a>
-            <a class="btn btn-ghost" href="#card-group-libraries">Explore the libraries</a>
-          </div>
+      <!-- ── the film. See film.js. Without JavaScript or with reduced motion this
+           section is ordinary reading order: every caption below is real text. ── -->
+      <section class="film" id="film" aria-label="How footprintjs works, in eleven short steps">
+        <div class="film-stage">
+          <div class="film-grid" aria-hidden="true"></div>
+          <canvas id="film-canvas" aria-hidden="true"></canvas>
+
+          <div class="film-hero on">
+            <h1 id="hero-title">Build software you can investigate.</h1>
+            <p id="hero-tagline" class="hero-tagline">Capture the connections. Keep the gaps visible.</p>
+            <div class="hero-cta">
+              <button class="btn btn-primary" type="button" data-film-play data-play-idle="Play the film"><svg class="ic-play" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path class="ic-p" d="M4 2.6v10.8L13 8Z" fill="currentColor"/><path class="ic-pp" d="M4 2.8h3v10.4H4zM9 2.8h3v10.4H9z" fill="currentColor"/></svg><span data-play-label>Play the film</span></button>
+              <a class="btn btn-ghost" href="https://github.com/footprintjs/footPrint#one-workflow-one-recorded-investigation" target="_blank" rel="noreferrer">Start with an example ↗</a>
+            </div>
+            <p class="hero-hint" aria-hidden="true"><span class="hero-mouse"></span><span>Scroll to scrub. Hover a note to walk it back.</span></p>
           </div>
 
-          <!-- the solar system: 3D where it is affordable, the design's own SVG
-               where it is not. Decorative — every claim above is real text. -->
-          <div class="hero-art">
-            <div id="hero-orrery"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── the story: logs → trace → causal trace → the payoff ──────────── -->
-      <section class="story" id="story" aria-label="From an outcome to recorded evidence">
-        <div class="story-in">
-          <ol class="story-beats" id="story-beats"></ol>
-          <p class="story-closing" id="story-closing"></p>
-        </div>
-      </section>
-
-      <section class="development" id="build" aria-labelledby="development-heading">
-        <div class="development-in">
-          <span class="eyebrow-label">Build · record · inspect · verify</span>
-          <h2 id="development-heading" class="view-copy">Build with a coding agent. Debug from the record.</h2>
-          <p id="development-intro" class="development-lead view-copy">Use FootPrint in an ordinary application. Your coding agent can inspect its recorded run without putting an AI model inside the application.</p>
-          <ol id="development-steps" class="development-steps view-copy">
-            <li><h3>Build</h3><p>Use named stages, tracked state and explicit decisions.</p></li>
-            <li><h3>Record</h3><p>Run with the required recorders enabled.</p></li>
-            <li><h3>Inspect</h3><p>Follow the wrong result through its recorded dependencies.</p></li>
-            <li><h3>Verify</h3><p>Test the repair and record another run.</p></li>
+          <ol class="film-caps">
+          <li class="cap" data-chapter="pile">
+            <span class="cap-num" aria-hidden="true">01</span>
+            <h2>Long work leaves a pile of notes.</h2>
+            <p>One question, and you reread them all.</p>
+          </li>
+          <li class="cap" data-chapter="edges">
+            <span class="cap-num" aria-hidden="true">02</span>
+            <h2>Connect them as the work happens.</h2>
+            <p>Every step, value and decision keeps its link.</p>
+          </li>
+          <li class="cap" data-chapter="walk">
+            <span class="cap-num" aria-hidden="true">03</span>
+            <h2>Start at the result. Walk back.</h2>
+            <p>Only the notes behind it light up.</p>
+          </li>
+          <li class="cap" data-chapter="gap">
+            <span class="cap-num" aria-hidden="true">04</span>
+            <h2>Can't connect it? Say why.</h2>
+            <p>A labelled gap beats a confident guess.</p>
+            <div class="answers">
+              <figure class="answer answer-guess">
+                <figcaption class="answer-label">Gap hidden</figcaption>
+                <blockquote class="answer-text">“No warranty applied.”</blockquote>
+              </figure>
+              <figure class="answer answer-honest">
+                <figcaption class="answer-label">Gap labelled</figcaption>
+                <blockquote class="answer-text">“Denied: 45 days¹ is past the 30-day policy². Warranty: unknown³, no order ID to connect it.”</blockquote>
+              </figure>
+            </div>
+          </li>
+          <li class="cap" data-chapter="own">
+            <span class="cap-num" aria-hidden="true">05</span>
+            <h2>By default: build in the pattern.</h2>
+            <p>With recorders on, the run keeps its own edges.</p>
+          </li>
+          <li class="cap" data-chapter="bind">
+            <span class="cap-num" aria-hidden="true">06</span>
+            <h2>You can't rebuild React.</h2>
+            <p>So stitch in code: bind its events into one action.</p>
+          </li>
+          <li class="cap" data-chapter="hybrid">
+            <span class="cap-num" aria-hidden="true">07</span>
+            <h2>Orchestration is a hybrid.</h2>
+            <p>The flow runs in the pattern. Your trainer stays yours and leaves a receipt.</p>
+          </li>
+          <li class="cap" data-chapter="collect">
+            <span class="cap-num" aria-hidden="true">08</span>
+            <h2>Same idea at the collector.</h2>
+            <p>On-prem devices: join what shares an ID, and give every other gap its reason.</p>
+          </li>
+          <li class="cap" data-chapter="lenses">
+            <span class="cap-num" aria-hidden="true">09</span>
+            <h2>One record. A view for each question.</h2>
+            <p>Flow for steps. Why for causes. Story for people.</p>
+            <p class="cap-hint">This page does the same. Try the switch above.</p>
+          </li>
+          <li class="cap" data-chapter="orbit">
+            <span class="cap-num" aria-hidden="true">10</span>
+            <h2>Two ways in. One kind of record.</h2>
+            <p>Stitched by default, or in code with a reason for every gap.</p>
+          </li>
+          <li class="cap" data-chapter="payoff">
+            <span class="cap-num" aria-hidden="true">11</span>
+            <h2>Walk back. Replay.</h2>
+            <p>And a side effect: an audit trail for security monitoring.</p>
+          </li>
           </ol>
-          <p id="development-note" class="evidence-note view-copy">Share the relevant trace slice. Missing evidence stays unknown; token use and development speed depend on your workflow and tooling.</p>
-          <div class="development-links">
-            <a href="https://github.com/footprintjs/footPrint/tree/main/ai-instructions" target="_blank" rel="noreferrer">Coding-agent instructions ↗</a>
-            <a href="https://github.com/footprintjs/footPrint/blob/main/docs/provenance-governance-and-limits.md" target="_blank" rel="noreferrer">Evidence and limits ↗</a>
+
+          <div class="film-readout" aria-hidden="true"><b>0</b><span></span></div>
+          <div class="film-tag" aria-hidden="true">Illustrative example</div>
+          <div class="orbit-tip" aria-hidden="true"><b></b><span></span></div>
+
+          <div class="film-rail">
+            <button class="rail-play" type="button" data-film-play data-play-idle="Play" aria-pressed="false"><svg class="ic-play" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path class="ic-p" d="M4 2.6v10.8L13 8Z" fill="currentColor"/><path class="ic-pp" d="M4 2.8h3v10.4H4zM9 2.8h3v10.4H9z" fill="currentColor"/></svg><span data-play-label>Play</span></button>
+            <div class="rail-track" aria-hidden="false"></div>
+            <a class="rail-skip" href="#libraries">Skip<span class="rail-skip-opt"> to libraries</span> ↓</a>
           </div>
-          <details class="workflow-demo">
-            <summary>Watch an example workflow</summary>
-            <img src="https://raw.githubusercontent.com/footprintjs/footPrint/main/assets/hero.gif" width="800" height="421" loading="lazy" alt="FootPrint demo showing a sample loan workflow and its recorded execution" />
-            <p>A synthetic workflow example. <a href="https://footprintjs.github.io/footprint-playground/">Open the playground to try it.</a></p>
-          </details>
         </div>
       </section>
 
-      <!-- ── the ecosystem: the solar system is the story, the cards are the
-           inventory ───────────────────────────────────────────────────────── -->
-      <div id="traceWrap">
-        <span class="trace-line" aria-hidden="true"></span>
-        <span class="trace-dot" aria-hidden="true"></span>
-        <section class="graph" id="map" aria-label="The footprintjs ecosystem">
-          <div class="eyebrow">
-            <span class="eyebrow-dot"></span>
-            <span class="eyebrow-label">01 · the ecosystem map</span>
-            <span class="eyebrow-line"></span>
-            <span class="eyebrow-note">hover a node — the map is a trace explorer</span>
-          </div>
-          <div class="graph-head">
-            <h2 class="graph-tag view-copy">The ecosystem · choose the layer you need</h2>
-          </div>
-          <p class="graph-lead view-copy">
-            Start with execution and record tools, add the application capabilities you need,
-            and inspect the captured evidence through a viewer. Each library has its own capture limits.
-          </p>
+      <section class="limits" aria-label="What a record does and does not establish">
+        <p id="limits-text">Recording does not need an LLM. Enable the evidence you need before the run; missing evidence stays unknown.</p>
+      </section>
 
-          <p class="map-sources">
-            The edges in a record come from three places. <strong>Bind:</strong> apps built on a framework already
-            carry state transitions; HACI Footprint and VizFootprint add the action binding that makes them decision
-            edges. <strong>Own:</strong> workflows written with FootPrint, AgentFootprint or footprintjs-ml record
-            their edges as they run. <strong>Recover:</strong> logs and metrics from systems we did not build carry
-            no edges; stitching them afterwards is experimental, and every edge that cannot be recovered stays a
-            labelled gap. Foottrace is the layer all three write to.
-          </p>
-          <p class="map-scope view-copy">The map shows selected core relationships. The cards below include the record tools, application libraries and viewers.</p>
-          <nav class="inventory-nav" aria-label="Explore the library groups">
-            <a href="#card-group-engine">Foundations</a>
-            <a href="#card-group-libraries">Application libraries</a>
-            <a href="#card-group-interface">Interaction</a>
-            <a href="#card-group-monitoring">Viewers</a>
-          </nav>
-          <div class="map" id="ecosystem-map"></div>
-          <p class="solar-caption">Flow, Why and Story — different views over supported execution evidence</p>
-          <div class="edge-legend" id="edge-legend" aria-label="What the edges mean"></div>
-          <div class="layer-legend" id="layer-legend" aria-label="What the glyphs mean"></div>
+      <!-- ── the libraries, in the categories the film just explained ── -->
+      <section class="libs" id="libraries" aria-labelledby="libs-heading">
+        <div class="wrap">
+          <h2 id="libs-heading" class="section-title">The libraries</h2>
+          <div id="ecosystem-cards" class="libs-groups"><p class="libs-loading">Loading the libraries…</p></div>
+          <noscript><p>The library list needs JavaScript. Browse <a href="https://github.com/orgs/footprintjs/repositories">every public repository</a> instead.</p></noscript>
+        </div>
+      </section>
 
-          <div id="ecosystem-cards" class="cards">
-            <p class="gb-loading">Loading the ecosystem…</p>
+      <!-- ── the working loop: stations and list share one 12s cycle, CSS only ── -->
+      <section class="build" id="build" aria-labelledby="development-heading">
+        <div class="wrap build-in">
+          <div class="loop" aria-hidden="true">
+            <svg viewBox="0 0 400 400" width="400" height="400">
+              <circle class="loop-ring" cx="200" cy="200" r="150" />
+              <circle class="loop-comet" cx="200" cy="200" r="150" pathLength="100" transform="rotate(-90 200 200)" />
+              <g class="loop-center"><text class="loop-word" style="--i:0" x="200" y="200">Build</text><text class="loop-word" style="--i:1" x="200" y="200">Record</text><text class="loop-word" style="--i:2" x="200" y="200">Inspect</text><text class="loop-word" style="--i:3" x="200" y="200">Verify</text></g>
+              <g class="loop-station" style="--i:0" transform="translate(200 50)"><circle class="loop-halo" r="30"/><circle class="loop-node" r="23"/><g class="loop-ic"><path d="M-7-7h6v6h-6zM1 1h6v6H1z"/><path d="M-1-4h4a2 2 0 0 1 2 2v3"/></g></g>
+              <g class="loop-station" style="--i:1" transform="translate(350 200)"><circle class="loop-halo" r="30"/><circle class="loop-node" r="23"/><g class="loop-ic"><circle r="7"/><circle r="2.6" fill="currentColor" stroke="none"/></g></g>
+              <g class="loop-station" style="--i:2" transform="translate(200 350)"><circle class="loop-halo" r="30"/><circle class="loop-node" r="23"/><g class="loop-ic"><circle cx="-1.5" cy="-1.5" r="5.2"/><path d="m2.4 2.4 4.6 4.6"/></g></g>
+              <g class="loop-station" style="--i:3" transform="translate(50 200)"><circle class="loop-halo" r="30"/><circle class="loop-node" r="23"/><g class="loop-ic"><path d="m-6.5.5 4.2 4.2 8.8-9.4"/></g></g>
+            </svg>
           </div>
-          <noscript>The ecosystem view requires JavaScript to switch between the Product, Technical, and Business copy.</noscript>
-        </section>
-      </div>
+          <div class="build-copy">
+            <h2 id="development-heading" class="section-title">Build with a coding agent. Debug from the record.</h2>
+            <p id="development-intro" class="build-lead">Use FootPrint in an ordinary application. Your coding agent can inspect its recorded run without putting an AI model inside the application.</p>
+            <ol id="development-steps" class="build-steps">
+              <li style="--i:0"><h3>Build</h3><p>Use named stages, tracked state and explicit decisions.</p></li>
+              <li style="--i:1"><h3>Record</h3><p>Run the application with the required recorders enabled.</p></li>
+              <li style="--i:2"><h3>Inspect</h3><p>Follow the wrong result back through its recorded dependencies.</p></li>
+              <li style="--i:3"><h3>Verify</h3><p>Add a regression test, repair the code and record another run.</p></li>
+            </ol>
+            <p id="development-note" class="build-note">Share the relevant trace slice rather than an entire log dump. The context needed depends on the workflow and tooling; no measured token or speed saving is claimed.</p>
+            <div class="build-links">
+              <a href="https://github.com/footprintjs/footPrint/tree/main/ai-instructions" target="_blank" rel="noreferrer">Coding-agent instructions ↗</a>
+              <a href="https://github.com/footprintjs/footPrint/blob/main/docs/provenance-governance-and-limits.md" target="_blank" rel="noreferrer">Evidence and limits ↗</a>
+              <a href="https://footprintjs.github.io/footprint-playground/" target="_blank" rel="noreferrer">Try the playground ↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <!-- ── writing (existing posts + the demo — no new claims) ──────────── -->
-      <section class="writing" id="writing">
-        <div class="writing-in">
-          <div class="eyebrow">
-            <span class="eyebrow-dot"></span>
-            <span class="eyebrow-label">02 · the thinking behind it</span>
-            <span class="eyebrow-line"></span>
-          </div>
+      <section class="writing" id="writing" aria-labelledby="writing-heading">
+        <div class="wrap">
+          <h2 id="writing-heading" class="section-title">The thinking behind it</h2>
           <div class="writing-grid">
             <a href="/blog/visible-reasoning/">
-              <span class="writing-kind">article</span>
-              <span class="writing-title">Visible Reasoning</span>
-              <span class="writing-note">why a run should show its own work</span>
+              <svg class="writing-art" viewBox="0 0 120 54" aria-hidden="true"><path d="M8 44C28 44 26 12 46 12s18 30 38 30 14-26 28-26"/><circle cx="8" cy="44" r="4"/><circle cx="46" cy="12" r="4"/><circle cx="84" cy="42" r="4"/><circle class="hot" cx="112" cy="16" r="5"/></svg>
+              <span class="writing-kind">article</span><span class="writing-title">Visible Reasoning</span>
             </a>
             <a href="/blog/the-flowchart-pattern/">
-              <span class="writing-kind">article</span>
-              <span class="writing-title">The Flowchart Pattern</span>
-              <span class="writing-note">the pattern behind footprintjs</span>
+              <svg class="writing-art" viewBox="0 0 120 54" aria-hidden="true"><rect x="8" y="18" width="26" height="18" rx="4"/><path d="M34 27h14"/><path d="m60 13 14 14-14 14-14-14Z"/><path d="M74 27h12"/><rect class="hot-box" x="86" y="18" width="26" height="18" rx="4"/></svg>
+              <span class="writing-kind">article</span><span class="writing-title">The Flowchart Pattern</span>
             </a>
             <a href="/blog/the-trail-pattern/">
-              <span class="writing-kind">article</span>
-              <span class="writing-title">The Trail Pattern</span>
-              <span class="writing-note">the pattern behind VizFootprint</span>
+              <svg class="writing-art" viewBox="0 0 120 54" aria-hidden="true"><path d="M8 27h34c14 0 14-15 28-15h42"/><path d="M42 27c14 0 14 15 28 15h42"/><circle cx="8" cy="27" r="4"/><circle cx="42" cy="27" r="4"/><circle cx="112" cy="12" r="4"/><circle class="hot" cx="112" cy="42" r="5"/></svg>
+              <span class="writing-kind">article</span><span class="writing-title">The Trail Pattern</span>
             </a>
             <a href="https://youtu.be/vx5amF94ipI" target="_blank" rel="noreferrer">
-              <span class="writing-kind">video</span>
-              <span class="writing-title">37-second demo</span>
-              <span class="writing-note">HACI Footprint operating a live app · YouTube ↗</span>
+              <svg class="writing-art" viewBox="0 0 120 54" aria-hidden="true"><rect x="8" y="6" width="104" height="42" rx="7"/><path class="hot-fill" d="m52 16 20 11-20 11Z"/></svg>
+              <span class="writing-kind">37-second demo ↗</span><span class="writing-title">HACI Footprint operating a live app</span>
             </a>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- ── footer ──────────────────────────────────────────────────────────── -->
     <footer class="ft">
-      <div class="ft-in">
-        <div>
-          <div class="ft-brand">
-            <img src="./assets/logo-foot.png" width="22" height="22" alt="" />
-            <span class="hd-word">footprint<em>js</em></span>
-          </div>
-          <p class="ft-blurb">
-            Connected runtime evidence for people and coding agents. Inspect what was recorded;
-            keep missing evidence unknown.
-          </p>
+      <div class="wrap ft-in">
+        <div class="ft-about">
+          <div class="ft-brand"><img src="./assets/logo.svg" width="24" height="24" alt="" /><span class="hd-word">footprint<em>js</em></span></div>
+          <p>Connected runtime evidence for people and coding agents. Inspect what was recorded; keep missing evidence unknown.</p>
         </div>
         <nav class="ft-col mono" aria-label="Packages">
           <span class="ft-col-h">packages</span>
-          <a href="https://www.npmjs.com/package/footprintjs" target="_blank" rel="noreferrer">footprintjs</a>
-          <a href="https://www.npmjs.com/package/agentfootprint" target="_blank" rel="noreferrer">agentfootprint</a>
-          <a href="https://www.npmjs.com/package/foottrace" target="_blank" rel="noreferrer">foottrace</a>
-          <a href="https://www.npmjs.com/package/footprint-storydeck" target="_blank" rel="noreferrer">StoryDeck</a>
-          <a href="https://www.npmjs.com/package/footprint-storyreel" target="_blank" rel="noreferrer">StoryReel</a>
-          <a href="https://www.npmjs.com/package/footprint-blueprint" target="_blank" rel="noreferrer">Blueprint</a>
-          <a href="https://www.npmjs.com/package/smallbusiness-footprint" target="_blank" rel="noreferrer">Smallbusiness</a>
-          <a href="https://www.npmjs.com/package/footprintjs-datapipeline" target="_blank" rel="noreferrer">Datapipeline</a>
-          <a href="https://www.npmjs.com/package/hcifootprint" target="_blank" rel="noreferrer">hcifootprint</a>
-          <a href="https://www.npmjs.com/package/footprint-explainable-ui" target="_blank" rel="noreferrer">footprint-explainable-ui</a>
-          <a href="https://www.npmjs.com/package/agentfootprint-lens" target="_blank" rel="noreferrer">agentfootprint-lens</a>
-          <a href="https://www.npmjs.com/package/agentthinkingui" target="_blank" rel="noreferrer">agentthinkingui</a>
+          <div class="ft-links">
+            <a href="https://www.npmjs.com/package/footprintjs" target="_blank" rel="noreferrer">footprintjs</a>
+            <a href="https://www.npmjs.com/package/foottrace" target="_blank" rel="noreferrer">foottrace</a>
+            <a href="https://www.npmjs.com/package/agentfootprint" target="_blank" rel="noreferrer">agentfootprint</a>
+            <a href="https://www.npmjs.com/package/hcifootprint" target="_blank" rel="noreferrer">hcifootprint</a>
+            <a href="https://www.npmjs.com/package/contextfootprint" target="_blank" rel="noreferrer">contextfootprint</a>
+            <a href="https://www.npmjs.com/package/footprintjs-datapipeline" target="_blank" rel="noreferrer">footprintjs-datapipeline</a>
+            <a href="https://www.npmjs.com/package/footprint-blueprint" target="_blank" rel="noreferrer">footprint-blueprint</a>
+            <a href="https://www.npmjs.com/package/smallbusiness-footprint" target="_blank" rel="noreferrer">smallbusiness-footprint</a>
+            <a href="https://www.npmjs.com/package/footprint-storydeck" target="_blank" rel="noreferrer">footprint-storydeck</a>
+            <a href="https://www.npmjs.com/package/footprint-storyreel" target="_blank" rel="noreferrer">footprint-storyreel</a>
+            <a href="https://www.npmjs.com/package/footprint-explainable-ui" target="_blank" rel="noreferrer">footprint-explainable-ui</a>
+            <a href="https://www.npmjs.com/package/agentfootprint-lens" target="_blank" rel="noreferrer">agentfootprint-lens</a>
+            <a href="https://www.npmjs.com/package/agentthinkingui" target="_blank" rel="noreferrer">agentthinkingui</a>
+          </div>
         </nav>
         <nav class="ft-col" aria-label="Elsewhere">
           <span class="ft-col-h">elsewhere</span>
           <a href="https://github.com/footprintjs" target="_blank" rel="noreferrer">GitHub org ↗</a>
           <a href="/blog/">Blog</a>
-          <a href="https://github.com/footprintjs/vizfootprint" target="_blank" rel="noreferrer">VizFootprint ↗</a>
+          <a href="/primer/">Primer</a>
         </nav>
       </div>
-      <div class="ft-bottom">
-        <div class="ft-legal">
-          <span>open source</span>
-          <span class="ft-dot">·</span>
-          <a href="https://github.com/footprintjs/footPrint/blob/main/LICENSE" target="_blank" rel="noreferrer">MIT</a>
-          <span class="ft-dot">·</span>
-          <span>© 2024–present Sanjay Krishna Anbalagan</span>
-          <span class="ft-dot">·</span>
-          <span>Created by <a href="https://github.com/sanjay1909" target="_blank" rel="author noreferrer">Sanjay</a></span>
-        </div>
+      <div class="wrap ft-bottom">
+        <span>open source</span><span>·</span><a href="https://github.com/footprintjs/footPrint/blob/main/LICENSE" target="_blank" rel="noreferrer">MIT</a><span>·</span><span>© 2024–present Sanjay Krishna Anbalagan</span><span>·</span><span>Created by <a href="https://github.com/sanjay1909" target="_blank" rel="author noreferrer">Sanjay</a></span>
       </div>
     </footer>
 
@@ -487,9 +487,7 @@
         } catch (e) {}
       });
     </script>
-    <script src="./ecosystem-view-v3.js"></script>
-    <!-- the hero solar system. three.js is vendored same-origin and imported
-         dynamically inside, so narrow / no-WebGL visitors never download it. -->
-    <script type="module" src="./hero-orrery.js"></script>
+    <script src="./film.js"></script>
+    <script src="./ecosystem-view-v4.js"></script>
   </body>
 </html>
