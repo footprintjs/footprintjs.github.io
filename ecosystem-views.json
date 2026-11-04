@@ -13,7 +13,6 @@
         "question": "Why?",
         "gapShort": "unknown",
         "gapTag": "can't connect: no order ID",
-        "recordLabel": "the record",
         "sunLabel": "stitched record",
         "labels": {
           "request": "Refund requested",
@@ -33,13 +32,8 @@
           "honest": "“Denied: 45 days¹ is past the 30-day policy². Warranty: unknown³, no order ID to connect it.”"
         },
         "lanes": {
-          "own": {
-            "title": "Built in the pattern",
-            "mode": "stitched by default"
-          },
           "bind": {
             "title": "Framework apps",
-            "mode": "stitched in code",
             "events": [
               "click",
               "started",
@@ -56,18 +50,13 @@
           },
           "collect": {
             "title": "Device collectors",
-            "mode": "stitched in code",
             "gap": "no shared ID"
           }
         },
         "caps": {
           "pile": {
-            "h": "Long work leaves a pile of notes.",
+            "h": "Everything else leaves a pile of notes.",
             "s": "One question, and you reread them all."
-          },
-          "edges": {
-            "h": "Connect them as the work happens.",
-            "s": "Every step, value and decision keeps its link."
           },
           "walk": {
             "h": "Start at the result. Walk back.",
@@ -78,8 +67,8 @@
             "s": "A labelled gap beats a confident guess."
           },
           "own": {
-            "h": "By default: build in the pattern.",
-            "s": "With recorders on, the run keeps its own edges."
+            "h": "The run writes its own notes.",
+            "s": "Built in the pattern, with recorders on, each note is connected as it is written."
           },
           "bind": {
             "h": "You can't rebuild React.",
@@ -104,6 +93,14 @@
           "collect": {
             "h": "Same idea at the collector.",
             "s": "On-prem devices: join what shares an ID, and give every other gap its reason."
+          },
+          "stitch": {
+            "h": "The pile stays a pile.",
+            "s": "Code threads through the notes where they lie. A note it can't reach keeps the reason."
+          },
+          "join": {
+            "h": "Either way, the notes now have edges.",
+            "s": "Two tracks, one kind of record."
           }
         },
         "zones": {
@@ -199,7 +196,6 @@
         "question": "why?",
         "gapShort": "gap",
         "gapTag": "gap: not-collected",
-        "recordLabel": "the record",
         "sunLabel": "stitched record",
         "labels": {
           "request": "stage intake",
@@ -219,13 +215,8 @@
           "honest": "rootCause: withheld\nalternatives: [age¹ > days²]\ngaps: [not-collected³]\nconfidence: incomplete"
         },
         "lanes": {
-          "own": {
-            "title": "Native flows",
-            "mode": "at runtime"
-          },
           "bind": {
             "title": "Framework boundary",
-            "mode": "programmatic",
             "events": [
               "fired",
               "busy",
@@ -242,7 +233,6 @@
           },
           "collect": {
             "title": "Collector level",
-            "mode": "programmatic",
             "gap": "gap: no-match"
           }
         },
@@ -250,10 +240,6 @@
           "pile": {
             "h": "Logs are facts without edges.",
             "s": "To find one cause, you scan them all."
-          },
-          "edges": {
-            "h": "Record edges during execution.",
-            "s": "Reads, writes and decisions, from the recorders you enable."
           },
           "walk": {
             "h": "Slice backward from the outcome.",
@@ -264,8 +250,8 @@
             "s": "A missing edge withholds the root cause. It never invents one."
           },
           "own": {
-            "h": "By default: edges at write time.",
-            "s": "Named stages, tracked state, explicit decisions."
+            "h": "Native flows record at runtime.",
+            "s": "Stages execute. Recorders turn reads, writes and decisions into edges."
           },
           "bind": {
             "h": "Frameworks: stitch programmatically.",
@@ -290,6 +276,14 @@
           "collect": {
             "h": "Collectors: stitch at the source.",
             "s": "Join on shared keys. A failed join keeps its reason code."
+          },
+          "stitch": {
+            "h": "Edges added in place.",
+            "s": "The source stays as it is. A failed join keeps its reason code."
+          },
+          "join": {
+            "h": "Either way, a graph you can slice.",
+            "s": "Two paths to one kind of evidence. Formats vary by library."
           }
         },
         "zones": {
@@ -385,7 +379,6 @@
         "question": "Why?",
         "gapShort": "unknown",
         "gapTag": "not connected: no order ID",
-        "recordLabel": "the record",
         "sunLabel": "stitched record",
         "labels": {
           "request": "Customer asks for a refund",
@@ -405,13 +398,8 @@
           "honest": "“Denied: 45 days¹ is past the 30-day policy². Warranty: unknown³, the systems aren't connected.”"
         },
         "lanes": {
-          "own": {
-            "title": "Built this way",
-            "mode": "from the start"
-          },
           "bind": {
             "title": "Apps you have",
-            "mode": "connected in code",
             "events": [
               "click",
               "started",
@@ -428,18 +416,13 @@
           },
           "collect": {
             "title": "Devices you run",
-            "mode": "connected in code",
             "gap": "no shared ID"
           }
         },
         "caps": {
           "pile": {
-            "h": "Why was this refund denied?",
-            "s": "The answer is in there, somewhere."
-          },
-          "edges": {
-            "h": "Keep the reason with the work.",
-            "s": "Steps, values and decisions stay connected."
+            "h": "Everything else leaves a pile.",
+            "s": "Why was this refund denied? The answer is in there, somewhere."
           },
           "walk": {
             "h": "Follow the record to the reason.",
@@ -450,8 +433,8 @@
             "s": "The reason is attached, so nobody fills it with a guess."
           },
           "own": {
-            "h": "Build it in from the start.",
-            "s": "The workflow keeps its own record."
+            "h": "Built this way, the work records itself.",
+            "s": "Every step keeps its reason as it happens."
           },
           "bind": {
             "h": "Keep the app you have.",
@@ -476,6 +459,14 @@
           "collect": {
             "h": "Keep the devices you run.",
             "s": "Connect what the collectors see, and flag what they can't."
+          },
+          "stitch": {
+            "h": "Nothing gets rebuilt.",
+            "s": "The records stay where they are. What can't be connected says why."
+          },
+          "join": {
+            "h": "Either way, the reason is on record.",
+            "s": "Built in or connected later, you can follow it back."
           }
         },
         "zones": {

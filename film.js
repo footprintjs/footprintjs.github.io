@@ -12,11 +12,18 @@
    frames, so scrolling is scrubbing: forward, backward, or jump to any frame.
    Replay and time travel are not a metaphor here.
 
-   The objects persist across the whole film. The note that falls into the pile
-   in chapter one is the node that lights up in chapter three, the dot on the
-   record in chapter five and a tick on the Story Lens timeline in chapter six,
-   before it falls into the sun in the last shot. Those are match cuts, and they
-   are what makes this read as one film rather than a set of slides.
+   The film has two tracks, because there are two ways to get a record. On the
+   left, software built in the pattern: a flowchart runs and writes its own notes,
+   each one connected as it is written. There is never a pile. On the right,
+   everything else: a pile of notes that stays a pile, stitched in code where the
+   notes lie, with a reason kept for every join that cannot be made. The two tracks
+   take turns on screen, then join for the walk back, and the scrubber draws the
+   same shape.
+
+   The objects persist. The notes that join in the middle are the nodes that light
+   up on the walk, the ticks on the Story Lens timeline, and what falls into the sun
+   in the last shot. Those are match cuts, and they are what makes this read as one
+   film rather than a set of slides.
 
    View as (Product, Technical, Business) changes the WORDS on the objects while
    the film runs. Positions, order and timing never change between views.
@@ -74,67 +81,105 @@
 
   /* ── the timeline, in beats ─────────────────────────────────────────────── */
   const T = {
-    rainA: 1, dropA: 1.75, dropB: 2.3,
-    scanA: 2.45, scanB: 3.75,
-    flowA: 4, flowB: 5.1,
-    runA: 4.85, runB: 6.25,
-    walkA: 7.1,
-    gapA: 10.05, gapHit: 10.75,
-    guessA: 11.3, guessB: 11.75, strike: 12.2,
-    honestA: 12.5, honestB: 13,
-    gapEnd: 14.2,
-    spineA: 14.2, spineB: 15,
-    ownA: 14.9, ownB: 16.1,
-    bindA: 16.2, bindB: 17.7,
-    hybA: 17.8, hybB: 19.3,
-    colA: 19.4, colB: 21,
-    upA: 21, upB: 21.7, srcEnd: 21.8,
-    lensA: 21.8, lensB: 22.6,
-    whyA: 23.2, whyB: 23.9,
-    storyA: 24.6, storyB: 25.3,
-    scrubA: 25.3, scrubB: 26.55,
-    orbitA: 26.8, sunB: 27.35, orbitB: 28.5,
-    feedA: 28.75, feedB: 29.6,
-    backA: 30.2, backB: 31,
-    replayA: 31.15, replayB: 31.95,
-    auditA: 32.05, auditB: 32.85,
-    end: 34
+    /* two tracks, taking turns */
+    runA: 1.25, runB: 3.95, leftEnd: 4.45,
+    rainA: 4.5, dropA: 5, dropB: 5.55,
+    scanA: 5.7, scanB: 6.95,
+    bindA: 7.25, bindB: 8.8,
+    hybA: 8.9, hybB: 10.45,
+    colA: 10.55, colB: 12.2,
+    stitchA: 12.35, stitchB: 13.85,
+    /* they join */
+    joinA: 14.1, joinB: 15.15,
+    /* one track from here on */
+    walkA: 15.3,
+    gapA: 18.25, gapHit: 18.95,
+    guessA: 19.5, guessB: 19.95, strike: 20.4,
+    honestA: 20.7, honestB: 21.2,
+    gapEnd: 22.4,
+    lensA: 22.4, lensB: 23.2,
+    whyA: 23.8, whyB: 24.5,
+    storyA: 25.2, storyB: 25.9,
+    scrubA: 25.9, scrubB: 27.15,
+    orbitA: 27.4, sunB: 27.95, orbitB: 29.1,
+    feedA: 29.35, feedB: 30.2,
+    backA: 30.8, backB: 31.6,
+    replayA: 31.75, replayB: 32.55,
+    auditA: 32.65, auditB: 33.45,
+    end: 34.6
   };
   /* which caption is on screen when */
   const CHAPTERS = [
-    ['hero', 0, 0.85], ['pile', 0.95, 3.95], ['edges', 4.05, 6.95], ['walk', 7.05, 9.95],
-    ['gap', 10.05, 14.15], ['own', 14.4, 16.15], ['bind', 16.25, 17.75], ['hybrid', 17.85, 19.35], ['collect', 19.45, 21.75],
-    ['lenses', 21.9, 26.75], ['orbit', 26.9, 29.95], ['payoff', 30.05, 1e9]
+    ['hero', 0, 0.85], ['own', 1.05, 4.4], ['pile', 4.5, 7.2], ['bind', 7.25, 8.85], ['hybrid', 8.9, 10.5], ['collect', 10.55, 12.3],
+    ['stitch', 12.35, 14.05], ['join', 14.1, 15.25], ['walk', 15.3, 18.2], ['gap', 18.25, 22.35],
+    ['lenses', 22.5, 27.35], ['orbit', 27.5, 30.75], ['payoff', 30.85, 1e9]
   ];
-  /* the scrubber's ticks */
-  const RAIL = [['Pile', 1.05], ['Edges', 4.1], ['Walk back', 7.1], ['Gaps', 10.1], ['Sources', 14.5], ['Lenses', 21.95], ['Ecosystem', 27.9], ['Audit', 30.3]];
+  /* which track of the scrubber each chapter belongs to; everything else is the joined line */
+  const TRACK_OF = { hero: 'both', own: 'top', pile: 'bottom', bind: 'bottom', hybrid: 'both', collect: 'bottom', stitch: 'bottom', join: 'both' };
+  /* the scrubber's stops */
+  const RAIL = [
+    ['By default', T.runA + 0.1, 'top'],
+    ['Pile', T.rainA + 0.1, 'bottom'],
+    ['React', T.bindA + 0.1, 'bottom'],
+    ['Hybrid', T.hybA + 0.1, 'between'],
+    ['Collect', T.colA + 0.1, 'bottom'],
+    ['Stitch', T.stitchA + 0.1, 'bottom'],
+    ['Walk back', T.walkA + 0.05, 'mid'],
+    ['Gaps', T.gapA + 0.1, 'mid'],
+    ['Lenses', T.lensA + 0.2, 'mid'],
+    ['Ecosystem', T.sunB + 0.9, 'mid'],
+    ['Audit', T.backA + 0.1, 'mid']
+  ];
   /* the frame each chapter holds on when motion is reduced */
-  const STILLS = { hero: 0.05, pile: 3.5, edges: 6.8, walk: 9.7, gap: 14, own: 16.05, bind: 17.65, hybrid: 19.25, collect: 20.95, lenses: 23.95, orbit: 29.7, payoff: 33.6 };
+  const STILLS = { hero: 0.05, own: T.runB + 0.3, pile: T.scanB + 0.15, bind: T.bindB - 0.14, hybrid: T.hybB - 0.14, collect: T.colB - 0.14, stitch: T.stitchB + 0.1, join: T.joinB, walk: 17.9, gap: 21.9, lenses: T.whyB + 0.5, orbit: T.feedB + 0.35, payoff: T.end - 0.5 };
 
   /* ── the cast ───────────────────────────────────────────────────────────── */
-  const N = 44;
-  const HERO_N = 27;
   const KEYS = ['request', 'order', 'age', 'policy', 'warranty', 'decide', 'denied', 'approved', 'email'];
+  /* the same facts as they exist on the right track: loose notes in the pile */
+  const SHADOWS = ['request', 'order', 'age', 'policy', 'decide', 'denied', 'email'];
+  const FILLERS = 36;
+  const PILE_N = 44;             /* the loose notes, the warranty note and the shadows */
+  const HERO_N = 27;             /* how much of the pile is there when the page opens */
+  const LOOP = 9;                /* seconds: the opening shot's two tracks take turns on this cycle */
 
-  /* the recorded forward edges, with when the run draws each one */
+  /* the run, going forward. `u` is when each edge is drawn, as a fraction of the run. */
   const RUN = [
-    { a: 'request', b: 'order', ax: 0, bx: 0, w: [4.9, 5.2] },
-    { a: 'order', b: 'age', ax: -0.18, bx: 0.08, w: [5.2, 5.52] },
-    { a: 'order', b: 'email', side: true, w: [5.25, 5.6] },
-    { a: 'age', b: 'decide', ax: 0.12, bx: -0.26, w: [5.52, 5.84] },
-    { a: 'policy', b: 'decide', ax: -0.1, bx: 0.06, w: [5.42, 5.84] },
-    { a: 'decide', b: 'denied', ax: -0.16, bx: 0.1, w: [5.84, 6.16] },
-    { a: 'decide', b: 'approved', ax: 0.24, bx: -0.12, ghost: true, w: [5.9, 6.25] }
+    { a: 'request', b: 'order', ax: 0, bx: 0, u: [0.03, 0.22] },
+    { a: 'order', b: 'age', ax: -0.18, bx: 0.08, u: [0.22, 0.42] },
+    { a: 'order', b: 'email', side: true, u: [0.26, 0.46] },
+    { a: 'age', b: 'decide', ax: 0.12, bx: -0.26, u: [0.42, 0.64] },
+    { a: 'policy', b: 'decide', ax: -0.1, bx: 0.06, u: [0.42, 0.64] },
+    { a: 'decide', b: 'denied', ax: -0.16, bx: 0.1, u: [0.64, 0.86] },
+    { a: 'decide', b: 'approved', ax: 0.24, bx: -0.12, ghost: true, u: [0.68, 0.92] }
   ];
-  /* the walk back along those same edges: when the comet leaves and arrives */
+  /* when the run reaches each stage and its note is written */
+  const BORN = { request: 0.02, order: 0.22, age: 0.42, policy: 0.42, email: 0.46, decide: 0.64, denied: 0.86, approved: 0.92 };
+  /* on a phone the left pane is short, so the same stages read along two rows */
+  const COMPACT = { 'request>order': 'across', 'order>age': 'across', 'policy>decide': 'across', 'decide>denied': 'across', 'age>decide': 'down' };
+  /* stitching in code: the same facts, joined where they lie. `at` is a fraction of the stitch. */
+  const STITCH = [
+    { a: 'request', b: 'order', at: [0, 0.17] },
+    { a: 'order', b: 'age', at: [0.17, 0.34] },
+    { a: 'age', b: 'decide', at: [0.34, 0.52] },
+    { a: 'policy', b: 'decide', at: [0.34, 0.52] },
+    { a: 'decide', b: 'denied', at: [0.52, 0.7] }
+  ];
+  const STITCHED_AT = { request: 0, order: 0.17, age: 0.34, policy: 0.34, decide: 0.52, denied: 0.7 };
+  const STITCH_GAP = [0.72, 0.9];  /* the one join that cannot be made */
+  const GAP_SHOWN = T.stitchA + STITCH_GAP[1] * (T.stitchB - T.stitchA);
+  /* where the stitched notes lie in the pile, so the thread reads as a path */
+  const PILE_RANK = { request: 30, order: 20, age: 9, policy: 33, decide: 3, email: 14 };
+  const WARRANTY_RANK = 24;
+
+  /* the walk back along the joined record: when the comet leaves and arrives */
   const WALK = [
-    { a: 'decide', b: 'denied', ax: -0.16, bx: 0.1, w: [7.45, 7.85] },
-    { a: 'age', b: 'decide', ax: 0.12, bx: -0.26, w: [7.85, 8.25] },
-    { a: 'policy', b: 'decide', ax: -0.1, bx: 0.06, w: [7.85, 8.35] },
-    { a: 'order', b: 'age', ax: -0.18, bx: 0.08, w: [8.25, 8.65] },
-    { a: 'request', b: 'order', ax: 0, bx: 0, w: [8.65, 9.05] }
+    { a: 'decide', b: 'denied', ax: -0.16, bx: 0.1, w: [15.65, 16.05] },
+    { a: 'age', b: 'decide', ax: 0.12, bx: -0.26, w: [16.05, 16.45] },
+    { a: 'policy', b: 'decide', ax: -0.1, bx: 0.06, w: [16.05, 16.55] },
+    { a: 'order', b: 'age', ax: -0.18, bx: 0.08, w: [16.45, 16.85] },
+    { a: 'request', b: 'order', ax: 0, bx: 0, w: [16.85, 17.25] }
   ];
-  const LIT_AT = { denied: 7.25, decide: 7.85, age: 8.25, policy: 8.35, order: 8.65, request: 9.05 };
+  const LIT_AT = { denied: 15.45, decide: 16.05, age: 16.45, policy: 16.55, order: 16.85, request: 17.25 };
   const BREAK = 0.56;            /* how far along the attempted edge the comet gets */
   const CHAIN = ['request', 'order', 'age', 'policy', 'warranty', 'decide', 'denied'];
   const WHY_TREE = { denied: [0, 0, null], decide: [1, 1, 'denied'], age: [2, 2, 'decide'], order: [3, 3, 'age'], request: [4, 4, 'order'], policy: [5, 2, 'decide'], warranty: [6, 2, 'decide'] };
@@ -149,24 +194,31 @@
   function makeNotes() {
     const r = rng(1909);
     const notes = [];
-    for (let i = 0; i < N; i++) {
-      notes.push({
-        i, key: i < KEYS.length ? KEYS[i] : null,
-        jitter: r(), rot: r() - 0.5, depth: r(), delay: r(), phase: r() * TAU, wob: 0.5 + r(),
-        lines: [0.6 + 0.4 * r(), 0.45 + 0.5 * r(), 0.3 + 0.45 * r()]
-      });
-    }
+    const add = (fields) => notes.push(Object.assign({
+      i: notes.length, jitter: r(), rot: r() - 0.5, depth: r(), delay: r(), phase: r() * TAU, wob: 0.5 + r(),
+      lines: [0.6 + 0.4 * r(), 0.45 + 0.5 * r(), 0.3 + 0.45 * r()]
+    }, fields));
+    KEYS.forEach((key) => add({ key }));
+    for (let i = 0; i < FILLERS; i++) add({ filler: true });
+    SHADOWS.forEach((shadow) => add({ shadow }));
     /* rank decides where in the heap a note lands (0 is the centre) and whether
        it is already there when the page opens */
-    const others = notes.filter((n) => n.key !== 'denied');
-    for (let i = others.length - 1; i > 0; i--) {
+    const pile = notes.filter((n) => n.filler || n.shadow || n.key === 'warranty');
+    const taken = {};
+    pile.forEach((n) => {
+      if (n.shadow === 'denied') n.rank = -1;
+      else if (n.shadow) { n.rank = PILE_RANK[n.shadow]; taken[n.rank] = true; }
+      else if (n.key === 'warranty') { n.rank = WARRANTY_RANK; taken[n.rank] = true; }
+    });
+    const open = [];
+    for (let k = 0; k < PILE_N - 1; k++) if (!taken[k]) open.push(k);
+    for (let i = open.length - 1; i > 0; i--) {
       const j = Math.floor(r() * (i + 1));
-      [others[i], others[j]] = [others[j], others[i]];
+      [open[i], open[j]] = [open[j], open[i]];
     }
-    others.forEach((n, k) => { n.rank = k; });
-    notes[KEYS.indexOf('denied')].rank = -1;
+    pile.filter((n) => n.filler).forEach((n, k) => { n.rank = open[k]; });
     /* the order the frantic reread passes over them */
-    const scan = notes.slice();
+    const scan = pile.slice();
     for (let i = scan.length - 1; i > 0; i--) {
       const j = Math.floor(r() * (i + 1));
       [scan[i], scan[j]] = [scan[j], scan[i]];
@@ -182,7 +234,12 @@
       this.c = canvas.getContext('2d');
       this.notes = makeNotes();
       this.byKey = {};
-      this.notes.forEach((n) => { if (n.key) this.byKey[n.key] = n; });
+      this.byShadow = {};
+      this.notes.forEach((n) => {
+        if (n.key) this.byKey[n.key] = n;
+        if (n.shadow) this.byShadow[n.shadow] = n;
+      });
+      this.pile = this.notes.filter((n) => n.filler || n.shadow || n.key === 'warranty');
       this.copy = null;
       this.prevCopy = null;
       this.flipAt = -99;
@@ -218,7 +275,6 @@
         return list.length > n ? shown + ' +' + (list.length - n) : shown;
       };
       this.laneNames = {
-        own: named(['agentfootprint', 'blueprint', 'smallbusiness', 'storyreel'], 3),
         bind: named(['hcifootprint', 'vizfootprint'], 2),
         hybrid: named(['footprintjs-ml'], 1),
         collect: named(['datapipeline'], 1)
@@ -237,7 +293,7 @@
       this.pal = {
         dark: root.classList.contains('dark'), bg: g('--bg'), ink: g('--fg'), muted: g('--fg-muted'), faint: g('--fg-faint'),
         note: g('--f-note'), noteLine: g('--f-note-line'), faux: g('--f-faux'), shadow: g('--f-shadow'), edge: g('--f-edge'),
-        run: g('--f-run'), walk: g('--f-walk'), walkBg: g('--f-walk-bg'), gap: g('--f-gap'), gapBg: g('--f-gap-bg'),
+        run: g('--f-run'), walk: g('--f-walk'), walkBg: g('--f-walk-bg'), bindBg: g('--f-bind-bg'), gap: g('--f-gap'), gapBg: g('--f-gap-bg'),
         own: g('--f-own'), bind: g('--f-bind'), hybrid: g('--f-hybrid'), lens: g('--f-lens'), sun: g('--yellow'), onSun: g('--yellow-on')
       };
       this.sprites.clear();
@@ -272,28 +328,44 @@
       }
       this.A = A;
 
+      /* the split: one pane per track until they join */
+      const gapP = portrait ? 12 : 26;
+      const PL = this.PL = portrait ? { x: A.x, y: A.y, w: A.w, h: (A.h - gapP) / 2 } : { x: A.x, y: A.y, w: (A.w - gapP) / 2, h: A.h };
+      const PR = this.PR = portrait ? { x: A.x, y: A.y + PL.h + gapP, w: A.w, h: PL.h } : { x: A.x + PL.w + gapP, y: A.y, w: PL.w, h: A.h };
+      const labelH = portrait ? 24 : 40;
+      const inner = (P) => ({ x: P.x + (portrait ? 2 : 6), y: P.y + labelH, w: P.w - (portrait ? 4 : 12), h: P.h - labelH - (portrait ? 2 : 6) });
+      const IL = this.IL = inner(PL), IR = this.IR = inner(PR);
+
       const kw = this.kw = portrait ? (A.w - 12) / 3.06 : clamp(A.w * 0.225, 132, 272);
       const kh = this.kh = portrait ? clamp(A.h * 0.112, 32, 44) : clamp(A.h * 0.088, 40, 74);
-      const pw = this.pw = clamp(A.w * 0.145, 52, 168);
+      const pw = this.pw = portrait ? clamp(IR.w * 0.165, 44, 74) : clamp(IR.w * 0.225, 58, 128);
       const ph = pw * 0.62;
       const fw = clamp(A.w * 0.036, 15, 34);
       const fh = fw * 0.62;
       this.nr = portrait ? 7 : 9;
-      this.fs = portrait ? clamp(kw / 10, 10, 12) : clamp(kw / 13.6, 11.5, 17.5);
 
       /* the heap: a golden-angle spiral with jitter, so it reads as a mess but
          never clumps into something unreadable */
-      const cx = A.x + A.w * 0.5, cy = A.y + A.h * 0.5;
-      const rx = A.w * 0.5 - pw * 0.56, ry = A.h * 0.5 - ph * 0.68;
-      this.notes.forEach((n) => {
-        if (n.key === 'denied') {
-          n.P = { x: cx, y: cy - A.h * 0.03, w: Math.max(pw * 1.42, portrait ? 112 : 150), h: Math.max(ph * 1.2, 40), rot: -0.05 };
+      const cx = IR.x + IR.w * 0.5, cy = IR.y + IR.h * 0.5;
+      const rx = IR.w * 0.5 - pw * 0.54, ry = IR.h * 0.5 - ph * 0.62;
+      this.pile.forEach((n) => {
+        if (n.shadow === 'denied') {
+          n.P = { x: cx, y: cy - IR.h * 0.02, w: Math.max(pw * 1.5, portrait ? 100 : 142), h: Math.max(ph * 1.24, 34), rot: -0.05 };
           return;
         }
-        const rad = Math.sqrt((n.rank + 0.5) / N);
+        const rad = Math.sqrt((n.rank + 0.5) / PILE_N);
         const ang = n.rank * 2.39996 + n.jitter * 0.6;
         const s = 0.9 + 0.22 * n.depth;
         n.P = { x: cx + Math.cos(ang) * rad * rx, y: cy + Math.sin(ang) * rad * ry, w: pw * s, h: ph * s, rot: n.rot * 0.62 };
+      });
+      /* the notes the stitch will reach lie apart, so its thread reads as a path */
+      const LIE = portrait
+        ? { request: [0.13, 0.24], order: [0.38, 0.18], age: [0.63, 0.26], policy: [0.14, 0.76], decide: [0.42, 0.7], denied: [0.68, 0.84], warranty: [0.89, 0.34] }
+        : { request: [0.24, 0.13], order: [0.7, 0.2], age: [0.26, 0.38], policy: [0.76, 0.44], decide: [0.5, 0.6], denied: [0.27, 0.79], warranty: [0.77, 0.8] };
+      Object.keys(LIE).forEach((k) => {
+        const n = k === 'warranty' ? this.byKey.warranty : this.byShadow[k];
+        n.P.x = IR.x + LIE[k][0] * IR.w;
+        n.P.y = IR.y + LIE[k][1] * IR.h;
       });
 
       /* the flow: forward runs downward, so walking back moves upward, the same
@@ -306,10 +378,20 @@
         n.F = { x: A.x + POS[k][0] * A.w, y: A.y + POS[k][1] * A.h, w: kw, h: kh, rot: 0 };
       });
 
+      /* the same flow before the join, in the left pane */
+      const kwD = portrait ? (IL.w - 12) / 3.06 : clamp(IL.w * 0.44, 104, 236);
+      const khD = portrait ? clamp(IL.h * 0.27, 28, 42) : clamp(IL.h * 0.092, 36, 64);
+      const DPOS = portrait
+        ? { request: [0.17, 0.24], order: [0.5, 0.24], age: [0.83, 0.24], policy: [0.17, 0.78], decide: [0.5, 0.78], denied: [0.83, 0.78], email: [0.5, 0.24], approved: [0.5, 0.78] }
+        : { request: [0.27, 0.06], order: [0.27, 0.27], email: [0.76, 0.27], age: [0.24, 0.5], policy: [0.76, 0.5], decide: [0.5, 0.71], denied: [0.27, 0.94], approved: [0.75, 0.94] };
+      Object.keys(DPOS).forEach((k) => {
+        this.byKey[k].D = { x: IL.x + DPOS[k][0] * IL.w, y: IL.y + DPOS[k][1] * IL.h, w: kwD, h: khD, hide: portrait && (k === 'email' || k === 'approved') };
+      });
+
       /* the rest of the work: small notes scattered round the flow, wired to each
          other and never upstream of the result */
       const r = rng(4242);
-      const fillers = this.notes.filter((n) => !n.key);
+      const fillers = this.notes.filter((n) => n.filler);
       const placed = [];
       const clear = (x, y, m) => KEYS.every((k) => {
         const f = this.byKey[k].F;
@@ -341,18 +423,10 @@
           if (d < pd) { pd = d; par = m; }
         }
         if (!par && r() < 0.5) par = this.byKey.email;
-        if (par && pd < minD * 2.6) this.fe.push({ a: par, b: n, t0: T.flowB - 0.3 + ((n.F.y - A.y) / A.h) * 1 });
+        if (par && pd < minD * 2.6) this.fe.push({ a: par, b: n, t0: T.joinB - 0.35 + ((n.F.y - A.y) / A.h) * 0.75 });
       });
 
-      /* the record: the same notes reduced to dots on one line */
-      this.SX = A.x + A.w * (portrait ? 0.945 : 0.93);
       const dot = portrait ? 10 : 13;
-      CHAIN.forEach((k, i) => {
-        this.byKey[k].S = { x: this.SX, y: lerp(A.y + A.h * 0.09, A.y + A.h * 0.94, i / (CHAIN.length - 1)), w: dot, h: dot, rot: 0 };
-      });
-      const laneH = A.h / 4;
-      const laneW = this.SX - A.x - (portrait ? 16 : 34);
-      this.lanes = [0, 1, 2, 3].map((k) => ({ x: A.x + (portrait ? 2 : 0), y: A.y + k * laneH + 2, w: laneW, h: laneH - 6, cy: A.y + (k + 0.5) * laneH }));
 
       /* Flow Lens: the flow again, shifted down to clear the lens tabs */
       const tabH = this.tabH = portrait ? 24 : 34;
@@ -392,12 +466,12 @@
 
       /* a few walks for the opening shot */
       this.hooks = [];
-      const visible = this.notes.filter((n) => n.rank >= 0 && n.rank < HERO_N);
+      const visible = this.pile.filter((n) => n.rank >= 0 && n.rank < HERO_N);
       const r2 = rng(311);
       const chainFrom = (start) => {
         const chain = [start];
-        const span = Math.min(A.w, A.h);
-        /* head back through the pile, away from where the walk began */
+        const span = Math.min(IR.w, IR.h * 1.4);
+        /* head through the pile, away from where the walk began */
         let ux = cx - start.P.x, uy = cy - start.P.y;
         const len0 = Math.hypot(ux, uy) || 1;
         ux /= len0; uy /= len0;
@@ -590,7 +664,8 @@
     drawText(text, w, h, alpha, dy, mono, weight, color) {
       const c = this.c;
       const big = weight > 600;
-      const L = this.fit(text, w - (this.portrait ? 10 : 16), this.fs * (mono ? 0.86 : 1) * (big ? 1.04 : 1), mono, weight);
+      const sized = this.portrait ? clamp(w / 10, 8.8, 12) : clamp(w / 13.6, 9.8, 17.5);
+      const L = this.fit(text, w - (this.portrait ? 10 : 14), sized * (mono ? 0.86 : 1) * (big ? 1.04 : 1), mono, weight);
       c.font = font(L.size, weight, mono);
       c.fillStyle = color;
       c.globalAlpha = alpha;
@@ -610,85 +685,142 @@
       }
     }
 
+    /* ── the two tracks take turns ── */
+    /* how much of the run has happened. On the opening shot it loops by itself. */
+    runU(t, clock) {
+      if (this.still) return t < T.runA ? 1 : win(T.runA, T.runB, t);
+      if (t >= T.runA - 0.2) return win(T.runA, T.runB, t);
+      return win(1, 4.2, clock % LOOP);
+    }
+    heroFade(t, clock) {
+      if (this.still || t >= T.runA - 0.2) return 1;
+      return (1 - win(8.4, 8.95, clock % LOOP)) * (1 - win(0.5, 0.9, t));
+    }
+    leftDim(t) {
+      const rest = win(T.leftEnd - 0.1, T.leftEnd + 0.25, t) * (1 - win(T.joinA - 0.2, T.joinA + 0.15, t));
+      const deep = win(T.hybA - 0.25, T.hybA, t) * (1 - win(T.hybB - 0.1, T.hybB + 0.1, t));
+      return lerp(1, 0.4, rest) * lerp(1, 0.32, deep);
+    }
+    rightDim(t) {
+      const waits = win(0.35, 1.05, t) * (1 - win(T.leftEnd - 0.1, T.rainA + 0.1, t));
+      const stops = win(T.bindA - 0.25, T.bindA + 0.05, t) * (1 - win(T.stitchA - 0.25, T.stitchA + 0.05, t));
+      return lerp(1, 0.42, waits) * lerp(1, 0.06, stops);
+    }
+    stitched(n, t) {
+      const at = STITCHED_AT[n.shadow];
+      if (at === undefined) return 0;
+      const d = T.stitchB - T.stitchA;
+      return win(T.stitchA + at * d, T.stitchA + (at + 0.09) * d, t);
+    }
+
     /* ── where a note is at time t ── */
     pose(n, t, clock) {
-      const P = n.P;
-      let x = P.x, y = P.y, w = P.w, h = P.h, rot = P.rot, a = 1;
-      const key = n.key;
-
-      /* arrival */
-      if (key === 'denied') {
+      return n.D ? this.poseLeft(n, t, clock) : this.posePile(n, t, clock);
+    }
+    /* after the join, everything on the record goes through the lenses into the sun */
+    lensStages(n, t, p) {
+      const stages = [
+        ['LF', T.lensA + n.delay * 0.18, T.lensB],
+        ['WHY', T.whyA + n.delay * 0.1, T.whyB],
+        ['ST', T.storyA + n.delay * 0.1, T.storyB]
+      ];
+      for (const [name, a0, b0] of stages) {
+        const m = E.inOut(win(a0, b0, t));
+        if (m <= 0) break;
+        const q = n[name];
+        p.x = lerp(p.x, q.x, m); p.y = lerp(p.y, q.y, m); p.w = lerp(p.w, q.w, m); p.h = lerp(p.h, q.h, m); p.rot = lerp(p.rot, 0, m);
+      }
+      const m = E.inOut(win(T.orbitA + n.delay * 0.14, T.sunB - 0.06, t));
+      if (m > 0) {
+        p.x = lerp(p.x, this.oc.x, m); p.y = lerp(p.y, this.oc.y, m);
+        p.a *= 1 - win(T.sunB - 0.2, T.sunB, t);
+      }
+    }
+    /* the left track: no note exists until the run reaches its stage */
+    poseLeft(n, t, clock) {
+      const key = n.key, D = n.D, F = n.F;
+      const q = win(BORN[key], BORN[key] + 0.05, this.runU(t, clock));
+      const s = q > 0 ? E.back(q) : 0;
+      const p = { x: D.x, y: D.y, w: D.w * s, h: D.h * s, rot: 0, a: q > 0 ? 1 : 0 };
+      const d0 = T.joinA + n.delay * 0.22;
+      const m = E.inOut(win(d0, d0 + 0.72, t));
+      if (m > 0) {
+        const ms = E.settle(win(d0, d0 + 0.72, t));
+        p.x = lerp(D.x, F.x, ms); p.y = lerp(D.y, F.y, ms);
+        p.w = lerp(D.w, F.w, m); p.h = lerp(D.h, F.h, m);
+      }
+      if (D.hide) p.a *= m;
+      p.a *= this.leftDim(t) * this.heroFade(t, clock);
+      if (key === 'email' || key === 'approved') {
+        const out = key === 'approved' ? win(T.gapA, T.gapA + 0.45, t) : win(T.lensA, T.lensA + 0.34, t);
+        p.a *= 1 - out;
+        if (key === 'email') { p.w *= 1 - out * 0.7; p.h *= 1 - out * 0.7; }
+        p.a *= lerp(1, 0.3, win(T.walkA + 0.25, T.walkA + 1.3, t));
+      } else {
+        this.lensStages(n, t, p);
+      }
+      return p;
+    }
+    /* the right track: a pile, and it stays a pile until the join */
+    posePile(n, t, clock) {
+      const P = n.P, sk = n.shadow;
+      const p = { x: P.x, y: P.y, w: P.w, h: P.h, rot: P.rot, a: 1 };
+      if (sk === 'denied') {
         const q = win(T.dropA, T.dropB, t);
-        if (q <= 0) a = 0;
-        y -= (1 - E.bounce(q)) * this.H * 0.8;
-        rot += (1 - q) * 0.5;
+        if (q <= 0) p.a = 0;
+        p.y -= (1 - E.bounce(q)) * this.H * 0.8;
+        p.rot += (1 - q) * 0.5;
       } else if (n.rank >= HERO_N) {
-        const d = T.rainA + n.delay * 0.6, q = win(d, d + 0.36, t);
-        if (q <= 0) a = 0;
-        y -= (1 - E.out(q)) * this.H * 0.9;
-        rot += (1 - q) * n.rot * 1.6;
+        const d = T.rainA + n.delay * 0.42, q = win(d, d + 0.36, t);
+        if (q <= 0) p.a = 0;
+        p.y -= (1 - E.out(q)) * this.H * 0.9;
+        p.rot += (1 - q) * n.rot * 1.6;
       } else if (!this.still) {
         const q = win(0, 0.95, clock - n.delay * 0.8);
-        if (q <= 0) a = 0;
-        y -= (1 - E.bounce(q)) * this.H * 0.95;
-        rot += (1 - q) * n.rot * 2;
+        if (q <= 0) p.a = 0;
+        p.y -= (1 - E.bounce(q)) * this.H * 0.95;
+        p.rot += (1 - q) * n.rot * 2;
       }
-
-      /* flow */
-      const d0 = T.flowA + n.delay * 0.42;
-      const mf = E.inOut(win(d0, d0 + 0.68, t));
+      /* a stitched note steps forward, but stays where it lies */
+      const st = this.stitched(n, t);
+      if (st > 0) { p.w *= 1 + 0.18 * st; p.h *= 1 + 0.18 * st; p.rot *= 1 - 0.75 * st; }
+      /* the join: everything leaves the pile */
+      const d0 = T.joinA + n.delay * 0.3;
+      const mf = E.inOut(win(d0, d0 + 0.66, t));
       if (mf > 0) {
-        const ms = E.settle(win(d0, d0 + 0.68, t));
-        x = lerp(x, n.F.x, ms); y = lerp(y, n.F.y, ms);
-        w = lerp(w, n.F.w, mf); h = lerp(h, n.F.h, mf); rot = lerp(rot, 0, mf);
+        const F = sk ? this.byKey[sk].F : n.F;
+        const ms = E.settle(win(d0, d0 + 0.66, t));
+        p.x = lerp(p.x, F.x, ms); p.y = lerp(p.y, F.y, ms);
+        p.w = lerp(p.w, F.w, mf); p.h = lerp(p.h, F.h, mf); p.rot = lerp(p.rot, 0, mf);
       }
-
       /* ambient life, and a little depth under the pointer while on the opening shot */
       if (!this.still) {
-        const amp = (1 - mf) * 2.2;
+        const amp = (1 - mf) * (this.portrait ? 1.2 : 2.2);
         if (amp > 0.01) {
-          x += Math.sin(clock * 0.62 * n.wob + n.phase) * amp;
-          y += Math.cos(clock * 0.5 * n.wob + n.phase) * amp;
-          rot += Math.sin(clock * 0.4 * n.wob + n.phase) * 0.012 * (1 - mf);
+          p.x += Math.sin(clock * 0.62 * n.wob + n.phase) * amp;
+          p.y += Math.cos(clock * 0.5 * n.wob + n.phase) * amp;
+          p.rot += Math.sin(clock * 0.4 * n.wob + n.phase) * 0.012 * (1 - mf);
         }
         const heroW = 1 - win(0.2, 1, t);
         if (heroW > 0) {
-          x += (this.pointer.x - 0.5) * (n.depth - 0.4) * 26 * heroW;
-          y += (this.pointer.y - 0.5) * (n.depth - 0.4) * 18 * heroW;
+          p.x += (this.pointer.x - 0.5) * (n.depth - 0.4) * 22 * heroW;
+          p.y += (this.pointer.y - 0.5) * (n.depth - 0.4) * 14 * heroW;
         }
       }
-
-      if (!key || key === 'email' || key === 'approved') {
-        /* everything that is not on the record leaves the frame here */
-        const out = key === 'approved' ? win(T.gapA, T.gapA + 0.45, t) : win(T.spineA + n.delay * 0.28, T.spineA + n.delay * 0.28 + 0.34, t);
-        a *= 1 - out;
-        if (key !== 'approved') { w *= 1 - out * 0.7; h *= 1 - out * 0.7; }
-        const dim = win(T.walkA + 0.25, T.walkA + 1.3, t);
-        a *= lerp(1, key ? 0.3 : 0.17, dim);
+      p.a *= this.rightDim(t);
+      if (sk) {
+        /* a shadow lands on its own note on the left track, and the two are one */
+        p.a *= 1 - win(T.joinB - 0.3, T.joinB - 0.02, t);
+      } else if (n.filler) {
+        const out = win(T.lensA + n.delay * 0.28, T.lensA + n.delay * 0.28 + 0.34, t);
+        p.a *= (1 - out) * lerp(1, 0.17, win(T.walkA + 0.25, T.walkA + 1.3, t));
+        p.w *= 1 - out * 0.7; p.h *= 1 - out * 0.7;
       } else {
-        const stages = [
-          ['S', T.spineA + n.delay * 0.22, T.spineB],
-          ['LF', T.lensA + n.delay * 0.18, T.lensB],
-          ['WHY', T.whyA + n.delay * 0.1, T.whyB],
-          ['ST', T.storyA + n.delay * 0.1, T.storyB]
-        ];
-        for (const [name, a0, b0] of stages) {
-          const m = E.inOut(win(a0, b0, t));
-          if (m <= 0) break;
-          const q = n[name];
-          x = lerp(x, q.x, m); y = lerp(y, q.y, m); w = lerp(w, q.w, m); h = lerp(h, q.h, m); rot = lerp(rot, 0, m);
-        }
-        const m = E.inOut(win(T.orbitA + n.delay * 0.14, T.sunB - 0.06, t));
-        if (m > 0) {
-          x = lerp(x, this.oc.x, m); y = lerp(y, this.oc.y, m);
-          a *= 1 - win(T.sunB - 0.2, T.sunB, t);
-        }
-        if (key === 'warranty') {
-          const dim = win(T.walkA + 0.25, T.walkA + 1.3, t) * (1 - win(T.gapA + 0.2, T.gapHit, t));
-          a *= lerp(1, 0.42, dim);
-        }
+        const dim = win(T.walkA + 0.25, T.walkA + 1.3, t) * (1 - win(T.gapA + 0.2, T.gapHit, t));
+        p.a *= lerp(1, 0.42, dim);
+        this.lensStages(n, t, p);
       }
-      return { x, y, w, h, rot, a };
+      return p;
     }
 
     litAmount(key, t) {
@@ -700,12 +832,15 @@
     /* ── one note ── */
     drawNote(n, po, t, clock, extra) {
       if (po.a <= 0.01 || po.w < 1) return;
-      const c = this.c, pal = this.pal, key = n.key;
+      const c = this.c, pal = this.pal, key = n.key, sk = n.shadow;
       const w = po.w, h = po.h, r = Math.min(this.nr, w / 2, h / 2);
-      const lit = key ? this.litAmount(key, t) : 0;
       const isDot = w < 22;
-      const mid = key && key !== 'denied' ? clamp((w - this.pw * 1.08) / Math.max(1, this.kw - this.pw * 1.08)) : w > 60 ? 1 : 0;
-      const label = E.inOut(clamp(mid));
+      const st = sk ? this.stitched(n, t) : 0;
+      let label = 0;
+      if (sk === 'denied') label = w > 50 ? 1 : 0;
+      else if (sk) label = this.portrait ? 0 : st;
+      else if (key === 'warranty') label = E.inOut(clamp((w - this.pw * 1.3) / Math.max(1, this.kw - this.pw * 1.3)));
+      else if (key) label = clamp((w - 24) / 30);
       c.save();
       c.translate(po.x, po.y);
       if (po.rot) c.rotate(po.rot);
@@ -720,22 +855,28 @@
         c.fillStyle = pal.shadow;
         rr(c, -w / 2, -h / 2 + Math.min(3, h * 0.08), w, h, r); c.fill();
       }
-      const isGap = key === 'warranty';
-      const gapOn = isGap ? win(T.gapHit, T.gapHit + 0.2, t) : 0;
+      const gapOn = key === 'warranty' ? win(GAP_SHOWN, GAP_SHOWN + 0.2, t) : 0;
       c.fillStyle = gapOn > 0.5 && !isDot ? pal.gapBg : pal.note;
       rr(c, -w / 2, -h / 2, w, h, r); c.fill();
 
-      const tint = Math.max(lit, extra && extra.lit ? extra.lit : 0);
-      if (tint > 0) {
-        c.globalAlpha = po.a * tint;
+      /* a tint says what touched this note: purple for stitching, green for the walk back */
+      const walked = key ? this.litAmount(key, t) : 0;
+      const tied = Math.max(st, extra && extra.lit ? extra.lit : 0);
+      if (tied > 0) {
+        c.globalAlpha = po.a * tied;
+        c.fillStyle = isDot ? pal.bind : pal.bindBg;
+        rr(c, -w / 2, -h / 2, w, h, r); c.fill();
+      }
+      if (walked > 0) {
+        c.globalAlpha = po.a * walked;
         c.fillStyle = isDot ? pal.walk : pal.walkBg;
         rr(c, -w / 2, -h / 2, w, h, r); c.fill();
       }
 
       /* faux handwriting while it is still just a note */
-      const fauxA = key ? 1 - label : clamp((w - 30) / 30);
-      if (fauxA > 0.02 && !isDot && h > 16) {
-        c.globalAlpha = po.a * fauxA;
+      const loose = n.filler ? clamp((w - 30) / 30) : (sk || key === 'warranty') ? 1 - label : 0;
+      if (loose > 0.02 && !isDot && h > 16) {
+        c.globalAlpha = po.a * loose;
         c.fillStyle = pal.faux;
         const bh = Math.max(2, h * 0.085), bx = -w * 0.36;
         for (let i = 0; i < 3; i++) {
@@ -753,18 +894,20 @@
         c.strokeStyle = pal.edge; c.lineWidth = 1.2; c.setLineDash([4, 4]); c.stroke(); c.setLineDash([]);
       } else if (flash > 0.02) {
         c.strokeStyle = pal.run; c.lineWidth = 1 + flash * 1.4; c.stroke();
-      } else if (tint > 0.02) {
-        c.strokeStyle = pal.walk; c.lineWidth = 1 + tint * 0.9; c.stroke();
-      } else if (key === 'denied' && !isDot) {
+      } else if (walked > 0.02) {
+        c.strokeStyle = pal.walk; c.lineWidth = 1 + walked * 0.9; c.stroke();
+      } else if (tied > 0.02) {
+        c.strokeStyle = pal.bind; c.lineWidth = 1 + tied * 0.9; c.stroke();
+      } else if ((key === 'denied' || sk === 'denied') && !isDot) {
         c.strokeStyle = pal.ink; c.lineWidth = 1.7; c.stroke();
       } else {
         c.strokeStyle = pal.noteLine; c.lineWidth = 1; c.stroke();
       }
 
-      if (key && label > 0.02 && !isDot) {
+      if (label > 0.02 && !isDot) {
         const color = key === 'approved' ? pal.faint : gapOn > 0.5 ? pal.gap : pal.ink;
-        const weight = key === 'denied' ? 650 : 560;
-        this.drawLabel(key, n.i, w, h, po.a * label, clock, color, weight);
+        const weight = key === 'denied' || sk === 'denied' ? 650 : 560;
+        this.drawLabel(key || sk, n.i, w, h, po.a * label, clock, color, weight);
         if (key === 'decide') {
           /* an explicit decision wears a small diamond on its top edge */
           c.globalAlpha = po.a * label;
@@ -775,15 +918,15 @@
       c.restore();
     }
 
-    /* ── the opening shot: a thread keeps finding its way through the pile ── */
+    /* ── the opening shot: the flowchart runs, then a thread finds its way through the pile ── */
     updateHook(t, clock) {
       if (t > 0.95 || !this.hooks || !this.hooks.length) { this.hook = null; return; }
       const hop = 0.42;
       if (this.pointer.on && !this.portrait) {
-        /* hover any note: the chain behind it lights up */
+        /* hover the pile: a thread is stitched through it from that note */
         let found = null;
         const px = this.pointer.px, py = this.pointer.py;
-        for (const n of this.notes) {
+        for (const n of this.pile) {
           if (n.rank < 0 || n.rank >= HERO_N) continue;
           if (Math.abs(px - n.P.x) < n.P.w / 2 && Math.abs(py - n.P.y) < n.P.h / 2) found = n;
         }
@@ -796,10 +939,15 @@
       const running = this.hook;
       const life = running ? (running.chain.length - 1) * hop + 2.3 : 0;
       if (!running || clock - running.start > life) {
-        if (clock < 1.25) return;
-        this.hook = { chain: this.hooks[this.hookIndex % this.hooks.length], start: clock, gap: this.hookIndex % 2 === 1 };
+        const c = clock % LOOP;
+        if (c < 4.6 || c > 5.1) { this.hook = null; return; }
+        this.hook = { chain: this.hooks[this.hookIndex % this.hooks.length], start: clock, gap: this.hookIndex % 2 === 0 };
         this.hookIndex++;
       }
+    }
+    hop(a, b, side = 1) {
+      const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, nx = -(b.y - a.y) * 0.14 * side, ny = (b.x - a.x) * 0.14 * side;
+      return this.curve([a.x, a.y], [mx + nx, my + ny], [mx + nx, my + ny], [b.x, b.y], 20);
     }
     hookState(clock) {
       const h = this.hook;
@@ -821,14 +969,13 @@
         const f = win(k * s.hop, (k + 1) * s.hop, s.age);
         if (f <= 0) break;
         const a = poses[s.h.chain[k].i], b = poses[s.h.chain[k + 1].i];
-        const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, side = k % 2 ? -1 : 1, nx = -(b.y - a.y) * 0.13 * side, ny = (b.x - a.x) * 0.13 * side;
-        const pts = this.curve([a.x, a.y], [mx + nx, my + ny], [mx + nx, my + ny], [b.x, b.y], 20);
-        c.strokeStyle = pal.walk; c.globalAlpha = 0.22 * weight; c.lineWidth = 7;
+        const pts = this.hop(a, b, k % 2 ? -1 : 1);
+        c.strokeStyle = pal.bind; c.globalAlpha = 0.22 * weight; c.lineWidth = 7;
         this.stroke(pts, 0, f);
         c.globalAlpha = weight; c.lineWidth = 2.4;
         this.stroke(pts, 0, f);
-        if (f < 1) this.comet(pts, f, pal.walk, 2.4, weight);
-        else this.ripple(b.x, b.y, win((k + 1) * s.hop, (k + 1) * s.hop + 0.5, s.age), b.w * 0.7, pal.walk, weight);
+        if (f < 1) this.comet(pts, f, pal.bind, 2.4, weight);
+        else this.ripple(b.x, b.y, win((k + 1) * s.hop, (k + 1) * s.hop + 0.5, s.age), b.w * 0.7, pal.bind, weight);
       }
       /* every other walk ends where the record ends, and says so */
       if (s.h.gap && s.hops > 0) {
@@ -837,7 +984,7 @@
           const last = poses[s.h.chain[s.hops].i], prev = poses[s.h.chain[s.hops - 1].i];
           const len = Math.hypot(last.x - prev.x, last.y - prev.y) || 1;
           const ux = (last.x - prev.x) / len, uy = (last.y - prev.y) / len;
-          const reach = Math.min(this.A.w, this.A.h) * 0.13;
+          const reach = Math.min(this.IR.w, this.IR.h) * 0.17;
           const ex = last.x + ux * reach * f, ey = last.y + uy * reach * f;
           c.strokeStyle = pal.gap; c.lineWidth = 2; c.setLineDash([4, 5]); c.globalAlpha = weight;
           c.beginPath(); c.moveTo(last.x, last.y); c.lineTo(ex, ey); c.stroke(); c.setLineDash([]);
@@ -849,35 +996,71 @@
       c.restore();
     }
 
-    /* ── the flow's edges, the run going forward, the walk coming back ── */
-    edgePoints(e, poses) {
-      const a = poses[this.byKey[e.a].i], b = poses[this.byKey[e.b].i];
+    /* ── the left track's edges, then the walk back along them ── */
+    geom(e, a, b, compact) {
+      const style = compact ? COMPACT[e.a + '>' + e.b] : null;
+      if (style === 'across') return this.across(a, b);
+      if (style === 'down') return this.down(a, b, 0, 0.2);
       return e.side ? this.across(a, b) : this.down(a, b, e.ax, e.bx);
     }
-    drawEdges(t, poses) {
+    edgePoints(e, poses, t) {
+      const a = poses[this.byKey[e.a].i], b = poses[this.byKey[e.b].i];
+      const wide = this.geom(e, a, b, false);
+      if (!this.portrait || t >= T.joinB) return wide;
+      const compact = this.geom(e, a, b, true);
+      if (t <= T.joinA) return compact;
+      const m = E.inOut(win(T.joinA, T.joinB - 0.3, t));
+      return compact.map((p, i) => [lerp(p[0], wide[i][0], m), lerp(p[1], wide[i][1], m)]);
+    }
+    /* the flowchart before it runs: the program itself, in dashes, waiting */
+    drawChart(t) {
+      const chart = (1 - win(T.joinA, T.joinA + 0.35, t)) * this.leftDim(t);
+      if (chart <= 0) return;
       const c = this.c, pal = this.pal;
-      if (t < T.flowB - 0.35 || t > T.spineA + 0.75) return;
+      c.save();
+      c.strokeStyle = pal.edge; c.lineWidth = 1.1; c.lineCap = 'round'; c.globalAlpha = chart * 0.75;
+      c.setLineDash([3, 5]);
+      Object.keys(BORN).forEach((k) => {
+        const D = this.byKey[k].D;
+        if (D.hide) return;
+        rr(c, D.x - D.w / 2, D.y - D.h / 2, D.w, D.h, this.nr); c.stroke();
+      });
+      RUN.forEach((e) => {
+        const A = this.byKey[e.a].D, B = this.byKey[e.b].D;
+        if (A.hide || B.hide) return;
+        this.stroke(this.geom(e, A, B, this.portrait), 0, 1);
+      });
+      c.restore();
+    }
+    drawEdges(t, clock, poses) {
+      const c = this.c, pal = this.pal;
+      if (t > T.lensA + 0.75) return;
+      const u = this.runU(t, clock);
+      const fade = this.heroFade(t, clock) * this.leftDim(t);
       const dimmed = win(T.walkA + 0.25, T.walkA + 1.3, t);
-      const leave = 1 - win(T.spineA, T.spineA + 0.35, t);
+      const leave = 1 - win(T.lensA, T.lensA + 0.35, t);
       c.save();
       c.lineCap = 'round';
-      /* the rest of the work, wiring up in a wave down the page */
+      /* once the tracks have joined, the rest of the work wires up in a wave */
       c.strokeStyle = pal.edge; c.lineWidth = 1;
       this.fe.forEach((e) => {
         const f = win(e.t0, e.t0 + 0.42, t);
         if (f <= 0) return;
-        const a = poses[e.a.i], b = poses[e.b.i];
-        const pts = this.down(a, b);
+        const pts = this.down(poses[e.a.i], poses[e.b.i]);
         c.globalAlpha = lerp(0.75, 0.1, dimmed) * leave;
         this.stroke(pts, 0, E.inOut(f));
       });
-      /* the run itself */
+      /* the run itself: each edge exists because the run crossed it */
+      const leads = [];
       RUN.forEach((e) => {
-        const f = win(e.w[0], e.w[1], t);
+        const f = win(e.u[0], e.u[1], u);
         if (f <= 0) return;
-        const pts = this.edgePoints(e, poses);
+        const hidden = this.byKey[e.b].D.hide;
+        if (hidden && t < T.joinA + 0.2) return;
+        const reveal = hidden ? win(T.joinA + 0.2, T.joinB, t) : 1;
+        const pts = this.edgePoints(e, poses, t);
         const side = e.side || e.ghost;
-        const baseA = (side ? lerp(0.9, 0.22, dimmed) : lerp(1, 0.32, dimmed)) * leave * (e.ghost ? 1 - win(T.gapA, T.gapA + 0.4, t) : 1);
+        const baseA = (side ? lerp(0.9, 0.22, dimmed) : lerp(1, 0.32, dimmed)) * leave * fade * reveal * (e.ghost ? 1 - win(T.gapA, T.gapA + 0.4, t) : 1);
         c.strokeStyle = e.ghost ? pal.edge : pal.run;
         c.lineWidth = e.ghost ? 1.2 : 1.8;
         c.globalAlpha = baseA;
@@ -885,12 +1068,13 @@
         this.stroke(pts, 0, f);
         c.setLineDash([]);
         if (f >= 1) this.arrow(pts, e.ghost ? pal.edge : pal.run, 7, baseA);
-        else if (!e.ghost) this.comet(pts, f, pal.run, 2.2, leave);
+        else if (!e.ghost) leads.push([pts, f]);
       });
       c.restore();
+      leads.forEach(([pts, f]) => this.comet(pts, f, pal.run, 2.2, fade));
     }
     threadAlpha(t) {
-      return (1 - win(T.spineA, T.spineA + 0.3, t)) + win(T.lensA + 0.35, T.lensB, t) * (1 - win(T.whyA, T.whyA + 0.25, t));
+      return 1 - win(T.whyA, T.whyA + 0.25, t);
     }
     drawThread(t, poses) {
       const c = this.c, pal = this.pal, alpha = this.threadAlpha(t);
@@ -901,7 +1085,7 @@
       WALK.forEach((e) => {
         const f = win(e.w[0], e.w[1], t);
         if (f <= 0) return;
-        const pts = this.edgePoints(e, poses);
+        const pts = this.edgePoints(e, poses, t);
         const rev = pts.slice().reverse();
         c.strokeStyle = pal.walk;
         c.globalAlpha = 0.2 * alpha; c.lineWidth = 8;
@@ -921,9 +1105,7 @@
     }
     drawGap(t, clock, poses) {
       if (t < T.gapA) return;
-      const lensA = win(T.lensA + 0.35, T.lensB, t) * (1 - win(T.whyA, T.whyA + 0.25, t));
-      const live = 1 - win(T.spineA, T.spineA + 0.3, t);
-      const alpha = Math.max(live, lensA);
+      const alpha = this.threadAlpha(t);
       if (alpha <= 0) return;
       const c = this.c, pal = this.pal;
       const pts = this.gapPath(poses);
@@ -957,8 +1139,8 @@
     }
     /* the words on the gap ride above every note, so nothing can sit on top of them */
     drawGapTop(t, poses) {
-      if (t < T.gapHit || t > T.spineA + 0.3) return;
-      const pal = this.pal, live = 1 - win(T.spineA, T.spineA + 0.3, t);
+      if (t < T.gapHit || t > T.lensA + 0.3) return;
+      const pal = this.pal, live = 1 - win(T.lensA, T.lensA + 0.3, t);
       const hit = this.pointOn(this.gapPath(poses), BREAK);
       const tagIn = win(T.gapHit + 0.05, T.gapHit + 0.4, t);
       if (tagIn > 0 && this.copy) {
@@ -996,10 +1178,98 @@
       c.restore();
     }
 
-    /* ── chapter five: where the edges come from ── */
+    /* ── the split itself ── */
+    drawPanes(t) {
+      const gone = E.inOut(win(T.joinA, T.joinA + 0.45, t));
+      if (gone >= 1) return;
+      const c = this.c, pal = this.pal, A = this.A;
+      c.save();
+      c.strokeStyle = pal.edge; c.lineWidth = 1.2; c.setLineDash([2, 6]); c.lineCap = 'round';
+      c.beginPath();
+      if (this.portrait) {
+        const y = this.PR.y - 6, half = (A.w / 2) * (1 - gone);
+        c.moveTo(A.x + A.w / 2 - half, y); c.lineTo(A.x + A.w / 2 + half, y);
+      } else {
+        const x = this.PR.x - 13, half = (A.h / 2) * (1 - gone);
+        c.moveTo(x, A.y + A.h / 2 - half); c.lineTo(x, A.y + A.h / 2 + half);
+      }
+      c.stroke();
+      c.restore();
+    }
+    drawPaneLabels(t) {
+      /* on a phone the hybrid's name sits on the divider, right where these labels are */
+      const hybrid = this.portrait ? win(T.hybA - 0.25, T.hybA, t) * (1 - win(T.hybB - 0.1, T.hybB + 0.1, t)) : 0;
+      const show = (1 - win(T.joinA, T.joinA + 0.3, t)) * (1 - hybrid);
+      if (show <= 0 || !this.viewKey) return;
+      const cats = this.data.views[this.viewKey].categories, pal = this.pal;
+      const size = this.portrait ? 10 : clamp(this.PL.w * 0.032, 11.5, 14);
+      const ink = pal.dark ? '#0a0a0b' : '#fff';
+      const y = (P) => P.y + (this.portrait ? 10 : 15);
+      this.pill(this.PL.x + this.PL.w / 2, y(this.PL), cats.default.title, { size, bg: pal.own, ink, weight: 650, alpha: show * lerp(0.5, 1, clamp((this.leftDim(t) - 0.2) / 0.8)) });
+      this.pill(this.PR.x + this.PR.w / 2, y(this.PR), cats.code.title, { size, bg: pal.bind, ink, weight: 650, alpha: show * lerp(0.5, 1, clamp((this.rightDim(t) - 0.1) / 0.5)) });
+    }
+
+    /* ── the stitch: a thread through the pile, where the notes lie ── */
+    drawStitch(t, poses) {
+      const p = win(T.stitchA, T.stitchB, t);
+      const a = 1 - win(T.joinA + 0.2, T.joinB - 0.3, t);
+      if (p <= 0 || a <= 0) return;
+      const c = this.c, pal = this.pal;
+      const at = (k) => poses[this.byShadow[k].i];
+      const leads = [];
+      c.save();
+      c.lineCap = 'round';
+      STITCH.forEach((e, i) => {
+        const f = E.inOut(win(e.at[0], e.at[1], p));
+        if (f <= 0) return;
+        const pts = this.hop(at(e.a), at(e.b), i % 2 ? -1 : 1);
+        c.strokeStyle = pal.bind;
+        c.globalAlpha = 0.2 * a; c.lineWidth = 8; this.stroke(pts, 0, f);
+        c.globalAlpha = a; c.lineWidth = 2.6; this.stroke(pts, 0, f);
+        if (f < 1) leads.push([pts, f]);
+      });
+      /* and the one join that cannot be made */
+      const g = win(STITCH_GAP[0], STITCH_GAP[1], p);
+      let hit = null;
+      if (g > 0) {
+        const pts = this.hop(at('decide'), poses[this.byKey.warranty.i], 1);
+        const reach = E.out(win(0, 0.6, g)) * 0.58;
+        c.strokeStyle = pal.bind;
+        c.globalAlpha = a; c.lineWidth = 2.6; this.stroke(pts, 0, reach);
+        const after = win(0.6, 1, g);
+        if (after > 0) {
+          c.strokeStyle = pal.gap; c.lineWidth = 2; c.setLineDash([3, 6]);
+          this.stroke(pts, 0.62, 0.62 + 0.38 * after);
+          c.setLineDash([]);
+          hit = this.pointOn(pts, 0.58);
+          c.fillStyle = pal.bg; c.strokeStyle = pal.gap; c.lineWidth = 2.2; c.globalAlpha = a * after;
+          c.beginPath(); c.arc(hit[0], hit[1], 5, 0, TAU); c.fill(); c.stroke();
+        }
+      }
+      c.restore();
+      leads.forEach(([pts, f]) => this.comet(pts, f, pal.bind, 2.6, a));
+      if (hit && this.copy) {
+        const q = win(STITCH_GAP[1] - 0.04, STITCH_GAP[1] + 0.06, p);
+        this.sparks(hit[0], hit[1], q, pal.gap, 41, this.portrait ? 20 : 34);
+        this.gapStitchTag = { x: hit[0], y: hit[1] + (this.portrait ? 14 : 22), f: q, a };
+      }
+    }
+    drawStitchTag() {
+      const n = this.gapStitchTag;
+      this.gapStitchTag = null;
+      if (!n || !this.copy) return;
+      const pal = this.pal;
+      this.pill(n.x, n.y, this.copy.gapTag, { size: this.portrait ? 9.5 : 11.5, bg: pal.gap, ink: pal.dark ? '#0a0a0b' : '#fff', scale: E.back(n.f), alpha: n.a * clamp(n.f * 1.5), mono: !!this.copy.mono });
+    }
+
+    /* ── the stops on the right track ── */
+    laneRect() {
+      const I = this.IR, h = this.portrait ? I.h : Math.min(I.h, Math.max(300, I.h * 0.5));
+      return { x: I.x + (this.portrait ? 4 : 10), y: I.y + (I.h - h) / 2, w: I.w - (this.portrait ? 8 : 20), h };
+    }
     laneHeader(L, lane, color, alpha, names) {
       const c = this.c, pal = this.pal;
-      const size = this.portrait ? clamp(L.h * 0.17, 13, 16) : clamp(L.h * 0.115, 15, 21);
+      const size = this.portrait ? 14 : clamp(L.w * 0.046, 15, 20);
       c.save();
       c.globalAlpha = alpha;
       c.textBaseline = 'alphabetic'; c.textAlign = 'left';
@@ -1009,105 +1279,30 @@
       c.font = font(size, 680);
       c.fillStyle = pal.ink;
       c.fillText(lane.title, L.x + size * 0.92, y);
-      const tw = c.measureText(lane.title).width;
-      c.font = font(Math.max(9.5, size * 0.56), 500, true);
-      c.fillStyle = pal.muted;
-      c.fillText(lane.mode, L.x + size * 0.92 + tw + size * 0.55, y);
-      if (names && !this.portrait) {
-        c.textAlign = 'right';
-        c.fillStyle = pal.faint;
-        c.fillText(names, L.x + L.w - 44, y);
+      if (names) {
+        c.font = font(Math.max(9.5, size * 0.6), 500, true);
+        c.fillStyle = pal.muted;
+        c.fillText(names, L.x + size * 0.92, y + size * 1.2);
       }
       c.restore();
-      return size * 1.5;
+      return size * (names ? 2.8 : 1.6);
     }
-    feed(L, fromX, y, t, a, b, color, alpha, dashed) {
-      const c = this.c;
-      const f = win(a, b, t);
-      if (f <= 0) return;
-      const x1 = this.SX - 1;
-      c.save();
-      c.strokeStyle = color; c.lineWidth = 1.6; c.globalAlpha = alpha * 0.9;
-      if (dashed) c.setLineDash([3, 5]);
-      c.beginPath(); c.moveTo(fromX, y); c.lineTo(lerp(fromX, x1, E.inOut(f)), y); c.stroke();
-      c.setLineDash([]);
-      if (f < 1) {
-        const hx = lerp(fromX, x1, E.inOut(f));
-        this.glow(hx, y, 16, color, 1);
-        c.fillStyle = color; c.globalAlpha = 1;
-        c.beginPath(); c.arc(hx, y, 3, 0, TAU); c.fill();
-      }
-      c.restore();
-      this.ripple(x1, y, win(b, b + 0.5, t), this.portrait ? 18 : 30, color);
-    }
-    drawLaneOwn(L, t, show) {
-      const c = this.c, pal = this.pal, copy = this.copy.lanes.own;
-      const act = win(T.ownA - 0.1, T.ownA + 0.25, t);
-      const alpha = show * lerp(0.34, 1, act);
-      const hdr = this.laneHeader(L, copy, pal.own, alpha, this.laneNames.own);
-      const p = win(T.ownA, T.ownB - 0.25, t);
-      const M = { x: L.x, y: L.y + hdr, w: L.w, h: L.h - hdr };
-      const n = 4, spanW = M.w * 0.8, bw = Math.min(spanW * 0.2, 132), bh = Math.min(M.h * 0.56, 62);
-      const gap = (spanW - bw * n) / (n - 1), y = M.y + M.h * 0.46;
-      const X = (i) => M.x + bw / 2 + i * (bw + gap);
-      const token = win(0.28, 0.92, p);
-      c.save();
-      c.lineCap = 'round';
-      for (let i = 0; i < n - 1; i++) {
-        const e0 = i / (n - 1), e1 = (i + 1) / (n - 1), f = win(e0, e1, token);
-        const half = (k) => (k === 1 ? bh * 0.74 * 0.72 : bw / 2);
-        const x0 = X(i) + half(i), x1 = X(i + 1) - half(i + 1);
-        c.strokeStyle = pal.edge; c.lineWidth = 1.2; c.globalAlpha = alpha * win(0.05 + i * 0.07, 0.2 + i * 0.07, p) * 0.6;
-        c.beginPath(); c.moveTo(x0, y); c.lineTo(x1, y); c.stroke();
-        if (f > 0) {
-          c.strokeStyle = pal.own; c.lineWidth = 2.2; c.globalAlpha = alpha;
-          c.beginPath(); c.moveTo(x0, y); c.lineTo(lerp(x0, x1, f), y); c.stroke();
-        }
-      }
-      for (let i = 0; i < n; i++) {
-        const q = E.back(win(i * 0.07, i * 0.07 + 0.2, p));
-        if (q <= 0) continue;
-        const reached = win(i / (n - 1) - 0.01, i / (n - 1) + 0.04, token);
-        c.save();
-        c.translate(X(i), y);
-        c.scale(q, q);
-        c.globalAlpha = alpha;
-        c.fillStyle = reached > 0.5 ? (pal.dark ? 'rgba(58,208,186,.16)' : 'rgba(12,133,119,.1)') : pal.note;
-        c.strokeStyle = reached > 0.5 ? pal.own : pal.noteLine;
-        c.lineWidth = reached > 0.5 ? 1.8 : 1.2;
-        if (i === 1) {
-          const s = bh * 0.74;
-          c.fillStyle = pal.note; c.rotate(Math.PI / 4);
-          rr(c, -s / 2, -s / 2, s, s, 4); c.fill();
-          if (reached > 0.5) { c.fillStyle = pal.dark ? 'rgba(58,208,186,.16)' : 'rgba(12,133,119,.1)'; c.fill(); }
-          c.stroke();
-        } else {
-          c.save(); c.fillStyle = pal.note; rr(c, -bw / 2, -bh / 2, bw, bh, 7); c.fill(); c.restore();
-          rr(c, -bw / 2, -bh / 2, bw, bh, 7); c.fill(); c.stroke();
-          c.fillStyle = pal.faux; c.globalAlpha = alpha * 0.9;
-          rr(c, -bw * 0.3, -2, bw * (0.34 + i * 0.09), 4, 2); c.fill();
-        }
-        c.restore();
-      }
-      if (token > 0 && token < 1) {
-        const seg = token * (n - 1), i = Math.min(n - 2, Math.floor(seg));
-        const hx = lerp(X(i), X(i + 1), seg - i);
-        this.glow(hx, y, 20, pal.own, 1);
-        c.fillStyle = pal.own; c.globalAlpha = 1;
-        c.beginPath(); c.arc(hx, y, 4, 0, TAU); c.fill();
-      }
-      c.restore();
-      this.feed(L, X(n - 1) + bw / 2, y, t, T.ownB - 0.5, T.ownB - 0.12, pal.own, alpha);
+    drawStops(t) {
+      if (!this.copy || t < T.bindA - 0.15 || t > T.colB + 0.1) return;
+      const L = this.laneRect();
+      const show = (a, b) => win(a - 0.1, a + 0.18, t) * (1 - win(b - 0.12, b + 0.05, t));
+      const b = show(T.bindA, T.bindB), h = show(T.hybA, T.hybB), k = show(T.colA, T.colB);
+      if (b > 0) this.drawLaneBind(L, t, b);
+      if (h > 0) this.drawHybrid(t, h);
+      if (k > 0) this.drawLaneCollect(L, t, k);
     }
     drawLaneBind(L, t, show) {
-      const c = this.c, pal = this.pal, copy = this.copy.lanes.bind;
-      const act = win(T.bindA - 0.1, T.bindA + 0.25, t);
-      const alpha = show * lerp(0.34, 1, act);
+      const c = this.c, pal = this.pal, copy = this.copy.lanes.bind, alpha = show;
       const hdr = this.laneHeader(L, copy, pal.bind, alpha, this.laneNames.bind);
-      const p = win(T.bindA, T.bindB - 0.25, t);
+      const p = win(T.bindA, T.bindB - 0.3, t);
       const M = { x: L.x, y: L.y + hdr, w: L.w, h: L.h - hdr };
-      const ww = Math.min(M.h * 1.18, this.portrait ? 54 : 104), wh = Math.min(M.h * 0.82, this.portrait ? 40 : 74);
-      const wy = M.y + M.h * 0.42;
+      const ww = Math.min(M.h * 1.18, this.portrait ? 54 : 84), wh = Math.min(M.h * 0.82, this.portrait ? 40 : 62);
+      const wy = M.y + M.h * 0.46;
       const lineY = wy, x0 = M.x + ww + 12, x1 = M.x + M.w * 0.97;
       c.save();
       c.lineCap = 'round';
@@ -1141,7 +1336,7 @@
         for (let i = 0; i < 4; i++) {
           const f = win(i / 4, (i + 1) / 4, thread);
           if (f <= 0) break;
-          const h = (this.portrait ? 18 : 26) + i * 2;
+          const h = (this.portrait ? 18 : clamp(M.h * 0.16, 30, 48)) + i * 2;
           const pts = this.curve([ex[i], lineY], [ex[i] + (ex[i + 1] - ex[i]) * 0.3, lineY - h], [ex[i] + (ex[i + 1] - ex[i]) * 0.7, lineY - h], [ex[i + 1], lineY], 16);
           c.strokeStyle = pal.bind; c.globalAlpha = alpha; c.lineWidth = 2.2;
           this.stroke(pts, 0, f);
@@ -1153,46 +1348,45 @@
         if (q <= 0) return;
         c.globalAlpha = alpha;
         c.fillStyle = pal.bind;
-        c.beginPath(); c.arc(x, lineY, 4.6 * q, 0, TAU); c.fill();
-        c.font = font(this.portrait ? 9.5 : clamp(L.h * 0.056, 11, 13.5), 500, !!this.copy.mono);
+        c.beginPath(); c.arc(x, lineY, (this.portrait ? 4.6 : 5.6) * q, 0, TAU); c.fill();
+        c.font = font(this.portrait ? 9.5 : clamp(L.w * 0.032, 10.5, 12.5), 500, !!this.copy.mono);
         c.fillStyle = pal.muted; c.textAlign = i === 0 ? 'left' : i === 4 ? 'right' : 'center'; c.textBaseline = 'top';
         c.globalAlpha = alpha * win(0.12 + i * 0.07, 0.24 + i * 0.07, p);
         c.fillText(copy.events[i], x + (i === 0 ? -4 : i === 4 ? 4 : 0), lineY + (this.portrait ? 9 : 13));
       });
       c.restore();
-      this.feed(L, x1, lineY, t, T.bindB - 0.5, T.bindB - 0.12, pal.bind, alpha);
     }
-    /* orchestration: the flow is in the pattern, the trainer is not, and what
-       comes back across the boundary is a receipt */
-    drawLaneHybrid(L, t, show) {
-      const c = this.c, pal = this.pal, copy = this.copy.lanes.hybrid;
-      const act = win(T.hybA - 0.1, T.hybA + 0.25, t);
-      const alpha = show * lerp(0.34, 1, act);
-      const hdr = this.laneHeader(L, copy, pal.hybrid, alpha, this.laneNames.hybrid);
-      const p = win(T.hybA, T.hybB - 0.2, t);
-      const M = { x: L.x, y: L.y + hdr, w: L.w, h: L.h - hdr };
-      const spanW = M.w * 0.8, bw = Math.min(spanW * 0.2, 132), bh = Math.min(M.h * 0.56, 62), y = M.y + M.h * 0.46;
-      const x0 = M.x + bw / 2, x2 = M.x + spanW - bw / 2, x1 = (x0 + x2) / 2;
-      const tw = Math.min(spanW * 0.32, this.portrait ? 96 : 210);
-      const inA = win(0.14, 0.36, p), inner = win(0.36, 0.6, p), outA = win(0.6, 0.86, p);
+    /* orchestration is a hybrid, so it is the one stop drawn across the divider: the
+       stages sit on the pattern's side, the trainer on the other, and what comes
+       back over the line is a receipt */
+    drawHybrid(t, show) {
+      const c = this.c, pal = this.pal, copy = this.copy.lanes.hybrid, IL = this.IL, IR = this.IR, port = this.portrait;
+      const p = win(T.hybA, T.hybB - 0.25, t);
+      const bw = port ? Math.min(IL.w * 0.3, 110) : Math.min(IL.w * 0.46, 196), bh = port ? Math.min(IL.h * 0.34, 42) : Math.min(IL.h * 0.095, 62);
+      const tw = port ? Math.min(IR.w * 0.46, 170) : Math.min(IR.w * 0.62, 250), th = port ? Math.min(IR.h * 0.4, 56) : Math.min(IR.h * 0.15, 104);
+      const s1 = port ? [IL.x + IL.w * 0.24, IL.y + IL.h * 0.5] : [IL.x + IL.w * 0.5, IL.y + IL.h * 0.3];
+      const s2 = port ? [IL.x + IL.w * 0.76, IL.y + IL.h * 0.5] : [IL.x + IL.w * 0.5, IL.y + IL.h * 0.72];
+      const tc = port ? [IR.x + IR.w * 0.5, IR.y + IR.h * 0.52] : [IR.x + IR.w * 0.5, IR.y + IR.h * 0.51];
+      const out = port
+        ? this.curve([s1[0], s1[1] + bh / 2], [s1[0], tc[1] - 10], [tc[0] - tw * 0.3, s1[1] + bh], [tc[0] - tw * 0.3, tc[1] - th / 2], 24)
+        : this.curve([s1[0] + bw / 2, s1[1]], [s1[0] + bw * 1.2, s1[1]], [tc[0] - tw, tc[1] - th * 0.2], [tc[0] - tw / 2, tc[1] - th * 0.2], 24);
+      const back = port
+        ? this.curve([tc[0] + tw * 0.3, tc[1] - th / 2], [tc[0] + tw * 0.3, s2[1] + bh], [s2[0], tc[1] - 10], [s2[0], s2[1] + bh / 2], 24)
+        : this.curve([tc[0] - tw / 2, tc[1] + th * 0.2], [tc[0] - tw, tc[1] + th * 0.2], [s2[0] + bw * 1.2, s2[1]], [s2[0] + bw / 2, s2[1]], 24);
+      const inA = win(0.14, 0.38, p), inner = win(0.38, 0.6, p), outA = win(0.6, 0.88, p);
       c.save();
       c.lineCap = 'round';
-      const seg = (from, to, f, color, width) => {
-        c.strokeStyle = color; c.lineWidth = width;
-        c.beginPath(); c.moveTo(from, y); c.lineTo(lerp(from, to, f), y); c.stroke();
-      };
-      c.globalAlpha = alpha * 0.6;
-      seg(x0 + bw / 2, x1 - tw / 2, 1, pal.edge, 1.2);
-      seg(x1 + tw / 2, x2 - bw / 2, 1, pal.edge, 1.2);
-      c.globalAlpha = alpha;
-      if (inA > 0) seg(x0 + bw / 2, x1 - tw / 2, inA, pal.hybrid, 2.2);
-      if (outA > 0) seg(x1 + tw / 2, x2 - bw / 2, outA, pal.hybrid, 2.2);
-      /* the two ends are ordinary stages */
-      [[x0, inA > 0], [x2, outA >= 1]].forEach(([x, on], i) => {
+      c.strokeStyle = pal.edge; c.lineWidth = 1.2; c.globalAlpha = show * 0.6;
+      this.stroke(out, 0, 1); this.stroke(back, 0, 1);
+      c.strokeStyle = pal.hybrid; c.lineWidth = 2.2; c.globalAlpha = show;
+      if (inA > 0) this.stroke(out, 0, inA);
+      if (outA > 0) this.stroke(back, 0, outA);
+      /* the two ends are ordinary stages, on the pattern's side */
+      [[s1, inA > 0, 0], [s2, outA >= 1, 1]].forEach(([s, on, i]) => {
         const q = E.back(win(i * 0.08, i * 0.08 + 0.18, p));
         if (q <= 0) return;
         c.save();
-        c.translate(x, y); c.scale(q, q);
+        c.translate(s[0], s[1]); c.scale(q, q);
         c.fillStyle = pal.note; rr(c, -bw / 2, -bh / 2, bw, bh, 7); c.fill();
         c.strokeStyle = on ? pal.hybrid : pal.noteLine; c.lineWidth = on ? 1.8 : 1.2; c.stroke();
         c.fillStyle = pal.faux;
@@ -1203,45 +1397,44 @@
       const tq = E.back(win(0.04, 0.22, p));
       if (tq > 0) {
         c.save();
-        c.translate(x1, y); c.scale(tq, tq);
-        c.fillStyle = pal.bg; rr(c, -tw / 2, -bh / 2, tw, bh, 8); c.fill();
+        c.translate(tc[0], tc[1]); c.scale(tq, tq);
+        c.fillStyle = pal.bg; rr(c, -tw / 2, -th / 2, tw, th, 8); c.fill();
         c.strokeStyle = pal.hybrid; c.lineWidth = 1.5; c.setLineDash([4, 4]); c.stroke(); c.setLineDash([]);
-        const fs = this.portrait ? 9.5 : clamp(bh * 0.24, 11, 14);
+        const fs = port ? 9.5 : clamp(th * 0.16, 11, 14);
         c.font = font(fs, 560, !!this.copy.mono);
         c.fillStyle = pal.muted; c.textAlign = 'center'; c.textBaseline = 'middle';
-        c.fillText(copy.trainer, 0, inner > 0 && inner < 1 && !this.portrait ? bh * 0.2 : 0.5);
-        if (inner > 0 && inner < 1 && !this.portrait) {
-          const r = Math.min(bh * 0.15, 9), ang = inner * TAU * 3;
+        const turning = inner > 0 && inner < 1;
+        c.fillText(copy.trainer, 0, turning ? th * 0.2 : 0.5);
+        if (turning) {
+          const r = Math.min(th * 0.14, 9), ang = inner * TAU * 3;
           c.strokeStyle = pal.hybrid; c.lineWidth = 2;
-          c.beginPath(); c.arc(0, -bh * 0.14, r, ang, ang + 4.2); c.stroke();
+          c.beginPath(); c.arc(0, -th * 0.14, r, ang, ang + 4.2); c.stroke();
         }
         c.restore();
       }
       c.restore();
-      if (inA > 0 && inA < 1) {
-        const hx = lerp(x0 + bw / 2, x1 - tw / 2, inA);
-        this.glow(hx, y, 18, pal.hybrid, 1);
-        c.save(); c.fillStyle = pal.hybrid; c.beginPath(); c.arc(hx, y, 3.6, 0, TAU); c.fill(); c.restore();
-      }
+      if (inA > 0 && inA < 1) this.comet(out, inA, pal.hybrid, 2.2, show);
       if (inner >= 1) {
-        const hx = lerp(x1 + tw / 2, x2 - bw / 2, outA);
-        const size = this.portrait ? 8.5 : clamp(bh * 0.2, 10, 12);
-        this.pill(hx, y - (this.portrait ? 13 : bh * 0.5 + 3), copy.receipt, { size, bg: pal.hybrid, ink: pal.dark ? '#0a0a0b' : '#fff', scale: E.back(win(0, 0.25, outA + 0.02)), alpha: alpha, weight: 650, mono: !!this.copy.mono });
+        const head = this.pointOn(back, outA);
+        const size = port ? 8.8 : clamp(th * 0.13, 10, 12);
+        this.pill(head[0], head[1] - (port ? 0 : 15), copy.receipt, { size, bg: pal.hybrid, ink: pal.dark ? '#0a0a0b' : '#fff', scale: E.back(win(0, 0.25, outA + 0.02)), alpha: show, weight: 650, mono: !!this.copy.mono });
       }
-      this.feed(L, x2 + bw / 2, y, t, T.hybB - 0.5, T.hybB - 0.12, pal.hybrid, alpha);
+      /* its name sits on the divider, because it belongs to both */
+      const chip = copy.mode + ': ' + this.laneNames.hybrid;
+      const cy = port ? this.PR.y - 6 : this.A.y + this.A.h * 0.12;
+      const cx = port ? this.A.x + this.A.w / 2 : this.PR.x - 13;
+      this.pill(cx, cy, chip, { size: port ? 9.5 : 12, bg: pal.hybrid, ink: pal.dark ? '#0a0a0b' : '#fff', alpha: show, weight: 650, mono: !!this.copy.mono });
     }
     /* collectors: the same stitching as a framework app, one level down, on
        devices. A join only exists where an ID says so. */
     drawLaneCollect(L, t, show) {
-      const c = this.c, pal = this.pal, copy = this.copy.lanes.collect, ink = pal.bind;
-      const act = win(T.colA - 0.1, T.colA + 0.25, t);
-      const alpha = show * lerp(0.34, 1, act);
+      const c = this.c, pal = this.pal, copy = this.copy.lanes.collect, ink = pal.bind, alpha = show;
       const hdr = this.laneHeader(L, copy, ink, alpha, this.laneNames.collect);
-      const p = win(T.colA, T.colB - 0.2, t);
+      const p = win(T.colA, T.colB - 0.3, t);
       const M = { x: L.x, y: L.y + hdr, w: L.w, h: L.h - hdr };
       const ROWS = [['host-a', 'job=7f2', 'smart check ok'], ['host-a', 'job=7f2', 'firmware 2.1'], ['switch3', 'tx=a91', 'link up'], ['host-b', 'job=7f2', 'raid rebuild'], ['ups-1', '-------', 'on battery']];
-      const rowH = Math.min(M.h / 5, this.portrait ? 13 : 24);
-      const fs = clamp(rowH * 0.66, 8.4, 14);
+      const rowH = Math.min(M.h / 5, this.portrait ? 15 : 27);
+      const fs = clamp(rowH * 0.62, 8.6, 13);
       c.save();
       c.font = font(fs, 500, true);
       const cw = c.measureText('0').width;
@@ -1292,45 +1485,14 @@
         c.beginPath(); c.arc(jx, gy, 3.6, 0, TAU); c.fill(); c.stroke();
       }
       c.restore();
-      const midY = (ys[0] + ys[2]) / 2;
-      this.feed(L, jx + 16, midY, t, T.colB - 0.62, T.colB - 0.3, ink, alpha);
       if (stub > 0.6) {
-        const size = this.portrait ? 9 : clamp(rowH * 0.5, 10.5, 12.5);
+        const size = this.portrait ? 9 : clamp(rowH * 0.46, 10.5, 12);
         c.save();
         c.font = font(size, 600, !!this.copy.mono);
         const tw = c.measureText(copy.gap).width + size * 1.44;
-        const px = Math.min(jx + 30 + tw / 2, this.SX - tw / 2 - 12);
+        const px = Math.min(jx + 30 + tw / 2, L.x + L.w - tw / 2 - 2);
         c.restore();
         this.pill(px, gy, copy.gap, { size, bg: pal.gap, ink: pal.dark ? '#0a0a0b' : '#fff', alpha: alpha * win(0.6, 1, stub), scale: E.back(win(0.6, 1, stub)), mono: !!this.copy.mono });
-      }
-    }
-    drawSources(t, poses) {
-      const show = win(T.spineB - 0.4, T.spineB + 0.1, t) * (1 - win(T.srcEnd - 0.05, T.srcEnd + 0.35, t));
-      if (show <= 0 || !this.copy) return;
-      const c = this.c, pal = this.pal;
-      this.drawLaneOwn(this.lanes[0], t, show);
-      this.drawLaneBind(this.lanes[1], t, show);
-      this.drawLaneHybrid(this.lanes[2], t, show);
-      this.drawLaneCollect(this.lanes[3], t, show);
-      /* the record itself */
-      const a = poses[this.byKey.request.i], b = poses[this.byKey.denied.i];
-      c.save();
-      c.globalAlpha = show;
-      c.strokeStyle = pal.edge; c.lineWidth = 1.6;
-      c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke();
-      c.font = font(this.portrait ? 10 : 12.5, 650);
-      c.fillStyle = pal.ink; c.textAlign = 'right'; c.textBaseline = 'alphabetic';
-      c.fillText(this.copy.recordLabel, this.SX + (this.portrait ? 12 : 16), a.y - (this.portrait ? 11 : 16));
-      c.restore();
-      /* and the promise still holds: the walk back works on what arrived */
-      const up = win(T.upA, T.upB, t);
-      if (up > 0) {
-        const pts = this.curve([b.x, b.y], [b.x, lerp(b.y, a.y, 0.33)], [b.x, lerp(b.y, a.y, 0.66)], [a.x, a.y], 24);
-        c.save();
-        c.lineCap = 'round'; c.strokeStyle = pal.walk; c.lineWidth = 2.6; c.globalAlpha = show;
-        this.stroke(pts, 0, up);
-        c.restore();
-        if (up < 1) this.comet(pts, up, pal.walk, 2.6, show);
       }
     }
 
@@ -1824,23 +1986,23 @@
 
       this.updateHook(t, clock);
 
-      /* a slow push-in on the pile; back out as it organises */
-      const push = E.inOut(win(1, 3.7, t)) * (1 - E.inOut(win(T.flowA, T.flowA + 0.8, t)));
-      const lean = E.inOut(win(T.walkA, 9.1, t)) * (1 - E.inOut(win(9.75, T.gapA + 0.1, t)));
-      const zoom = 1 + (this.portrait ? 0 : 0.045 * push + 0.03 * lean);
+      /* a slight lean in as the walk goes back, released as it reaches the gap */
+      const lean = E.inOut(win(T.walkA, LIT_AT.request, t)) * (1 - E.inOut(win(LIT_AT.request + 0.65, T.gapA + 0.1, t)));
+      const zoom = 1 + (this.portrait ? 0 : 0.03 * lean);
       const cx = this.A.x + this.A.w / 2, cy = this.A.y + this.A.h / 2;
       c.save();
       if (zoom !== 1) { c.translate(cx, cy); c.scale(zoom, zoom); c.translate(-cx, -cy); }
 
       /* every note's pose this frame, in one place, so edges can follow them */
-      const poses = new Array(N);
-      this.notes.forEach((n) => { poses[n.i] = this.pose(n, t, clock); });
+      const poses = this.notes.map((n) => this.pose(n, t, clock));
 
-      this.drawEdges(t, poses);
+      this.drawPanes(t);
+      this.drawChart(t);
+      this.drawEdges(t, clock, poses);
       this.drawThread(t, poses);
       this.drawGap(t, clock, poses);
 
-      /* notes: the small ones first, the cast on top */
+      /* who is riding on top of the pile right now */
       const hs = t < 0.95 ? this.hookState(clock) : null;
       const litInHook = new Map();
       if (hs) {
@@ -1851,44 +2013,61 @@
           if (a > 0) litInHook.set(n.i, { lit: a, popAt: hs.h.start + at });
         });
       }
-      const scanP = win(T.scanA, T.scanB, t) * N;
+      const scanP = win(T.scanA, T.scanB, t) * PILE_N;
       const scanning = t > T.scanA && t < T.scanB + 0.2;
-      for (let pass = 0; pass < 3; pass++) {
-        this.notes.forEach((n) => {
-          if (n.key === 'denied') return;
-          const top = litInHook.has(n.i);
-          const cast = n.key && mfDone(t);
-          if (pass === 0 && (top || cast)) return;
-          if (pass === 1 && (top || !cast)) return;
-          if (pass === 2 && !top) return;
-          const extra = litInHook.get(n.i) || {};
-          if (scanning) extra.flash = bump((scanP - n.scan) / 2.4);
-          this.drawNote(n, poses[n.i], t, clock, extra);
-        });
-      }
-      const dn = this.byKey.denied;
+      const onTop = (n) => litInHook.has(n.i) || (n.shadow && this.stitched(n, t) > 0) || (n.key === 'warranty' && t > GAP_SHOWN);
+      const paint = (n) => {
+        const extra = litInHook.get(n.i) || {};
+        if (scanning && n.scan !== undefined) extra.flash = bump((scanP - n.scan) / 2.4);
+        this.drawNote(n, poses[n.i], t, clock, extra);
+      };
+      const dn = this.byShadow.denied;
+      /* the loose notes first, then the thread through them, then the notes it reached */
+      this.notes.forEach((n) => { if (!n.D && n !== dn && !onTop(n)) paint(n); });
+      this.drawStitch(t, poses);
+      this.notes.forEach((n) => { if (n.D) paint(n); });
+      this.notes.forEach((n) => { if (!n.D && n !== dn && onTop(n)) paint(n); });
       this.drawNote(dn, poses[dn.i], t, clock, null);
 
       this.drawHook(t, clock, poses);
       this.drawGapTop(t, poses);
+      this.drawStitchTag();
+      this.drawPaneLabels(t);
 
-      /* the question, on the result, until the walk answers it */
-      const qIn = win(T.dropB - 0.1, T.dropB + 0.2, t) * (1 - win(T.walkA, T.walkA + 0.25, t));
+      /* the question, on the result in the pile, until the walk answers it */
+      const crowded = this.portrait ? win(T.stitchA, T.stitchA + 0.3, t) * (1 - win(T.joinB - 0.2, T.joinB, t)) : 0;
+      const qIn = win(T.dropB - 0.1, T.dropB + 0.2, t) * (1 - win(T.walkA, T.walkA + 0.25, t)) * clamp((this.rightDim(t) - 0.2) / 0.8) * (1 - crowded);
       if (qIn > 0 && this.copy) {
         const po = poses[dn.i];
         const size = this.portrait ? 11.5 : 14;
-        this.pill(po.x + po.w * 0.42, po.y - po.h * 0.74, this.copy.question, { size, bg: this.pal.sun, ink: this.pal.onSun, scale: E.back(qIn), alpha: clamp(qIn * 1.4), weight: 700 });
+        this.pill(po.x + po.w * 0.42, po.y - po.h * 0.74, this.copy.question, { size, bg: this.pal.sun, ink: this.pal.onSun, scale: E.back(win(T.dropB - 0.1, T.dropB + 0.2, t)), alpha: clamp(qIn * 1.4), weight: 700 });
       }
       /* the drop lands */
       const landed = win(T.dropB - 0.28, T.dropB + 0.25, t);
-      if (landed > 0 && landed < 1) this.ripple(poses[dn.i].x, poses[dn.i].y, landed, this.portrait ? 60 : 120, this.pal.edge);
+      if (landed > 0 && landed < 1) this.ripple(poses[dn.i].x, poses[dn.i].y, landed, this.portrait ? 50 : 110, this.pal.edge);
+      /* each note the run writes rings once */
+      const u = this.runU(t, clock), fade = this.heroFade(t, clock) * this.leftDim(t);
+      Object.keys(BORN).forEach((k) => {
+        const n = this.byKey[k];
+        if (n.D.hide || k === 'approved') return;
+        const f = win(BORN[k], BORN[k] + 0.16, u);
+        if (f > 0 && f < 1) this.ripple(n.D.x, n.D.y, f, n.D.w * 0.4, this.pal.run, fade * 0.6);
+      });
+      /* the two tracks land on each other */
+      const land = win(T.joinB - 0.42, T.joinB + 0.12, t);
+      if (land > 0 && land < 1) {
+        SHADOWS.forEach((k) => {
+          const F = this.byKey[k].F;
+          this.ripple(F.x, F.y, land, this.kw * 0.36, this.pal.bind, 0.45);
+        });
+      }
       /* each note the walk reaches rings once */
       Object.keys(LIT_AT).forEach((k) => {
         const f = win(LIT_AT[k], LIT_AT[k] + 0.5, t);
         if (f > 0 && f < 1) this.ripple(poses[this.byKey[k].i].x, poses[this.byKey[k].i].y, f, this.kw * 0.56, this.pal.walk);
       });
 
-      this.drawSources(t, poses);
+      this.drawStops(t);
       this.drawLens(t, clock, poses);
       this.drawOrbit(t, clock);
       c.restore();
@@ -1902,7 +2081,6 @@
       return count;
     }
   }
-  function mfDone(t) { return t > T.flowA + 0.5; }
 
   /* ── captions: real text, so the film is readable without the canvas ─────── */
   function setWords(el, text) {
@@ -1994,19 +2172,22 @@
     }
     buildRail() {
       const rail = this.root.querySelector('.rail-track');
-      rail.innerHTML = '<span class="rail-fill"></span>';
-      this.fill = rail.querySelector('.rail-fill');
-      this.ticks = RAIL.map(([label, at]) => {
+      rail.innerHTML = '';
+      this.railSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      this.railSvg.setAttribute('class', 'rail-svg');
+      this.railSvg.setAttribute('aria-hidden', 'true');
+      rail.appendChild(this.railSvg);
+      this.ticks = RAIL.map(([label, at, track]) => {
         const b = document.createElement('button');
         b.type = 'button';
         b.className = 'tick';
-        b.style.left = (at / T.end) * 100 + '%';
+        b.dataset.track = track;
         b.innerHTML = '<span></span>';
         b.firstChild.textContent = label;
         b.setAttribute('aria-label', 'Jump to ' + label);
         b.addEventListener('click', (e) => { e.stopPropagation(); this.pause(); this.seek(at); });
         rail.appendChild(b);
-        return { el: b, at };
+        return { el: b, at, track };
       });
       this.track = rail;
       const toT = (e) => {
@@ -2025,6 +2206,53 @@
       rail.addEventListener('pointerup', () => { dragging = false; });
       rail.addEventListener('pointercancel', () => { dragging = false; });
     }
+    /* two lines from the start, one line from the walk back on. One cursor runs both. */
+    layoutRail() {
+      const rail = this.track, w = rail.clientWidth || 1, h = rail.clientHeight || 40;
+      const yT = Math.round(h * 0.3), yB = Math.round(h * 0.62), yM = (yT + yB) / 2;
+      const xOf = (at) => (at / T.end) * w;
+      const xa = xOf(T.joinA), xb = xOf(T.walkA);
+      const yAt = (x, y0) => {
+        if (x <= xa) return y0;
+        if (x >= xb) return yM;
+        const k = (x - xa) / (xb - xa);
+        return lerp(y0, yM, k * k * (3 - 2 * k));
+      };
+      this.railGeom = { w, xOf, xb, yAt, yT, yB };
+      const line = (y0) => {
+        let d = 'M0 ' + y0 + ' L' + xa.toFixed(1) + ' ' + y0;
+        for (let i = 1; i <= 18; i++) { const x = lerp(xa, xb, i / 18); d += ' L' + x.toFixed(1) + ' ' + yAt(x, y0).toFixed(1); }
+        return d;
+      };
+      const joined = 'M' + xb.toFixed(1) + ' ' + yM + ' L' + w + ' ' + yM;
+      const svg = this.railSvg;
+      svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+      svg.innerHTML =
+        '<defs><clipPath id="rail-clip"><rect class="rail-clip" x="0" y="-6" width="0" height="' + (h + 12) + '"/></clipPath></defs>' +
+        '<path class="rail-base" d="' + line(yT) + '"/><path class="rail-base" d="' + line(yB) + '"/><path class="rail-base" d="' + joined + '"/>' +
+        '<g clip-path="url(#rail-clip)"><path class="rail-top" d="' + line(yT) + '"/><path class="rail-bot" d="' + line(yB) + '"/><path class="rail-mid" d="' + joined + '"/></g>' +
+        '<line class="rail-head"/><circle class="rail-dot rail-dot-top" r="4.5"/><circle class="rail-dot rail-dot-bot" r="4.5"/>';
+      this.railClip = svg.querySelector('.rail-clip');
+      this.railHead = svg.querySelector('.rail-head');
+      this.railDotT = svg.querySelector('.rail-dot-top');
+      this.railDotB = svg.querySelector('.rail-dot-bot');
+      this.ticks.forEach((tick) => {
+        const y = tick.track === 'top' ? yT : tick.track === 'bottom' ? yB : yM;
+        tick.el.style.left = xOf(tick.at).toFixed(1) + 'px';
+        tick.el.style.top = (y - 13) + 'px';
+        tick.el.style.setProperty('--label-top', (yB + 5 - (y - 13)) + 'px');
+      });
+    }
+    syncRail(t) {
+      const g = this.railGeom;
+      if (!g) return;
+      const x = g.xOf(t), yA = g.yAt(x, g.yT), yC = g.yAt(x, g.yB);
+      this.railClip.setAttribute('width', x.toFixed(1));
+      this.railDotT.setAttribute('cx', x.toFixed(1)); this.railDotT.setAttribute('cy', yA.toFixed(1));
+      this.railDotB.setAttribute('cx', x.toFixed(1)); this.railDotB.setAttribute('cy', yC.toFixed(1));
+      this.railHead.setAttribute('x1', x.toFixed(1)); this.railHead.setAttribute('x2', x.toFixed(1));
+      this.railHead.setAttribute('y1', yA.toFixed(1)); this.railHead.setAttribute('y2', yC.toFixed(1));
+    }
     measure() {
       const W = this.stage.clientWidth, H = this.stage.clientHeight;
       const head = document.querySelector('.hd').offsetHeight;
@@ -2038,12 +2266,13 @@
       this.stage.style.setProperty('--head', head + 'px');
       this.stage.classList.toggle('is-portrait', portrait);
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      this.film.resize(W, H, dpr, { head, capZone, gutter, capW, rail: 48 });
+      this.film.resize(W, H, dpr, { head, capZone, gutter, capW, rail: 60 });
+      this.layoutRail();
       this.scrollable = Math.max(1, this.root.offsetHeight - H);
       this.rootTop = this.root.getBoundingClientRect().top + window.scrollY;
       const A = this.film.A;
       if (portrait) {
-        this.answers.style.cssText = 'left:12px;right:12px;bottom:54px;width:auto;top:auto;';
+        this.answers.style.cssText = 'left:12px;right:12px;bottom:58px;width:auto;top:auto;';
       } else {
         this.answers.style.cssText = 'left:' + (A.x + A.w * 0.47) + 'px;top:' + (A.y + A.h * 0.668) + 'px;width:' + A.w * 0.53 + 'px;';
       }
@@ -2142,18 +2371,20 @@
         this.hero.classList.toggle('on', chapter === 'hero');
         this.root.dataset.chapter = chapter || '';
         document.body.classList.toggle('lens-nudge', chapter === 'lenses');
+        this.railSvg.dataset.active = TRACK_OF[chapter] || 'mid';
       }
       /* the big number */
-      const scanShow = t > T.scanA - 0.1 && t < T.flowA + 0.15;
+      const scanShow = t > T.scanA - 0.1 && t < T.bindA;
       const walkShow = t > T.walkA && t < T.gapA + 0.15;
       this.readout.classList.toggle('on', scanShow || walkShow);
       /* once it is fading out, the number stays what it last said */
       if (scanShow || walkShow) {
-        const value = walkShow ? this.film.litCount(t) : Math.round(win(T.scanA, T.scanB, t) * N);
+        const value = walkShow ? this.film.litCount(t) : Math.round(win(T.scanA, T.scanB, t) * PILE_N);
         if (value !== this.readValue) {
           this.readValue = value;
           this.readN.textContent = String(value);
           this.readout.classList.toggle('is-walk', walkShow);
+          if (this.film.portrait) this.readout.style.top = (walkShow ? this.film.A.y : this.film.PR.y + 2) + 'px';
         }
       }
       /* the two answers */
@@ -2168,7 +2399,7 @@
         this.honest.style.transform = 'translateY(' + ((1 - E.back(hq)) * 14).toFixed(1) + 'px)';
       }
       /* the scrubber */
-      this.fill.style.transform = 'scaleX(' + (t / T.end).toFixed(4) + ')';
+      this.syncRail(t);
       let current = -1;
       this.ticks.forEach((tick, i) => { if (t >= tick.at - 0.2) current = i; });
       if (current !== this.tickOn) {

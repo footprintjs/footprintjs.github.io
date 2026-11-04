@@ -39,12 +39,12 @@ These are different libraries, with different dependencies and maturity. They do
 
 There is no build step or framework dependency.
 
-- `film.js` is the film: motion graphics written as code on one canvas. `draw(t, clock)` is a pure function of the cursor, so scrolling is scrubbing. Timing lives in `T`, layout in `Film.layout()`, and the caption schedule in `CHAPTERS`.
+- `film.js` is the film: motion graphics written as code on one canvas. `draw(t, clock)` is a pure function of the cursor, so scrolling is scrubbing. It has two tracks that take turns on a split screen: on the left a flowchart runs and writes its notes, on the right a pile stays a pile and is stitched in code. They join for the walk back, and the scrubber draws the same shape. Timing lives in `T`, layout in `Film.layout()`, the caption schedule in `CHAPTERS` and the scrubber's stops in `RAIL`.
 - `ecosystem-views.json` owns the words: the three views, the film's captions and node labels, the library tiles, links and the orbit's rings.
 - `ecosystem-view-v4.js` renders the tiles, the working loop and the limits line, and owns the view switch.
 - `index.html` keeps the accessible fallback text, metadata and structure. Every caption is real text. Without JavaScript the film section is ordinary reading order, and with reduced motion each caption holds one still frame from the same film.
 - `styles-v4.css` owns the layout and the light and dark tokens, including the `--f-*` colours the film reads.
-- `assets/logo.svg` is the source of the mark. The favicons and the PNG logo copies, including those in `blog/`, `primer/` and `storydeck/`, are rendered from it. `assets/og.png` is drawn by the film engine at `t = 12.4`.
+- `assets/logo.svg` is the source of the mark. The favicons and the PNG logo copies, including those in `blog/`, `primer/` and `storydeck/`, are rendered from it. `assets/og.png` is drawn by the film engine on the joined record, just after the gap appears.
 
 Keep the fallback text and metadata consistent with the default Product view. New tiles need copy in all three views. Switching views changes the wording, not links, dependencies, positions or release status. Show missing evidence as unknown, and do not claim measured savings without reproducible evidence. The film's numbers describe its illustrative example and nothing else. Do not advertise unreleased features: a planet goes in the solar system only when its library is public.
 
