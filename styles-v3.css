@@ -1361,6 +1361,8 @@ a.orrery-label:hover { color: var(--yellow-ink); }
 .development-links, .inventory-nav { display: flex; flex-wrap: wrap; gap: 12px 22px; font-size: 13px; }
 .development-links { margin-top: 20px; }
 .inventory-nav { margin: 20px 0; }
+.map-sources { max-width: 760px; color: var(--fg); font-size: 14px; line-height: 1.55; margin: 0 0 10px; }
+.map-sources strong { font-weight: 600; }
 .map-scope { max-width: 760px; color: var(--fg-muted); font-size: 13px; }
 .workflow-demo { margin-top: 28px; border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
 .workflow-demo summary { cursor: pointer; font-size: 14px; font-weight: 600; }

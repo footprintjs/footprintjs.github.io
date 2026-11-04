@@ -367,6 +367,14 @@
             and inspect the captured evidence through a viewer. Each library has its own capture limits.
           </p>
 
+          <p class="map-sources">
+            The edges in a record come from three places. <strong>Bind:</strong> apps built on a framework already
+            carry state transitions; HACI Footprint and VizFootprint add the action binding that makes them decision
+            edges. <strong>Own:</strong> workflows written with FootPrint, AgentFootprint or footprintjs-ml record
+            their edges as they run. <strong>Recover:</strong> logs and metrics from systems we did not build carry
+            no edges; stitching them afterwards is experimental, and every edge that cannot be recovered stays a
+            labelled gap. Foottrace is the layer all three write to.
+          </p>
           <p class="map-scope view-copy">The map shows selected core relationships. The cards below include the record tools, application libraries and viewers.</p>
           <nav class="inventory-nav" aria-label="Explore the library groups">
             <a href="#card-group-engine">Foundations</a>
