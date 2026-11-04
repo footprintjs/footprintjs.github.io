@@ -5,75 +5,148 @@
       "label": "Product",
       "hero": {
         "title": "Build software you can investigate.",
-        "subtitle": "Connect a result to the recorded steps, inputs and decisions behind it. Give people and coding agents evidence to inspect, with a clear answer when something was not captured."
+        "tagline": "Capture the connections. Keep the gaps visible."
       },
-      "story": {
-        "beats": [
-          {
-            "label": "logs",
-            "text": "Messages tell you something happened. The connections may still be missing."
-          },
-          {
-            "label": "record",
-            "text": "Capture the steps, tracked values and explicit decisions as the workflow runs."
-          },
-          {
-            "label": "follow the evidence",
-            "text": "Start at an unexpected result and follow its recorded inputs and choices backward.",
-            "emphasis": true
-          },
-          {
-            "label": "fix and verify",
-            "text": "Use the evidence to investigate, then check the repair with a test and a fresh run."
-          }
-        ],
-        "closing": "Recording does not need an LLM. Enable the evidence you need before the run; missing evidence stays unknown."
-      },
-      "layers": {
-        "engine": "works behind the scenes",
-        "interface": "what your users see"
-      },
-      "groups": {
-        "engine": "execution and recorded evidence",
-        "interface": "what your users see",
-        "monitoring": "watch it run",
-        "libraries": "reusable libraries for real applications"
-      },
-      "map": {
-        "heading": "The ecosystem · choose the layer you need",
-        "lawSubline": "capture the evidence while the work happens",
-        "zones": {
-          "engine": "works behind the scenes",
-          "interface": "what your users see"
+      "film": {
+        "mono": false,
+        "readout": "of 44 notes read",
+        "question": "Why?",
+        "gapShort": "unknown",
+        "gapTag": "can't connect: no order ID",
+        "recordLabel": "the record",
+        "sunLabel": "stitched record",
+        "labels": {
+          "request": "Refund requested",
+          "order": "Order found",
+          "age": "Bought 45 days ago",
+          "policy": "Policy: 30 days",
+          "warranty": "Extended warranty?",
+          "decide": "Within 30 days? No",
+          "denied": "Refund denied",
+          "approved": "Refund approved",
+          "email": "Email sent"
         },
-        "evidenceSubline": "different libraries, explicit records and capture limits",
-        "agentTag": "causal agent debugging"
-      },
-      "idea": {
-        "eyebrow": "Different journeys · one design rule",
-        "lead": "Start with the execution and record libraries, add the application capabilities you need, and inspect the captured evidence through a viewer. Different libraries have different records and capture limits.",
-        "steps": [
-          {
-            "title": "Capture the real journey",
-            "description": "Capture supported activity as it happens, with the required recorders enabled."
+        "answers": {
+          "guessLabel": "Gap hidden",
+          "guess": "“No warranty applied.”",
+          "honestLabel": "Gap labelled",
+          "honest": "“Denied: 45 days¹ is past the 30-day policy². Warranty: unknown³, no order ID to connect it.”"
+        },
+        "lanes": {
+          "own": {
+            "title": "Built in the pattern",
+            "mode": "stitched by default"
           },
-          {
-            "title": "Keep the cause attached",
-            "description": "Keep the supported inputs and decisions attached to their recorded results; disclose anything missing."
+          "bind": {
+            "title": "Framework apps",
+            "mode": "stitched in code",
+            "events": [
+              "click",
+              "started",
+              "progress",
+              "result",
+              "screen"
+            ]
           },
-          {
-            "title": "Choose the right lens",
-            "description": "People and agents inspect the recorded evidence through the view suited to their question."
+          "hybrid": {
+            "title": "Orchestrated workflows",
+            "mode": "hybrid",
+            "trainer": "your trainer",
+            "receipt": "receipt"
+          },
+          "collect": {
+            "title": "Device collectors",
+            "mode": "stitched in code",
+            "gap": "no shared ID"
           }
-        ],
-        "quote": "Capture the connections. Keep the gaps visible."
+        },
+        "caps": {
+          "pile": {
+            "h": "Long work leaves a pile of notes.",
+            "s": "One question, and you reread them all."
+          },
+          "edges": {
+            "h": "Connect them as the work happens.",
+            "s": "Every step, value and decision keeps its link."
+          },
+          "walk": {
+            "h": "Start at the result. Walk back.",
+            "s": "Only the notes behind it light up."
+          },
+          "gap": {
+            "h": "Can't connect it? Say why.",
+            "s": "A labelled gap beats a confident guess."
+          },
+          "own": {
+            "h": "By default: build in the pattern.",
+            "s": "With recorders on, the run keeps its own edges."
+          },
+          "bind": {
+            "h": "You can't rebuild React.",
+            "s": "So stitch in code: bind its events into one action."
+          },
+          "lenses": {
+            "h": "One record. A view for each question.",
+            "s": "Flow for steps. Why for causes. Story for people."
+          },
+          "orbit": {
+            "h": "Two ways in. One kind of record.",
+            "s": "Stitched by default, or in code with a reason for every gap."
+          },
+          "payoff": {
+            "h": "Walk back. Replay.",
+            "s": "And a side effect: an audit trail for security monitoring."
+          },
+          "hybrid": {
+            "h": "Orchestration is a hybrid.",
+            "s": "The flow runs in the pattern. Your trainer stays yours and leaves a receipt."
+          },
+          "collect": {
+            "h": "Same idea at the collector.",
+            "s": "On-prem devices: join what shares an ID, and give every other gap its reason."
+          }
+        },
+        "zones": {
+          "default": "Stitched by default",
+          "manual": "Stitched in code: every gap says why",
+          "defaultShort": "By default",
+          "manualShort": "In code: gaps say why"
+        },
+        "payoff": {
+          "walk": "Walk back",
+          "replay": "Replay",
+          "audit": "Audit trail"
+        }
       },
-      "graph": {
-        "label": "The ecosystem · choose the layer you need",
-        "legend": {
-          "dependency": "foundation",
-          "consumer": "human or developer lens",
-          "principle": "shared design rule"
+      "limits": "Recording does not need an LLM. Enable the evidence you need before the run; missing evidence stays unknown.",
+      "groups": {
+        "foundations": {
+          "title": "Foundations",
+          "note": "Run the work and keep the record."
+        },
+        "own": {
+          "title": "Built in the pattern",
+          "note": "The run keeps its own edges."
+        },
+        "lenses": {
+          "title": "Lenses",
+          "note": "Read the record."
+        },
+        "more": {
+          "title": "Also in the family",
+          "note": "Related tools from the same project."
+        },
+        "frameworks": {
+          "title": "Framework apps",
+          "note": "You can't rebuild React, so bind its events."
+        },
+        "hybrid": {
+          "title": "Orchestrated workflows",
+          "note": "Hybrid: the flow is in the pattern, the trainer stays yours."
+        },
+        "collectors": {
+          "title": "Device collectors",
+          "note": "The same idea at the collector, for on-prem devices."
         }
       },
       "development": {
@@ -99,82 +172,167 @@
         ],
         "note": "Share the relevant trace slice rather than an entire log dump. The context needed depends on the workflow and tooling; no measured token or speed saving is claimed."
       },
-      "mapNote": "The map shows selected core relationships. The cards below include the record tools, application libraries and viewers.",
-      "solarCaption": "Flow, Why and Story — different views over supported execution evidence"
+      "categories": {
+        "default": {
+          "title": "Stitched by default",
+          "note": "Connected as the work happens."
+        },
+        "read": {
+          "title": "Walk back and replay",
+          "note": "Whichever way it was stitched."
+        },
+        "code": {
+          "title": "Stitched in code",
+          "note": "For what you cannot rebuild. Every gap keeps its reason."
+        }
+      }
     },
     "technical": {
       "label": "Technical",
       "hero": {
         "title": "Capture connections at runtime.",
-        "subtitle": "FootPrint executes the workflow and records tracked state and explicit decisions. Foottrace queries supported records. Deterministic readers follow recorded connections; LLM summaries must stay within those findings."
+        "tagline": "Recorded dependency is evidence, not proof of real-world cause."
       },
-      "story": {
-        "beats": [
-          {
-            "label": "configure",
-            "text": "Enable the required read, write and decision capture before execution."
-          },
-          {
-            "label": "execute",
-            "text": "The engine records supported activity during traversal, within configured limits."
-          },
-          {
-            "label": "query",
-            "text": "Follow recorded dependencies backward, or inspect their downstream impact.",
-            "emphasis": true
-          },
-          {
-            "label": "qualify",
-            "text": "Name a cause only when the reader has enough evidence. Otherwise return alternatives and gaps."
-          }
-        ],
-        "closing": "A read-before-write relationship is not proof of semantic derivation. Exact sources, completeness and supported scope determine what a reader can establish."
-      },
-      "layers": {
-        "engine": "engine layer",
-        "interface": "interface layer"
-      },
-      "groups": {
-        "engine": "Execution and record foundations",
-        "interface": "Interface",
-        "monitoring": "Monitoring",
-        "libraries": "Reusable application libraries"
-      },
-      "map": {
-        "heading": "Core patterns and their evidence consumers",
-        "lawSubline": "record during execution; query the evidence afterward",
-        "zones": {
-          "engine": "Engine ecosystem",
-          "interface": "Interface ecosystem"
+      "film": {
+        "mono": true,
+        "readout": "of 44 records scanned",
+        "question": "why?",
+        "gapShort": "gap",
+        "gapTag": "gap: not-collected",
+        "recordLabel": "the record",
+        "sunLabel": "stitched record",
+        "labels": {
+          "request": "stage intake",
+          "order": "read order.id",
+          "age": "write order.ageDays = 45",
+          "policy": "read policy.days = 30",
+          "warranty": "warranty.lookup",
+          "decide": "decide age ≤ days → false",
+          "denied": "write refund = \"denied\"",
+          "approved": "branch approve (not taken)",
+          "email": "stage notify"
         },
-        "evidenceSubline": "supported records; explicit readers; disclosed gaps",
-        "agentTag": "context provenance"
-      },
-      "idea": {
-        "eyebrow": "How the ecosystem works",
-        "lead": "FootPrint owns execution; Foottrace owns record primitives and readers. Other libraries compose these at their own boundaries. Shared design principles do not imply a shared runtime or interchangeable record formats.",
-        "steps": [
-          {
-            "title": "Record at traversal time",
-            "description": "Capture supported activity as it happens, with the required recorders enabled."
+        "answers": {
+          "guessLabel": "gap dropped",
+          "guess": "rootCause: \"no warranty\"  // invented",
+          "honestLabel": "explain() finding",
+          "honest": "rootCause: withheld\nalternatives: [age¹ > days²]\ngaps: [not-collected³]\nconfidence: incomplete"
+        },
+        "lanes": {
+          "own": {
+            "title": "Native flows",
+            "mode": "at runtime"
           },
-          {
-            "title": "Preserve causal structure",
-            "description": "Linear runs, parent-linked trails, and capability graphs retain dependencies, principals, branches, and rejected actions."
+          "bind": {
+            "title": "Framework boundary",
+            "mode": "programmatic",
+            "events": [
+              "fired",
+              "busy",
+              "settled",
+              "state",
+              "commit"
+            ]
           },
-          {
-            "title": "Compose evidence consumers",
-            "description": "People and agents inspect the recorded evidence through the view suited to their question."
+          "hybrid": {
+            "title": "Orchestration",
+            "mode": "hybrid",
+            "trainer": "external trainer",
+            "receipt": "evaluation receipt"
+          },
+          "collect": {
+            "title": "Collector level",
+            "mode": "programmatic",
+            "gap": "gap: no-match"
           }
-        ],
-        "quote": "Recorded dependency is evidence, not proof of real-world cause."
+        },
+        "caps": {
+          "pile": {
+            "h": "Logs are facts without edges.",
+            "s": "To find one cause, you scan them all."
+          },
+          "edges": {
+            "h": "Record edges during execution.",
+            "s": "Reads, writes and decisions, from the recorders you enable."
+          },
+          "walk": {
+            "h": "Slice backward from the outcome.",
+            "s": "Follow recorded dependencies, not the whole log."
+          },
+          "gap": {
+            "h": "Gaps carry reason codes.",
+            "s": "A missing edge withholds the root cause. It never invents one."
+          },
+          "own": {
+            "h": "By default: edges at write time.",
+            "s": "Named stages, tracked state, explicit decisions."
+          },
+          "bind": {
+            "h": "Frameworks: stitch programmatically.",
+            "s": "Fired, busy, settled, state, commit. One action, one thread."
+          },
+          "lenses": {
+            "h": "One record, several readers.",
+            "s": "Flow, Why and Story render supported records."
+          },
+          "orbit": {
+            "h": "Two ways to stitch.",
+            "s": "At runtime by default, or programmatically with reason codes. Formats and limits vary by library."
+          },
+          "payoff": {
+            "h": "Backward slices and replay.",
+            "s": "Side effect: a trace that security monitoring can read."
+          },
+          "hybrid": {
+            "h": "Orchestration: hybrid.",
+            "s": "FootPrint coordinates. External jobs return references and receipts."
+          },
+          "collect": {
+            "h": "Collectors: stitch at the source.",
+            "s": "Join on shared keys. A failed join keeps its reason code."
+          }
+        },
+        "zones": {
+          "default": "Stitched at runtime",
+          "manual": "Stitched programmatically: gaps carry reasons",
+          "defaultShort": "At runtime",
+          "manualShort": "In code: gaps carry reasons"
+        },
+        "payoff": {
+          "walk": "Backward slice",
+          "replay": "Replay",
+          "audit": "Audit trace"
+        }
       },
-      "graph": {
-        "label": "Core patterns and their evidence consumers",
-        "legend": {
-          "dependency": "package or runtime dependency",
-          "consumer": "renders or consumes evidence",
-          "principle": "shared provenance pattern"
+      "limits": "A read-before-write relationship is not proof of semantic derivation. Exact sources, completeness and supported scope determine what a reader can establish.",
+      "groups": {
+        "foundations": {
+          "title": "Foundations",
+          "note": "Execution engine and record layer."
+        },
+        "own": {
+          "title": "Native flows",
+          "note": "Edges captured at write time."
+        },
+        "lenses": {
+          "title": "Lenses",
+          "note": "Viewers over supported records."
+        },
+        "more": {
+          "title": "Adjacent libraries",
+          "note": "Related, with their own contracts."
+        },
+        "frameworks": {
+          "title": "Framework boundary",
+          "note": "Action binding over async events."
+        },
+        "hybrid": {
+          "title": "Hybrid orchestration",
+          "note": "FootPrint coordinates; external jobs return references and receipts."
+        },
+        "collectors": {
+          "title": "Collector level",
+          "note": "Adapters wrap existing collectors. Partial coverage is reported, not hidden."
         }
       },
       "development": {
@@ -200,90 +358,168 @@
         ],
         "note": "Recording an exact source is opt-in and scope-dependent. Stored evidence, subflows and resumed runs must satisfy the reader’s capture contract; a missing link remains unknown."
       },
-      "mapNote": "The map shows selected core relationships. The cards below include the record tools, application libraries and viewers.",
-      "solarCaption": "Flow, Why and Story — different views over supported execution evidence"
+      "categories": {
+        "default": {
+          "title": "Stitched at runtime",
+          "note": "Edges recorded during execution."
+        },
+        "read": {
+          "title": "Backward slices and replay",
+          "note": "Viewers over supported records."
+        },
+        "code": {
+          "title": "Stitched programmatically",
+          "note": "For what you cannot rebuild. Gaps carry reason codes."
+        }
+      }
     },
     "business": {
       "label": "Business",
       "hero": {
         "title": "See the work behind an answer.",
-        "subtitle": "When a price, refund or agent answer is questioned, inspect the recorded steps and decisions behind it. See what is supported, what needs investigation and what the system did not capture."
+        "tagline": "Keep the work inspectable. Say what is still unknown."
       },
-      "solarCaption": "Flow, Why and Story — different views over supported execution evidence",
-      "story": {
-        "beats": [
-          {
-            "label": "a question",
-            "text": "A customer or colleague asks why an outcome happened."
-          },
-          {
-            "label": "the record",
-            "text": "The workflow has kept the steps, values and decisions it was configured to capture."
-          },
-          {
-            "label": "the evidence",
-            "text": "Follow the recorded connections instead of piecing together separate messages.",
-            "emphasis": true
-          },
-          {
-            "label": "the next step",
-            "text": "Explain the supported finding, investigate a hypothesis or say which evidence is missing."
-          }
-        ],
-        "closing": "The record supports an investigation. It does not by itself prove correctness, compliance or the cause of an outside event."
-      },
-      "layers": {
-        "engine": "does the work",
-        "interface": "faces your customers"
-      },
-      "groups": {
-        "engine": "foundations that keep the work inspectable",
-        "interface": "faces your customers",
-        "monitoring": "shows you why",
-        "libraries": "building blocks for your product"
-      },
-      "map": {
-        "heading": "The ecosystem · from application work to evidence",
-        "lawSubline": "keep the evidence as the work happens",
-        "zones": {
-          "engine": "runs the business logic",
-          "interface": "what your customers see"
+      "film": {
+        "mono": false,
+        "readout": "of 44 notes read",
+        "question": "Why?",
+        "gapShort": "unknown",
+        "gapTag": "not connected: no order ID",
+        "recordLabel": "the record",
+        "sunLabel": "stitched record",
+        "labels": {
+          "request": "Customer asks for a refund",
+          "order": "Order on file",
+          "age": "45 days since purchase",
+          "policy": "Policy: 30 days",
+          "warranty": "Extended warranty?",
+          "decide": "Outside the window",
+          "denied": "Refund denied",
+          "approved": "Refund paid",
+          "email": "Email sent"
         },
-        "evidenceSubline": "records support investigation, with visible limits",
-        "agentTag": "why an answer came out that way"
-      },
-      "idea": {
-        "eyebrow": "One record · three audiences",
-        "lead": "Choose an execution foundation, reusable application libraries and the views your team needs. Each has its own responsibilities; the evidence available depends on what your application records and retains.",
-        "steps": [
-          {
-            "title": "Record the work as it happens",
-            "description": "Capture supported activity as it happens, with the required recorders enabled."
+        "answers": {
+          "guessLabel": "Gap hidden",
+          "guess": "“No warranty applied.”",
+          "honestLabel": "Gap shown",
+          "honest": "“Denied: 45 days¹ is past the 30-day policy². Warranty: unknown³, the systems aren't connected.”"
+        },
+        "lanes": {
+          "own": {
+            "title": "Built this way",
+            "mode": "from the start"
           },
-          {
-            "title": "Keep the reason attached",
-            "description": "Keep the supported inputs and decisions attached to their recorded results; disclose anything missing."
+          "bind": {
+            "title": "Apps you have",
+            "mode": "connected in code",
+            "events": [
+              "click",
+              "started",
+              "progress",
+              "result",
+              "screen"
+            ]
           },
-          {
-            "title": "Give each group its view",
-            "description": "People and agents inspect the recorded evidence through the view suited to their question."
+          "hybrid": {
+            "title": "Model pipelines",
+            "mode": "hybrid",
+            "trainer": "your training code",
+            "receipt": "receipt"
+          },
+          "collect": {
+            "title": "Devices you run",
+            "mode": "connected in code",
+            "gap": "no shared ID"
           }
-        ],
-        "quote": "Keep the work inspectable. Say what is still unknown."
-      },
-      "graph": {
-        "label": "The ecosystem · from application work to evidence",
-        "legend": {
-          "dependency": "built on",
-          "consumer": "who reads the record",
-          "principle": "the same rule, kept separately"
+        },
+        "caps": {
+          "pile": {
+            "h": "Why was this refund denied?",
+            "s": "The answer is in there, somewhere."
+          },
+          "edges": {
+            "h": "Keep the reason with the work.",
+            "s": "Steps, values and decisions stay connected."
+          },
+          "walk": {
+            "h": "Follow the record to the reason.",
+            "s": "Not every message. Just the ones behind this result."
+          },
+          "gap": {
+            "h": "Unknown stays unknown.",
+            "s": "The reason is attached, so nobody fills it with a guess."
+          },
+          "own": {
+            "h": "Build it in from the start.",
+            "s": "The workflow keeps its own record."
+          },
+          "bind": {
+            "h": "Keep the app you have.",
+            "s": "Connect one customer action, start to finish, in code."
+          },
+          "lenses": {
+            "h": "Same record, whoever is asking.",
+            "s": "A view for engineering, for investigation, for people."
+          },
+          "orbit": {
+            "h": "Build it in, or connect it later.",
+            "s": "Either way, you get a record to follow. Each library states its own limits."
+          },
+          "payoff": {
+            "h": "Follow it back. Replay it.",
+            "s": "And a side effect: a trail your security team can monitor."
+          },
+          "hybrid": {
+            "h": "Keep your model pipeline.",
+            "s": "The workflow is recorded. Your training code stays where it is."
+          },
+          "collect": {
+            "h": "Keep the devices you run.",
+            "s": "Connect what the collectors see, and flag what they can't."
+          }
+        },
+        "zones": {
+          "default": "Built in from the start",
+          "manual": "Connected in code: every gap says why",
+          "defaultShort": "Built in",
+          "manualShort": "In code: gaps say why"
+        },
+        "payoff": {
+          "walk": "Follow it back",
+          "replay": "Replay",
+          "audit": "Audit trail"
         }
       },
-      "edgeLegend": {
-        "builds": "built on",
-        "idea": "same idea, built separately",
-        "emit": "leaves a record",
-        "recall": "reads its own record"
+      "limits": "The record supports an investigation. It does not by itself prove correctness, compliance or the cause of an outside event.",
+      "groups": {
+        "foundations": {
+          "title": "Foundations",
+          "note": "What keeps the work inspectable."
+        },
+        "own": {
+          "title": "Built this way",
+          "note": "The workflow keeps its own record."
+        },
+        "lenses": {
+          "title": "Lenses",
+          "note": "A view for each person asking."
+        },
+        "more": {
+          "title": "Also available",
+          "note": "Related building blocks."
+        },
+        "frameworks": {
+          "title": "Apps you have",
+          "note": "One customer action, on one thread."
+        },
+        "hybrid": {
+          "title": "Model pipelines",
+          "note": "See what a release was based on."
+        },
+        "collectors": {
+          "title": "Devices you run",
+          "note": "Connect what the collectors see."
+        }
       },
       "development": {
         "heading": "Help your coding agent investigate your application",
@@ -308,79 +544,36 @@
         ],
         "note": "A focused record can make the investigation easier to follow. Actual time, token use and business savings depend on your application and have not been measured here."
       },
-      "mapNote": "The map shows selected core relationships. The cards below include the record tools, application libraries and viewers."
+      "categories": {
+        "default": {
+          "title": "Built in from the start",
+          "note": "The record comes with the work."
+        },
+        "read": {
+          "title": "Follow it back",
+          "note": "However the record was made."
+        },
+        "code": {
+          "title": "Connected in code",
+          "note": "For what you already run. Every gap says why."
+        }
+      }
     }
   },
-  "solarSystem": {
-    "sun": {
-      "label": "recorded evidence",
-      "accent": "#ffc700",
-      "size": 0.78
-    },
-    "caption": "Flow, Why and Story — different views over supported execution evidence",
-    "planets": [
-      {
-        "id": "flowchart-pattern",
-        "label": "The Flowchart Pattern",
-        "accent": "#0c8577",
-        "orbitRadius": 5.7,
-        "orbitSeconds": 78,
-        "size": 0.55,
-        "reference": {
-          "name": "footprintjs",
-          "card": "footprintjs",
-          "layer": "engine"
-        },
-        "satellites": [
-          {
-            "name": "agentfootprint",
-            "card": "agentfootprint",
-            "layer": "engine",
-            "accent": "#0c8577",
-            "orbitRadius": 1.45,
-            "orbitSeconds": 13,
-            "size": 0.28
-          }
-        ]
-      },
-      {
-        "id": "footprint-trail",
-        "label": "The Footprint Trail",
-        "accent": "#6d5ae0",
-        "orbitRadius": 9.2,
-        "orbitSeconds": 124,
-        "size": 0.48,
-        "satellites": [
-          {
-            "name": "hcifootprint",
-            "card": "hcifootprint",
-            "layer": "interface",
-            "accent": "#6d5ae0",
-            "orbitRadius": 1.3,
-            "orbitSeconds": 11,
-            "size": 0.24
-          },
-          {
-            "name": "vizfootprint",
-            "card": "vizfootprint",
-            "layer": "interface",
-            "accent": "#6d5ae0",
-            "orbitRadius": 2.1,
-            "orbitSeconds": 19,
-            "size": 0.22
-          }
-        ]
-      }
-    ]
-  },
+  "groupOrder": [
+    "foundations",
+    "own",
+    "frameworks",
+    "hybrid",
+    "collectors",
+    "lenses",
+    "more"
+  ],
   "nodes": [
     {
       "id": "footprintjs",
       "name": "footprintjs",
-      "tier": 1,
-      "layer": "engine",
-      "group": "engine",
-      "accent": "#ffc700",
+      "group": "foundations",
       "icon": "flowchart",
       "links": [
         {
@@ -416,15 +609,53 @@
           "title": "Investigate an unexpected outcome",
           "description": "Inspect what a workflow recorded about a price, refund or routing decision. The record is evidence to investigate, not a guarantee that the result is correct."
         }
-      }
+      },
+      "ring": "default",
+      "short": "footprintjs"
+    },
+    {
+      "id": "foottrace",
+      "name": "Foottrace",
+      "packageName": "foottrace",
+      "group": "foundations",
+      "icon": "trace",
+      "links": [
+        {
+          "href": "https://github.com/footprintjs/foottrace",
+          "productLabel": "GitHub",
+          "technicalLabel": "Source"
+        },
+        {
+          "href": "https://www.npmjs.com/package/foottrace",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "record tools",
+          "title": "Investigate a supported saved run",
+          "description": "Query execution records, follow supported dependencies and inspect reported gaps without running an AI model."
+        },
+        "technical": {
+          "tag": "record layer",
+          "title": "Read, query and export execution evidence",
+          "description": "Owns record primitives and readers for replay, time travel, bounded cause/impact queries, exact read-source evidence and optional W3C PROV-O export in JSON-LD."
+        },
+        "business": {
+          "tag": "evidence you can inspect",
+          "title": "Read the record without an AI service",
+          "description": "Inspect retained execution evidence through deterministic tools. A definite finding depends on the record’s completeness and the question being asked."
+        }
+      },
+      "ring": "read",
+      "short": "Foottrace"
     },
     {
       "id": "agentfootprint",
       "name": "AgentFootprint",
-      "tier": 2,
-      "layer": "engine",
-      "group": "engine",
-      "accent": "#f97316",
+      "group": "own",
       "icon": "agent",
       "links": [
         {
@@ -460,23 +691,19 @@
           "title": "Answer the follow-up from the record",
           "description": "Review what an agent was shown, which tools ran and what costs were reported. Missing evidence and unknown costs remain visible."
         }
-      }
+      },
+      "ring": "default",
+      "short": "Agent"
     },
     {
-      "id": "foottrace",
-      "name": "Foottrace",
-      "packageName": "foottrace",
-      "group": "engine",
-      "icon": "trail",
-      "accent": "#0c8577",
+      "id": "blueprint",
+      "name": "Blueprint",
+      "packageName": "footprint-blueprint",
+      "group": "own",
+      "icon": "blueprint",
       "links": [
         {
-          "href": "https://github.com/footprintjs/foottrace",
-          "productLabel": "GitHub",
-          "technicalLabel": "Source"
-        },
-        {
-          "href": "https://www.npmjs.com/package/foottrace",
+          "href": "https://www.npmjs.com/package/footprint-blueprint",
           "productLabel": "npm",
           "technicalLabel": "npm",
           "npm": true
@@ -484,37 +711,33 @@
       ],
       "views": {
         "product": {
-          "tag": "record tools",
-          "title": "Investigate a supported saved run",
-          "description": "Query execution records, follow supported dependencies and inspect reported gaps without running an AI model."
+          "tag": "application foundation",
+          "title": "Compose reusable platform capabilities",
+          "description": "A modular platform framework with focused import paths and shared execution evidence."
         },
         "technical": {
-          "tag": "record layer",
-          "title": "Read, query and export execution evidence",
-          "description": "Owns record primitives and readers for replay, time travel, bounded cause/impact queries, exact read-source evidence and optional W3C PROV-O export in JSON-LD."
+          "tag": "platform framework",
+          "title": "Modular capabilities over FootPrint",
+          "description": "The published framework uses FootPrint and Foottrace, keeping reusable platform capabilities behind focused module boundaries."
         },
         "business": {
-          "tag": "evidence you can inspect",
-          "title": "Read the record without an AI service",
-          "description": "Inspect retained execution evidence through deterministic tools. A definite finding depends on the record’s completeness and the question being asked."
+          "tag": "reusable platform work",
+          "title": "Build on shared application capabilities",
+          "description": "Compose the platform pieces your application needs and retain the execution evidence those workflows capture."
         }
-      }
+      },
+      "ring": "default",
+      "short": "Blueprint"
     },
     {
-      "id": "storydeck",
-      "name": "StoryDeck",
-      "packageName": "footprint-storydeck",
-      "group": "libraries",
-      "icon": "replay",
-      "accent": "#6d5ae0",
+      "id": "smallbusiness",
+      "name": "Smallbusiness",
+      "packageName": "smallbusiness-footprint",
+      "group": "own",
+      "icon": "shop",
       "links": [
         {
-          "href": "https://github.com/footprintjs/storydeck",
-          "productLabel": "GitHub",
-          "technicalLabel": "Source"
-        },
-        {
-          "href": "https://www.npmjs.com/package/footprint-storydeck",
+          "href": "https://www.npmjs.com/package/smallbusiness-footprint",
           "productLabel": "npm",
           "technicalLabel": "npm",
           "npm": true
@@ -522,29 +745,30 @@
       ],
       "views": {
         "product": {
-          "tag": "structured content",
-          "title": "One story, several ways to read it",
-          "description": "Turn structured content into an article, a scrolling story or a presentation. FootPrint integration is optional."
+          "tag": "commerce workflows",
+          "title": "Configure commerce for your shop",
+          "description": "Reusable commerce workflows built on Blueprint, configurable for different shop types."
         },
         "technical": {
-          "tag": "content views",
-          "title": "One content model, multiple presentations",
-          "description": "Article, scrollytelling and deck views from structured content. The published package declares FootPrint as an optional peer, not an AgentFootprint dependency."
+          "tag": "commerce domain layer",
+          "title": "Commerce workflows on Blueprint",
+          "description": "The published package depends on Blueprint, FootPrint and Foottrace. It adds configurable commerce workflows rather than an agent runtime."
         },
         "business": {
-          "tag": "reusable content",
-          "title": "Present the same material in several formats",
-          "description": "Use one structured source for reading, scrolling and presenting. Choose whether your application needs the optional FootPrint integration."
+          "tag": "commerce building blocks",
+          "title": "Reuse the workflow behind your shop",
+          "description": "Configure commerce capabilities for your business. What can be explained later depends on the evidence the application captures and retains."
         }
-      }
+      },
+      "ring": "default",
+      "short": "Shop"
     },
     {
       "id": "storyreel",
       "name": "StoryReel",
       "packageName": "footprint-storyreel",
-      "group": "libraries",
-      "icon": "replay",
-      "accent": "#6d5ae0",
+      "group": "own",
+      "icon": "reel",
       "links": [
         {
           "href": "https://github.com/footprintjs/storyreel",
@@ -574,117 +798,17 @@
           "title": "Keep the workflow behind the film",
           "description": "Create teaching material with a recorded production journey. Inspect the captured making-of steps when a result needs review."
         }
-      }
-    },
-    {
-      "id": "blueprint",
-      "name": "Blueprint",
-      "packageName": "footprint-blueprint",
-      "group": "libraries",
-      "icon": "capabilities",
-      "accent": "#6d5ae0",
-      "links": [
-        {
-          "href": "https://www.npmjs.com/package/footprint-blueprint",
-          "productLabel": "npm",
-          "technicalLabel": "npm",
-          "npm": true
-        }
-      ],
-      "views": {
-        "product": {
-          "tag": "application foundation",
-          "title": "Compose reusable platform capabilities",
-          "description": "A modular platform framework with focused import paths and shared execution evidence."
-        },
-        "technical": {
-          "tag": "platform framework",
-          "title": "Modular capabilities over FootPrint",
-          "description": "The published framework uses FootPrint and Foottrace, keeping reusable platform capabilities behind focused module boundaries."
-        },
-        "business": {
-          "tag": "reusable platform work",
-          "title": "Build on shared application capabilities",
-          "description": "Compose the platform pieces your application needs and retain the execution evidence those workflows capture."
-        }
-      }
-    },
-    {
-      "id": "smallbusiness",
-      "name": "Smallbusiness",
-      "packageName": "smallbusiness-footprint",
-      "group": "libraries",
-      "icon": "capabilities",
-      "accent": "#6d5ae0",
-      "links": [
-        {
-          "href": "https://www.npmjs.com/package/smallbusiness-footprint",
-          "productLabel": "npm",
-          "technicalLabel": "npm",
-          "npm": true
-        }
-      ],
-      "views": {
-        "product": {
-          "tag": "commerce workflows",
-          "title": "Configure commerce for your shop",
-          "description": "Reusable commerce workflows built on Blueprint, configurable for different shop types."
-        },
-        "technical": {
-          "tag": "commerce domain layer",
-          "title": "Commerce workflows on Blueprint",
-          "description": "The published package depends on Blueprint, FootPrint and Foottrace. It adds configurable commerce workflows rather than an agent runtime."
-        },
-        "business": {
-          "tag": "commerce building blocks",
-          "title": "Reuse the workflow behind your shop",
-          "description": "Configure commerce capabilities for your business. What can be explained later depends on the evidence the application captures and retains."
-        }
-      }
-    },
-    {
-      "id": "datapipeline",
-      "name": "Datapipeline",
-      "packageName": "footprintjs-datapipeline",
-      "group": "libraries",
-      "icon": "chart",
-      "accent": "#6d5ae0",
-      "links": [
-        {
-          "href": "https://www.npmjs.com/package/footprintjs-datapipeline",
-          "productLabel": "npm",
-          "technicalLabel": "npm",
-          "npm": true
-        }
-      ],
-      "views": {
-        "product": {
-          "tag": "collection and derivation",
-          "title": "Keep the work behind a data result",
-          "description": "Collection and derivation workflows built on FootPrint, with traceable execution evidence."
-        },
-        "technical": {
-          "tag": "data workflows",
-          "title": "Collection and derivation over FootPrint",
-          "description": "The published package uses FootPrint and Foottrace directly. Captured execution evidence helps investigate a data result; it does not prove a source is correct."
-        },
-        "business": {
-          "tag": "inspectable data work",
-          "title": "Review how a result was produced",
-          "description": "Follow recorded collection and derivation steps when a number is questioned. Missing source evidence remains unknown."
-        }
-      }
+      },
+      "ring": "default",
+      "short": "Reel"
     },
     {
       "id": "hcifootprint",
       "name": "HACI Footprint",
       "packageName": "hcifootprint",
-      "tier": 2,
-      "layer": "interface",
-      "group": "interface",
+      "group": "frameworks",
       "status": "beta",
-      "accent": "#ec4899",
-      "icon": "capabilities",
+      "icon": "pointer",
       "links": [
         {
           "href": "https://footprintjs.github.io/hcifootprint/",
@@ -724,16 +848,15 @@
           "title": "Let agents operate your app — inside the gates you already have",
           "description": "Agents use the application’s declared capabilities, permissions and confirmation gates. People retain control of actions that require approval; the application records the evidence those boundaries capture."
         }
-      }
+      },
+      "ring": "code",
+      "short": "HACI"
     },
     {
       "id": "vizfootprint",
       "name": "VizFootprint",
-      "tier": 2,
-      "layer": "interface",
-      "group": "interface",
-      "accent": "#06b6d4",
-      "icon": "trail",
+      "group": "frameworks",
+      "icon": "branchchart",
       "status": "alpha",
       "links": [
         {
@@ -763,17 +886,88 @@
           "title": "Show how a number was arrived at",
           "description": "Review retained paths through an analysis, including recorded alternatives, so a figure can be inspected alongside the work behind it. Unrecorded source activity remains unknown."
         }
-      }
+      },
+      "ring": "code",
+      "short": "Viz"
+    },
+    {
+      "id": "footprintjs-ml",
+      "name": "footprintjs-ml",
+      "group": "hybrid",
+      "status": "beta",
+      "icon": "neuron",
+      "links": [
+        {
+          "href": "https://github.com/footprintjs/footprintjs-ml/blob/main/QUICKSTART.md",
+          "productLabel": "Quickstart",
+          "technicalLabel": "Quickstart"
+        },
+        {
+          "href": "https://github.com/footprintjs/footprintjs-ml",
+          "productLabel": "GitHub",
+          "technicalLabel": "Source"
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "ML workflows",
+          "title": "Keep the evidence behind a model release",
+          "description": "FootPrint coordinates the workflow and your trainer keeps its code. Check matching evaluation evidence, then reopen the release decision later. No npm release yet."
+        },
+        "technical": {
+          "tag": "ML workflow evidence",
+          "title": "Typed references and evaluation receipts",
+          "description": "FootPrint coordinates; existing Python trainers keep models and tensors. Scope holds small references, receipts and decisions. Beta, source archive only."
+        },
+        "business": {
+          "tag": "model release evidence",
+          "title": "See what a model release was based on",
+          "description": "Reopen which model, data and evaluation evidence a release decision used. Beta, with no npm release yet."
+        }
+      },
+      "ring": "hybrid",
+      "short": "ML"
+    },
+    {
+      "id": "datapipeline",
+      "name": "Datapipeline",
+      "packageName": "footprintjs-datapipeline",
+      "group": "collectors",
+      "icon": "pipe",
+      "links": [
+        {
+          "href": "https://www.npmjs.com/package/footprintjs-datapipeline",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "collection and derivation",
+          "title": "Keep the work behind a data result",
+          "description": "Collection and derivation workflows built on FootPrint, with traceable execution evidence."
+        },
+        "technical": {
+          "tag": "data workflows",
+          "title": "Collection and derivation over FootPrint",
+          "description": "The published package uses FootPrint and Foottrace directly. Captured execution evidence helps investigate a data result; it does not prove a source is correct."
+        },
+        "business": {
+          "tag": "inspectable data work",
+          "title": "Review how a result was produced",
+          "description": "Follow recorded collection and derivation steps when a number is questioned. Missing source evidence remains unknown."
+        }
+      },
+      "ring": "code",
+      "short": "Datapipeline"
     },
     {
       "id": "explainable-ui",
       "name": "Flow Lens",
       "packageName": "footprint-explainable-ui",
-      "tier": 3,
-      "layer": "interface",
-      "group": "monitoring",
-      "accent": "#3b82f6",
-      "icon": "chart",
+      "group": "lenses",
+      "icon": "lensflow",
       "links": [
         {
           "href": "https://footprintjs.github.io/explainable-ui/",
@@ -795,30 +989,29 @@
       "views": {
         "product": {
           "tag": "workflow viewer",
-          "title": "Flow Lens · inspect a recorded run",
+          "title": "Inspect a recorded run",
           "description": "Explore recorded steps, state and supported variable traces. Choose a recorded subflow invocation where the record format supports it."
         },
         "technical": {
           "tag": "React evidence viewer",
-          "title": "Flow Lens · inspect execution evidence",
+          "title": "Inspect execution evidence",
           "description": "React views for flowcharts, state, replay and variable tracing over supported FootPrint records. Missing or unsupported evidence is shown explicitly."
         },
         "business": {
           "tag": "a view for engineering",
-          "title": "Flow Lens · follow the recorded work",
+          "title": "Follow the recorded work",
           "description": "Walk the captured steps and values behind a workflow result. The viewer shows the evidence available; it cannot recover data that was not recorded."
         }
-      }
+      },
+      "ring": "read",
+      "short": "Flow"
     },
     {
       "id": "lens",
       "name": "Why Lens",
       "packageName": "agentfootprint-lens",
-      "tier": 3,
-      "layer": "interface",
-      "group": "monitoring",
-      "accent": "#10b981",
-      "icon": "lens",
+      "group": "lenses",
+      "icon": "lenswhy",
       "links": [
         {
           "href": "https://github.com/footprintjs/agentfootprint-lens",
@@ -835,30 +1028,29 @@
       "views": {
         "product": {
           "tag": "agent debugging viewer",
-          "title": "Why Lens · inspect context and tools",
+          "title": "Inspect context and tools",
           "description": "Compare recorded messages, prompts, tool activity, decisions and cost while investigating an agent run."
         },
         "technical": {
           "tag": "agent trace viewer",
-          "title": "Why Lens · inspect the agent timeline",
+          "title": "Inspect the agent timeline",
           "description": "A React debugger for supported AgentFootprint records, aligning messages, prompts, tool calls, decision scope and reported cost."
         },
         "business": {
           "tag": "a view for investigation",
-          "title": "Why Lens · inspect the evidence behind an answer",
+          "title": "Inspect the evidence behind an answer",
           "description": "Read the recorded context and tool activity together. A suspected cause still needs to be tested; the viewer does not turn a hypothesis into proof."
         }
-      }
+      },
+      "ring": "read",
+      "short": "Why"
     },
     {
       "id": "thinking-ui",
       "name": "Story Lens",
       "packageName": "agentthinkingui",
-      "tier": 3,
-      "layer": "interface",
-      "group": "monitoring",
-      "accent": "#8b5cf6",
-      "icon": "replay",
+      "group": "lenses",
+      "icon": "lensstory",
       "links": [
         {
           "href": "https://footprintjs.github.io/agentThinkingUI/",
@@ -880,83 +1072,103 @@
       "views": {
         "product": {
           "tag": "human-readable replay",
-          "title": "Story Lens · follow the recorded journey",
+          "title": "Follow the recorded journey",
           "description": "Present a supported agent record as a story a person can replay and inspect. The story explains captured evidence, not a model’s hidden reasoning."
         },
         "technical": {
           "tag": "record replay",
-          "title": "Story Lens · replay supported agent evidence",
+          "title": "Replay supported agent evidence",
           "description": "A scrubbable replay of supported AgentFootprint records, exposing captured roles, tools and recorded alternatives."
         },
         "business": {
           "tag": "a view for people",
-          "title": "Story Lens · explain the recorded work",
+          "title": "Explain the recorded work",
           "description": "Give a colleague or reviewer a readable journey through the evidence that was captured, with room to question the interpretation."
+        }
+      },
+      "ring": "read",
+      "short": "Story"
+    },
+    {
+      "id": "storydeck",
+      "name": "StoryDeck",
+      "packageName": "footprint-storydeck",
+      "group": "more",
+      "icon": "slides",
+      "links": [
+        {
+          "href": "https://github.com/footprintjs/storydeck",
+          "productLabel": "GitHub",
+          "technicalLabel": "Source"
+        },
+        {
+          "href": "https://www.npmjs.com/package/footprint-storydeck",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "structured content",
+          "title": "One story, several ways to read it",
+          "description": "Turn structured content into an article, a scrolling story or a presentation. FootPrint integration is optional."
+        },
+        "technical": {
+          "tag": "content views",
+          "title": "One content model, multiple presentations",
+          "description": "Article, scrollytelling and deck views from structured content. The published package declares FootPrint as an optional peer, not an AgentFootprint dependency."
+        },
+        "business": {
+          "tag": "reusable content",
+          "title": "Present the same material in several formats",
+          "description": "Use one structured source for reading, scrolling and presenting. Choose whether your application needs the optional FootPrint integration."
+        }
+      }
+    },
+    {
+      "id": "contextfootprint",
+      "name": "ContextFootprint",
+      "packageName": "contextfootprint",
+      "group": "more",
+      "icon": "assertions",
+      "links": [
+        {
+          "href": "https://github.com/footprintjs/contextfootprint",
+          "productLabel": "GitHub",
+          "technicalLabel": "Source"
+        },
+        {
+          "href": "https://www.npmjs.com/package/contextfootprint",
+          "productLabel": "npm",
+          "technicalLabel": "npm",
+          "npm": true
+        }
+      ],
+      "views": {
+        "product": {
+          "tag": "context comparison",
+          "title": "Spot conflicting claims in your context",
+          "description": "Compare supplied assertions by identity and find conflicts. It does not decide which one is true."
+        },
+        "technical": {
+          "tag": "assertion identity",
+          "title": "Assertion identity and conflicts",
+          "description": "Compare host-supplied assertions by identity and find conflicts. It does not decide which assertion is true."
+        },
+        "business": {
+          "tag": "conflicting information",
+          "title": "Find where your sources disagree",
+          "description": "Compares the statements you supply and flags conflicts. It does not decide which one is true."
         }
       }
     }
   ],
-  "edges": [
-    {
-      "from": "footprintjs",
-      "to": "agentfootprint",
-      "type": "dependency",
-      "views": {
-        "product": "enables agent debugging",
-        "technical": "runtime dependency",
-        "business": "gives agents the same record"
-      }
-    },
-    {
-      "from": "footprintjs",
-      "to": "hcifootprint",
-      "type": "principle",
-      "views": {
-        "product": "guides safe operation",
-        "technical": "shared pattern",
-        "business": "same rule for your app"
-      }
-    },
-    {
-      "from": "footprintjs",
-      "to": "vizfootprint",
-      "type": "dependency",
-      "views": {
-        "product": "preserves exploration",
-        "technical": "executes analyses",
-        "business": "keeps the analysis honest"
-      }
-    },
-    {
-      "from": "footprintjs",
-      "to": "explainable-ui",
-      "type": "consumer",
-      "route": "outer-left",
-      "views": {
-        "product": "visualizes runs",
-        "technical": "renders traces",
-        "business": "shows the run"
-      }
-    },
-    {
-      "from": "agentfootprint",
-      "to": "lens",
-      "type": "consumer",
-      "views": {
-        "product": "debugs",
-        "technical": "renders",
-        "business": "finds the cause"
-      }
-    },
-    {
-      "from": "agentfootprint",
-      "to": "thinking-ui",
-      "type": "consumer",
-      "views": {
-        "product": "explains",
-        "technical": "replays",
-        "business": "tells the story"
-      }
-    }
-  ]
+  "groupCategory": {
+    "own": "default",
+    "frameworks": "code",
+    "hybrid": "code",
+    "collectors": "code",
+    "lenses": "read"
+  }
 }
