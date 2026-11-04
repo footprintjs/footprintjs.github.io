@@ -321,9 +321,8 @@
       }
     })
     .catch(function (error) {
+      /* the libraries are already in the HTML, so a failed load leaves them readable */
       document.documentElement.classList.add('ready');
-      var host = document.getElementById('ecosystem-cards');
-      if (host) host.textContent = 'The library list could not load. Please refresh the page.';
       console.error(error);
     });
 })();

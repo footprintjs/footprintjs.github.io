@@ -1,0 +1,75 @@
+# footprintjs
+
+> Open source TypeScript libraries that record how software and AI agents reach a result, so you can walk back, replay and audit it, with gaps labelled.
+
+A record is notes with edges between them, so you can walk back from a result to only the notes behind it. There are two ways to get those edges. Software built in the pattern is stitched by default: it keeps its edges as it runs. Everything you cannot rebuild, such as a React app, a trainer or a device fleet, is stitched in code, and every gap keeps its reason. Either way you get a stitched record you can walk back and replay. A side effect is an audit trail for security monitoring. Default stitching can still have gaps, and record formats and capture limits differ by library. A record is evidence of what was observed. It does not by itself prove correctness, compliance or the cause of an outside event.
+
+## Foundations
+
+- [footprintjs](https://footprintjs.github.io/footPrint/): Inspect tracked reads, writes and explicit decisions behind an outcome, where the required evidence was captured.
+- [Foottrace](https://github.com/footprintjs/foottrace): Query execution records, follow supported dependencies and inspect reported gaps without running an AI model.
+
+## Stitched by default
+
+- [AgentFootprint](https://agentfootprint.dev/): Inspect the recorded context, model calls, tools and decisions. Test suspected causes rather than treating an explanation as proof.
+- [Blueprint](https://www.npmjs.com/package/footprint-blueprint): A modular platform framework with focused import paths and shared execution evidence.
+- [Smallbusiness](https://www.npmjs.com/package/smallbusiness-footprint): Reusable commerce workflows built on Blueprint, configurable for different shop types.
+- [StoryReel](https://github.com/footprintjs/storyreel): Build teaching films from a storyboard and recipe, with a seekable timeline, captions and a recorded production workflow.
+
+## Stitched in code
+
+- [HACI Footprint](https://footprintjs.github.io/hcifootprint/) (beta): Give agents a typed map of the app's real capabilities while preserving permissions, confirmation gates, and the signed-in user's control.
+- [VizFootprint](https://github.com/footprintjs/vizfootprint) (alpha): Keep supported human and agent branches of an analysis, compare paths and replay retained findings. Recording settings and declared statistical obligations still matter.
+- [footprintjs-ml](https://github.com/footprintjs/footprintjs-ml) (beta): FootPrint coordinates the workflow and your trainer keeps its code. Check matching evaluation evidence, then reopen the release decision later. No npm release yet.
+- [Datapipeline](https://www.npmjs.com/package/footprintjs-datapipeline): Collection and derivation workflows built on FootPrint, with traceable execution evidence.
+
+## Lenses: read the record
+
+- [Flow Lens](https://footprintjs.github.io/explainable-ui/): Explore recorded steps, state and supported variable traces. Choose a recorded subflow invocation where the record format supports it.
+- [Why Lens](https://github.com/footprintjs/agentfootprint-lens): Compare recorded messages, prompts, tool activity, decisions and cost while investigating an agent run.
+- [Story Lens](https://footprintjs.github.io/agentThinkingUI/): Present a supported agent record as a story a person can replay and inspect. The story explains captured evidence, not a model’s hidden reasoning.
+
+## Also in the family
+
+- [StoryDeck](https://github.com/footprintjs/storydeck): Turn structured content into an article, a scrolling story or a presentation. FootPrint integration is optional.
+- [ContextFootprint](https://github.com/footprintjs/contextfootprint): Compare supplied assertions by identity and find conflicts. It does not decide which one is true.
+
+## Articles
+
+- [Visible Reasoning](https://footprintjs.github.io/blog/visible-reasoning/): Why a run should show its own work.
+- [The Flowchart Pattern](https://footprintjs.github.io/blog/the-flowchart-pattern/): The pattern behind footprintjs.
+- [The Trail Pattern](https://footprintjs.github.io/blog/the-trail-pattern/): The pattern behind VizFootprint.
+
+## Questions
+
+### What is footprintjs?
+
+footprintjs is a family of open source TypeScript libraries for execution provenance. Recorders capture the steps, tracked state and decisions behind a result as connected notes, so people and coding agents can walk back from it, replay it and audit it.
+
+### What is execution provenance?
+
+It is a record of how a result was produced: which steps ran, what they read and wrote, and which decisions they took, joined by the edges between them. Logs give you facts. Provenance also gives you the links between them.
+
+### How is this different from logs and traces?
+
+Logs record messages, and traces record order. A footprintjs record also keeps the decisions and the data behind them, so you can follow one result back through its dependencies instead of searching everything.
+
+### How do I debug why an AI agent gave an answer?
+
+Build the agent with AgentFootprint, which records its context, tool calls, model calls and decisions as it runs. Start at the answer and follow the recorded evidence backward, or inspect the run in Why Lens. An LLM can explain those findings, but it does not invent the history.
+
+### Do I have to rewrite my app to use it?
+
+No. Software built in the pattern is stitched by default. For what you cannot rebuild, you stitch in code: HACI Footprint and VizFootprint bind a framework's events into actions, Datapipeline does the same at the collector level, and footprintjs-ml coordinates workflows around your existing trainer.
+
+### What happens when a link in the record is missing?
+
+It stays a labelled gap with a reason, such as not-collected or no-match. When backward evidence is incomplete, Foottrace withholds the root cause and reports its gaps instead of guessing.
+
+### Does recording need an LLM?
+
+No. An ordinary application can keep an execution record without an LLM. You enable the recorders you need before the run.
+
+### Can the record be used as an audit trail?
+
+Yes, as a side effect. The same record that lets you walk back and replay gives security monitoring a trail to read. It is evidence of what was observed. It does not by itself prove correctness, compliance or the cause of an outside event.

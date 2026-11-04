@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>footprintjs — connected evidence for software and AI</title>
+    <title>footprintjs: execution provenance for AI agents and software</title>
     <meta
       name="description"
-      content="Build inspectable workflows and AI agents with FootPrint, Foottrace and reusable application libraries. Follow recorded dependencies, inspect decisions and keep missing evidence unknown."
+      content="Open source TypeScript libraries that record how software and AI agents reach a result, so you can walk back, replay and audit it, with gaps labelled."
     />
     <link rel="icon" type="image/svg+xml" href="./assets/logo.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png" />
@@ -21,17 +21,17 @@
     <meta name="theme-color" content="#ffc700" />
     <meta
       name="keywords"
-      content="footprintjs, agentfootprint, hcifootprint, vizfootprint, foottrail, explainable AI agents, AI agent framework, LLM agent framework, agent observability, agent debugging, causal trace, context engineering, flowchart pattern, trail pattern, self-explaining systems, MCP tool surface, skill graph, Sanjay Krishna Anbalagan, agent-operable apps, visual analysis provenance, context debugging, causal localization, backward slicing, llms.txt, agent-computer interface"
+      content="footprintjs, execution provenance, AI agent framework, agent observability, agent debugging, explainable AI agents, causal trace, decision evidence, audit trail, time travel debugging, flowchart pattern, MCP, TypeScript, foottrace, agentfootprint, hcifootprint, vizfootprint"
     />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="footprintjs" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:title" content="footprintjs — connected evidence for software and AI" />
+    <meta property="og:title" content="footprintjs: execution provenance for AI agents and software" />
     <meta
       property="og:description"
-      content="Build inspectable workflows and AI agents with FootPrint, Foottrace and reusable application libraries. Follow recorded dependencies, inspect decisions and keep missing evidence unknown."
+      content="Open source TypeScript libraries that record how software and AI agents reach a result, so you can walk back, replay and audit it, with gaps labelled."
     />
     <meta property="og:url" content="https://footprintjs.github.io/" />
     <meta property="og:image" content="https://footprintjs.github.io/assets/og.png" />
@@ -45,10 +45,10 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="footprintjs — connected evidence for software and AI" />
+    <meta name="twitter:title" content="footprintjs: execution provenance for AI agents and software" />
     <meta
       name="twitter:description"
-      content="Connected runtime evidence for people and coding agents. Inspect recorded steps and decisions; keep gaps visible."
+      content="Open source TypeScript libraries that record how software and AI agents reach a result, so you can walk back, replay and audit it, with gaps labelled."
     />
     <meta name="twitter:site" content="@1909sanjay" />
     <meta name="twitter:creator" content="@1909sanjay" />
@@ -70,169 +70,434 @@
       })();
     </script>
 
-    <!-- Structured data: the site, the org, the creator (Sanjay) with every profile, and each
-         project credited to him — so search engines reconcile "Sanjay Krishna Anbalagan" as the
-         creator of the footprintjs ecosystem. -->
+    <!-- seo:jsonld:start -->
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "WebSite",
-            "@id": "https://footprintjs.github.io/#website",
-            "url": "https://footprintjs.github.io/",
-            "name": "footprintjs",
-            "description": "Build inspectable workflows and AI agents with FootPrint, Foottrace and reusable application libraries. Follow recorded dependencies, inspect decisions and keep missing evidence unknown.",
-            "inLanguage": "en",
-            "publisher": { "@id": "https://footprintjs.github.io/#org" }
-          },
-          {
-            "@type": "Organization",
-            "@id": "https://footprintjs.github.io/#org",
-            "name": "footprintjs",
-            "url": "https://footprintjs.github.io/",
-            "sameAs": ["https://github.com/footprintjs"],
-            "founder": { "@id": "https://sanjay1909.github.io/#person" }
-          },
-          {
-            "@type": "Person",
-            "@id": "https://sanjay1909.github.io/#person",
-            "name": "Sanjay Krishna Anbalagan",
-            "alternateName": "Sanjay",
-            "url": "https://github.com/sanjay1909",
-            "sameAs": [
-              "https://github.com/sanjay1909",
-              "https://www.linkedin.com/in/sanjay-krishna-anbalagan/",
-              "https://x.com/1909sanjay",
-              "https://sanjay1909.github.io/"
-            ]
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "footprintjs",
-            "applicationCategory": "DeveloperApplication",
-            "operatingSystem": "Node.js",
-            "url": "https://github.com/footprintjs/footPrint",
-            "description": "Executes named workflow stages and captures configured runtime evidence of tracked state and explicit decisions.",
-            "license": "https://github.com/footprintjs/footPrint/blob/main/LICENSE",
-            "creator": { "@id": "https://sanjay1909.github.io/#person" },
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "agentfootprint",
-            "applicationCategory": "DeveloperApplication",
-            "operatingSystem": "Node.js",
-            "url": "https://footprintjs.github.io/agentfootprint/",
-            "description": "An agent runtime with inspectable context, tool activity, model calls and reported cost. Cause findings depend on the evidence captured.",
-            "creator": { "@id": "https://sanjay1909.github.io/#person" },
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "footprint-explainable-ui",
-            "applicationCategory": "DeveloperApplication",
-            "url": "https://footprintjs.github.io/explainable-ui/",
-            "description": "Themeable React components that visualize a footprintjs run — the flowchart, the causal trace, and the data at every step.",
-            "creator": { "@id": "https://sanjay1909.github.io/#person" },
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "agentfootprint-lens",
-            "applicationCategory": "DeveloperApplication",
-            "url": "https://github.com/footprintjs/agentfootprint-lens",
-            "description": "React components for debugging an agentfootprint run — messages, prompts, tool calls, decision scope, and cost. Built on footprint-explainable-ui.",
-            "creator": { "@id": "https://sanjay1909.github.io/#person" },
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "agentthinkingui",
-            "applicationCategory": "DeveloperApplication",
-            "url": "https://footprintjs.github.io/agentThinkingUI/",
-            "description": "Replay an agent's reasoning and tool loop as an animated, scrubbable story — the non-developer's view of an agent run.",
-            "creator": { "@id": "https://sanjay1909.github.io/#person" },
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "hcifootprint",
-            "applicationCategory": "DeveloperApplication",
-            "url": "https://footprintjs.github.io/hcifootprint/",
-            "sameAs": ["https://www.npmjs.com/package/hcifootprint"],
-            "description": "Turn your web app into an agent-operable app — its buttons and flows become a typed skill graph an agent plans over and acts on, served over MCP.",
-            "creator": { "@id": "https://sanjay1909.github.io/#person" },
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "vizfootprint",
-            "applicationCategory": "DeveloperApplication",
-            "url": "https://github.com/footprintjs/vizfootprint",
-            "description": "Causal provenance for coordinated visual analysis with append-only parent-linked exploration history, named paths, replay, comparison, mixed human-agent causes, and statistical accountability.",
-            "creator": { "@id": "https://sanjay1909.github.io/#person" },
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "Foottrace",
-            "applicationCategory": "DeveloperApplication",
-            "url": "https://www.npmjs.com/package/foottrace",
-            "description": "Record primitives, deterministic readers and optional W3C PROV-O export in JSON-LD."
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "StoryDeck",
-            "applicationCategory": "DeveloperApplication",
-            "url": "https://www.npmjs.com/package/footprint-storydeck",
-            "description": "Article, scrollytelling and deck views from structured content; FootPrint integration is optional."
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "StoryReel",
-            "applicationCategory": "DeveloperApplication",
-            "url": "https://www.npmjs.com/package/footprint-storyreel",
-            "description": "A staged teaching-film pipeline with a making-of record."
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "Blueprint",
-            "applicationCategory": "DeveloperApplication",
-            "url": "https://www.npmjs.com/package/footprint-blueprint",
-            "description": "A modular platform framework with shared execution evidence."
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "Smallbusiness",
-            "applicationCategory": "DeveloperApplication",
-            "url": "https://www.npmjs.com/package/smallbusiness-footprint",
-            "description": "Configurable commerce workflows built on Blueprint."
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "footprintjs-ml",
-            "applicationCategory": "DeveloperApplication",
-            "url": "https://github.com/footprintjs/footprintjs-ml",
-            "description": "Beta. Typed model references, evaluation receipts and release checks around existing trainers, coordinated by FootPrint."
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "ContextFootprint",
-            "applicationCategory": "DeveloperApplication",
-            "url": "https://github.com/footprintjs/contextfootprint",
-            "description": "Compare host-supplied assertions by identity and find conflicts. It does not decide which assertion is true."
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "Datapipeline",
-            "applicationCategory": "DeveloperApplication",
-            "url": "https://www.npmjs.com/package/footprintjs-datapipeline",
-            "description": "Collection and derivation flows with traceable execution evidence."
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://footprintjs.github.io/#website",
+          "url": "https://footprintjs.github.io/",
+          "name": "footprintjs",
+          "description": "Open source TypeScript libraries that record how software and AI agents reach a result, so you can walk back, replay and audit it, with gaps labelled.",
+          "inLanguage": "en",
+          "publisher": {
+            "@id": "https://footprintjs.github.io/#org"
           }
-        ]
-      }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://footprintjs.github.io/#org",
+          "name": "footprintjs",
+          "url": "https://footprintjs.github.io/",
+          "logo": "https://footprintjs.github.io/assets/favicon-512x512.png",
+          "sameAs": [
+            "https://github.com/footprintjs"
+          ],
+          "founder": {
+            "@id": "https://sanjay1909.github.io/#person"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://sanjay1909.github.io/#person",
+          "name": "Sanjay Krishna Anbalagan",
+          "alternateName": "Sanjay",
+          "url": "https://github.com/sanjay1909",
+          "sameAs": [
+            "https://github.com/sanjay1909",
+            "https://www.linkedin.com/in/sanjay-krishna-anbalagan/",
+            "https://x.com/1909sanjay",
+            "https://sanjay1909.github.io/"
+          ]
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://footprintjs.github.io/#page",
+          "url": "https://footprintjs.github.io/",
+          "name": "footprintjs: execution provenance for AI agents and software",
+          "description": "Open source TypeScript libraries that record how software and AI agents reach a result, so you can walk back, replay and audit it, with gaps labelled.",
+          "isPartOf": {
+            "@id": "https://footprintjs.github.io/#website"
+          },
+          "about": {
+            "@id": "https://footprintjs.github.io/#org"
+          },
+          "inLanguage": "en",
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://footprintjs.github.io/assets/og.png"
+          },
+          "mainEntity": {
+            "@id": "https://footprintjs.github.io/#questions"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://footprintjs.github.io/#questions",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is footprintjs?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "footprintjs is a family of open source TypeScript libraries for execution provenance. Recorders capture the steps, tracked state and decisions behind a result as connected notes, so people and coding agents can walk back from it, replay it and audit it."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is execution provenance?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "It is a record of how a result was produced: which steps ran, what they read and wrote, and which decisions they took, joined by the edges between them. Logs give you facts. Provenance also gives you the links between them."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How is this different from logs and traces?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Logs record messages, and traces record order. A footprintjs record also keeps the decisions and the data behind them, so you can follow one result back through its dependencies instead of searching everything."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I debug why an AI agent gave an answer?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Build the agent with AgentFootprint, which records its context, tool calls, model calls and decisions as it runs. Start at the answer and follow the recorded evidence backward, or inspect the run in Why Lens. An LLM can explain those findings, but it does not invent the history."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do I have to rewrite my app to use it?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Software built in the pattern is stitched by default. For what you cannot rebuild, you stitch in code: HACI Footprint and VizFootprint bind a framework's events into actions, Datapipeline does the same at the collector level, and footprintjs-ml coordinates workflows around your existing trainer."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What happens when a link in the record is missing?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "It stays a labelled gap with a reason, such as not-collected or no-match. When backward evidence is incomplete, Foottrace withholds the root cause and reports its gaps instead of guessing."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does recording need an LLM?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. An ordinary application can keep an execution record without an LLM. You enable the recorders you need before the run."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can the record be used as an audit trail?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, as a side effect. The same record that lets you walk back and replay gives security monitoring a trail to read. It is evidence of what was observed. It does not by itself prove correctness, compliance or the cause of an outside event."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "footprintjs",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://footprintjs.github.io/footPrint/",
+          "description": "Inspect tracked reads, writes and explicit decisions behind an outcome, where the required evidence was captured.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          },
+          "sameAs": [
+            "https://github.com/footprintjs/footPrint",
+            "https://www.npmjs.com/package/footprintjs"
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Foottrace",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://github.com/footprintjs/foottrace",
+          "description": "Query execution records, follow supported dependencies and inspect reported gaps without running an AI model.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          },
+          "sameAs": [
+            "https://www.npmjs.com/package/foottrace"
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "AgentFootprint",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://agentfootprint.dev/",
+          "description": "Inspect the recorded context, model calls, tools and decisions. Test suspected causes rather than treating an explanation as proof.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          },
+          "sameAs": [
+            "https://github.com/footprintjs/agentfootprint",
+            "https://www.npmjs.com/package/agentfootprint"
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Blueprint",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://www.npmjs.com/package/footprint-blueprint",
+          "description": "A modular platform framework with focused import paths and shared execution evidence.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Smallbusiness",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://www.npmjs.com/package/smallbusiness-footprint",
+          "description": "Reusable commerce workflows built on Blueprint, configurable for different shop types.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "StoryReel",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://github.com/footprintjs/storyreel",
+          "description": "Build teaching films from a storyboard and recipe, with a seekable timeline, captions and a recorded production workflow.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          },
+          "sameAs": [
+            "https://www.npmjs.com/package/footprint-storyreel"
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "HACI Footprint",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://footprintjs.github.io/hcifootprint/",
+          "description": "Give agents a typed map of the app's real capabilities while preserving permissions, confirmation gates, and the signed-in user's control.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          },
+          "sameAs": [
+            "https://github.com/footprintjs/hcifootprint",
+            "https://www.npmjs.com/package/hcifootprint"
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "VizFootprint",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://github.com/footprintjs/vizfootprint",
+          "description": "Keep supported human and agent branches of an analysis, compare paths and replay retained findings. Recording settings and declared statistical obligations still matter.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "footprintjs-ml",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://github.com/footprintjs/footprintjs-ml",
+          "description": "FootPrint coordinates the workflow and your trainer keeps its code. Check matching evaluation evidence, then reopen the release decision later. No npm release yet.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Datapipeline",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://www.npmjs.com/package/footprintjs-datapipeline",
+          "description": "Collection and derivation workflows built on FootPrint, with traceable execution evidence.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Flow Lens",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://footprintjs.github.io/explainable-ui/",
+          "description": "Explore recorded steps, state and supported variable traces. Choose a recorded subflow invocation where the record format supports it.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          },
+          "sameAs": [
+            "https://github.com/footprintjs/explainable-ui",
+            "https://www.npmjs.com/package/footprint-explainable-ui"
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Why Lens",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://github.com/footprintjs/agentfootprint-lens",
+          "description": "Compare recorded messages, prompts, tool activity, decisions and cost while investigating an agent run.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          },
+          "sameAs": [
+            "https://www.npmjs.com/package/agentfootprint-lens"
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Story Lens",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://footprintjs.github.io/agentThinkingUI/",
+          "description": "Present a supported agent record as a story a person can replay and inspect. The story explains captured evidence, not a model’s hidden reasoning.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          },
+          "sameAs": [
+            "https://github.com/footprintjs/agentThinkingUI",
+            "https://www.npmjs.com/package/agentthinkingui"
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "StoryDeck",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://github.com/footprintjs/storydeck",
+          "description": "Turn structured content into an article, a scrolling story or a presentation. FootPrint integration is optional.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          },
+          "sameAs": [
+            "https://www.npmjs.com/package/footprint-storydeck"
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "ContextFootprint",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://github.com/footprintjs/contextfootprint",
+          "description": "Compare supplied assertions by identity and find conflicts. It does not decide which one is true.",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@id": "https://sanjay1909.github.io/#person"
+          },
+          "sameAs": [
+            "https://www.npmjs.com/package/contextfootprint"
+          ]
+        }
+      ]
+    }
     </script>
+    
+<!-- seo:jsonld:end -->
   </head>
   <body>
     <a class="skip" href="#libraries">Skip to the libraries</a>
@@ -279,6 +544,7 @@
           <canvas id="film-canvas" aria-hidden="true"></canvas>
 
           <div class="film-hero on">
+            <p class="hero-kicker">Execution provenance for AI agents and software</p>
             <h1 id="hero-title">Build software you can investigate.</h1>
             <p id="hero-tagline" class="hero-tagline">Capture the connections. Keep the gaps visible.</p>
             <div class="hero-cta">
@@ -381,9 +647,259 @@
       <!-- ── the libraries, in the categories the film just explained ── -->
       <section class="libs" id="libraries" aria-labelledby="libs-heading">
         <div class="wrap">
-          <h2 id="libs-heading" class="section-title">The libraries</h2>
-          <div id="ecosystem-cards" class="libs-groups"><p class="libs-loading">Loading the libraries…</p></div>
-          <noscript><p>The library list needs JavaScript. Browse <a href="https://github.com/orgs/footprintjs/repositories">every public repository</a> instead.</p></noscript>
+          <h2 id="libs-heading" class="section-title">The footprintjs libraries</h2>
+          <p class="libs-intro">footprintjs is a family of open source TypeScript libraries for execution provenance. They record the steps, state and decisions behind a result as connected notes, so people and coding agents can walk back from it, replay it and audit it.</p>
+          <div id="ecosystem-cards" class="libs-groups"><!-- seo:libraries:start -->
+            <section class="libs-group" data-group="foundations" aria-labelledby="group-foundations">
+            <header class="libs-group-head"><h4 class="libs-group-title" id="group-foundations" data-group-title="foundations">Foundations</h4><p class="libs-group-note" data-group-note="foundations">Run the work and keep the record.</p></header>
+            <div class="libs-grid">
+            <article class="lib" id="card-footprintjs" data-node-id="footprintjs" data-group="foundations">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">footprintjs</h5></div>
+                    <p class="lib-title">Follow a recorded application decision</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><p class="lib-desc">Inspect tracked reads, writes and explicit decisions behind an outcome, where the required evidence was captured.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="footprintjs links"><a href="https://footprintjs.github.io/footPrint/" target="_blank" rel="noreferrer" data-link-index="0">See it in action</a><a href="https://github.com/footprintjs/footPrint" target="_blank" rel="noreferrer" data-link-index="1">GitHub</a><a class="lk-npm" href="https://www.npmjs.com/package/footprintjs" target="_blank" rel="noreferrer" data-link-index="2">npm</a></nav>
+            </article>
+            <article class="lib" id="card-foottrace" data-node-id="foottrace" data-group="foundations">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">Foottrace</h5></div>
+                    <p class="lib-title">Investigate a supported saved run</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><code class="lib-package">foottrace</code><p class="lib-desc">Query execution records, follow supported dependencies and inspect reported gaps without running an AI model.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="Foottrace links"><a href="https://github.com/footprintjs/foottrace" target="_blank" rel="noreferrer" data-link-index="0">GitHub</a><a class="lk-npm" href="https://www.npmjs.com/package/foottrace" target="_blank" rel="noreferrer" data-link-index="1">npm</a></nav>
+            </article>
+            </div>
+            </section>
+            <div class="libs-cat" data-category="default"><h3 class="libs-cat-title">Stitched by default</h3><p class="libs-cat-note">Connected as the work happens.</p></div>
+            <section class="libs-group" data-group="own" aria-labelledby="group-own">
+            <header class="libs-group-head"><h4 class="libs-group-title" id="group-own" data-group-title="own">Built in the pattern</h4><p class="libs-group-note" data-group-note="own">The run keeps its own edges.</p></header>
+            <div class="libs-grid">
+            <article class="lib" id="card-agentfootprint" data-node-id="agentfootprint" data-group="own">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">AgentFootprint</h5></div>
+                    <p class="lib-title">Investigate an agent’s answer</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><p class="lib-desc">Inspect the recorded context, model calls, tools and decisions. Test suspected causes rather than treating an explanation as proof.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="AgentFootprint links"><a href="https://agentfootprint.dev/" target="_blank" rel="noreferrer" data-link-index="0">Explore</a><a href="https://github.com/footprintjs/agentfootprint" target="_blank" rel="noreferrer" data-link-index="1">GitHub</a><a class="lk-npm" href="https://www.npmjs.com/package/agentfootprint" target="_blank" rel="noreferrer" data-link-index="2">npm</a></nav>
+            </article>
+            <article class="lib" id="card-blueprint" data-node-id="blueprint" data-group="own">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">Blueprint</h5></div>
+                    <p class="lib-title">Compose reusable platform capabilities</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><code class="lib-package">footprint-blueprint</code><p class="lib-desc">A modular platform framework with focused import paths and shared execution evidence.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="Blueprint links"><a class="lk-npm" href="https://www.npmjs.com/package/footprint-blueprint" target="_blank" rel="noreferrer" data-link-index="0">npm</a></nav>
+            </article>
+            <article class="lib" id="card-smallbusiness" data-node-id="smallbusiness" data-group="own">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">Smallbusiness</h5></div>
+                    <p class="lib-title">Configure commerce for your shop</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><code class="lib-package">smallbusiness-footprint</code><p class="lib-desc">Reusable commerce workflows built on Blueprint, configurable for different shop types.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="Smallbusiness links"><a class="lk-npm" href="https://www.npmjs.com/package/smallbusiness-footprint" target="_blank" rel="noreferrer" data-link-index="0">npm</a></nav>
+            </article>
+            <article class="lib" id="card-storyreel" data-node-id="storyreel" data-group="own">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">StoryReel</h5></div>
+                    <p class="lib-title">Make a film with a making-of record</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><code class="lib-package">footprint-storyreel</code><p class="lib-desc">Build teaching films from a storyboard and recipe, with a seekable timeline, captions and a recorded production workflow.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="StoryReel links"><a href="https://github.com/footprintjs/storyreel" target="_blank" rel="noreferrer" data-link-index="0">GitHub</a><a class="lk-npm" href="https://www.npmjs.com/package/footprint-storyreel" target="_blank" rel="noreferrer" data-link-index="1">npm</a></nav>
+            </article>
+            </div>
+            </section>
+            <div class="libs-cat" data-category="code"><h3 class="libs-cat-title">Stitched in code</h3><p class="libs-cat-note">For what you cannot rebuild. Every gap keeps its reason.</p></div>
+            <section class="libs-group" data-group="frameworks" aria-labelledby="group-frameworks">
+            <header class="libs-group-head"><h4 class="libs-group-title" id="group-frameworks" data-group-title="frameworks">Framework apps</h4><p class="libs-group-note" data-group-note="frameworks">You can't rebuild React, so bind its events.</p></header>
+            <div class="libs-grid">
+            <article class="lib" id="card-hcifootprint" data-node-id="hcifootprint" data-group="frameworks">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">HACI Footprint</h5><span class="lib-status">beta</span></div>
+                    <p class="lib-title">Make applications agent-operable</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><code class="lib-package">hcifootprint</code><p class="lib-desc">Give agents a typed map of the app's real capabilities while preserving permissions, confirmation gates, and the signed-in user's control.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="HACI Footprint links"><a href="https://footprintjs.github.io/hcifootprint/" target="_blank" rel="noreferrer" data-link-index="0">See the journey</a><a href="https://github.com/footprintjs/hcifootprint" target="_blank" rel="noreferrer" data-link-index="1">GitHub</a><a class="lk-npm" href="https://www.npmjs.com/package/hcifootprint" target="_blank" rel="noreferrer" data-link-index="2">npm</a><a href="https://youtu.be/vx5amF94ipI" target="_blank" rel="noreferrer" data-link-index="3">Watch 37s demo</a></nav>
+            </article>
+            <article class="lib" id="card-vizfootprint" data-node-id="vizfootprint" data-group="frameworks">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">VizFootprint</h5><span class="lib-status">alpha</span></div>
+                    <p class="lib-title">Preserve recorded exploration paths</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><p class="lib-desc">Keep supported human and agent branches of an analysis, compare paths and replay retained findings. Recording settings and declared statistical obligations still matter.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="VizFootprint links"><a href="https://github.com/footprintjs/vizfootprint" target="_blank" rel="noreferrer" data-link-index="0">Explore the project</a><a href="https://footprintjs.github.io/blog/the-trail-pattern/" target="_blank" rel="noreferrer" data-link-index="1">Read the story</a></nav>
+            </article>
+            </div>
+            </section>
+            <section class="libs-group" data-group="hybrid" aria-labelledby="group-hybrid">
+            <header class="libs-group-head"><h4 class="libs-group-title" id="group-hybrid" data-group-title="hybrid">Orchestrated workflows</h4><p class="libs-group-note" data-group-note="hybrid">Hybrid: the flow is in the pattern, the trainer stays yours.</p></header>
+            <div class="libs-grid">
+            <article class="lib" id="card-footprintjs-ml" data-node-id="footprintjs-ml" data-group="hybrid">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">footprintjs-ml</h5><span class="lib-status">beta</span></div>
+                    <p class="lib-title">Keep the evidence behind a model release</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><p class="lib-desc">FootPrint coordinates the workflow and your trainer keeps its code. Check matching evaluation evidence, then reopen the release decision later. No npm release yet.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="footprintjs-ml links"><a href="https://github.com/footprintjs/footprintjs-ml/blob/main/QUICKSTART.md" target="_blank" rel="noreferrer" data-link-index="0">Quickstart</a><a href="https://github.com/footprintjs/footprintjs-ml" target="_blank" rel="noreferrer" data-link-index="1">GitHub</a></nav>
+            </article>
+            </div>
+            </section>
+            <section class="libs-group" data-group="collectors" aria-labelledby="group-collectors">
+            <header class="libs-group-head"><h4 class="libs-group-title" id="group-collectors" data-group-title="collectors">Device collectors</h4><p class="libs-group-note" data-group-note="collectors">The same idea at the collector, for on-prem devices.</p></header>
+            <div class="libs-grid">
+            <article class="lib" id="card-datapipeline" data-node-id="datapipeline" data-group="collectors">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">Datapipeline</h5></div>
+                    <p class="lib-title">Keep the work behind a data result</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><code class="lib-package">footprintjs-datapipeline</code><p class="lib-desc">Collection and derivation workflows built on FootPrint, with traceable execution evidence.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="Datapipeline links"><a class="lk-npm" href="https://www.npmjs.com/package/footprintjs-datapipeline" target="_blank" rel="noreferrer" data-link-index="0">npm</a></nav>
+            </article>
+            </div>
+            </section>
+            <div class="libs-cat" data-category="read"><h3 class="libs-cat-title">Walk back and replay</h3><p class="libs-cat-note">Whichever way it was stitched.</p></div>
+            <section class="libs-group" data-group="lenses" aria-labelledby="group-lenses">
+            <header class="libs-group-head"><h4 class="libs-group-title" id="group-lenses" data-group-title="lenses">Lenses</h4><p class="libs-group-note" data-group-note="lenses">Read the record.</p></header>
+            <div class="libs-grid">
+            <article class="lib" id="card-explainable-ui" data-node-id="explainable-ui" data-group="lenses">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">Flow Lens</h5></div>
+                    <p class="lib-title">Inspect a recorded run</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><code class="lib-package">footprint-explainable-ui</code><p class="lib-desc">Explore recorded steps, state and supported variable traces. Choose a recorded subflow invocation where the record format supports it.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="Flow Lens links"><a href="https://footprintjs.github.io/explainable-ui/" target="_blank" rel="noreferrer" data-link-index="0">Try the demo</a><a href="https://github.com/footprintjs/explainable-ui" target="_blank" rel="noreferrer" data-link-index="1">GitHub</a><a class="lk-npm" href="https://www.npmjs.com/package/footprint-explainable-ui" target="_blank" rel="noreferrer" data-link-index="2">npm</a></nav>
+            </article>
+            <article class="lib" id="card-lens" data-node-id="lens" data-group="lenses">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">Why Lens</h5></div>
+                    <p class="lib-title">Inspect context and tools</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><code class="lib-package">agentfootprint-lens</code><p class="lib-desc">Compare recorded messages, prompts, tool activity, decisions and cost while investigating an agent run.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="Why Lens links"><a href="https://github.com/footprintjs/agentfootprint-lens" target="_blank" rel="noreferrer" data-link-index="0">Explore the debugger</a><a class="lk-npm" href="https://www.npmjs.com/package/agentfootprint-lens" target="_blank" rel="noreferrer" data-link-index="1">npm</a></nav>
+            </article>
+            <article class="lib" id="card-thinking-ui" data-node-id="thinking-ui" data-group="lenses">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">Story Lens</h5></div>
+                    <p class="lib-title">Follow the recorded journey</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><code class="lib-package">agentthinkingui</code><p class="lib-desc">Present a supported agent record as a story a person can replay and inspect. The story explains captured evidence, not a model’s hidden reasoning.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="Story Lens links"><a href="https://footprintjs.github.io/agentThinkingUI/" target="_blank" rel="noreferrer" data-link-index="0">Watch a replay</a><a href="https://github.com/footprintjs/agentThinkingUI" target="_blank" rel="noreferrer" data-link-index="1">GitHub</a><a class="lk-npm" href="https://www.npmjs.com/package/agentthinkingui" target="_blank" rel="noreferrer" data-link-index="2">npm</a></nav>
+            </article>
+            </div>
+            </section>
+            <section class="libs-group" data-group="more" aria-labelledby="group-more">
+            <header class="libs-group-head"><h4 class="libs-group-title" id="group-more" data-group-title="more">Also in the family</h4><p class="libs-group-note" data-group-note="more">Related tools from the same project.</p></header>
+            <div class="libs-grid">
+            <article class="lib" id="card-storydeck" data-node-id="storydeck" data-group="more">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">StoryDeck</h5></div>
+                    <p class="lib-title">One story, several ways to read it</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><code class="lib-package">footprint-storydeck</code><p class="lib-desc">Turn structured content into an article, a scrolling story or a presentation. FootPrint integration is optional.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="StoryDeck links"><a href="https://github.com/footprintjs/storydeck" target="_blank" rel="noreferrer" data-link-index="0">GitHub</a><a class="lk-npm" href="https://www.npmjs.com/package/footprint-storydeck" target="_blank" rel="noreferrer" data-link-index="1">npm</a></nav>
+            </article>
+            <article class="lib" id="card-contextfootprint" data-node-id="contextfootprint" data-group="more">
+              <details class="lib-details">
+                <summary class="lib-summary">
+                  <svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                  <div class="lib-head">
+                    <div class="lib-name-row"><h5 class="lib-name">ContextFootprint</h5></div>
+                    <p class="lib-title">Spot conflicting claims in your context</p>
+                  </div>
+                  <span class="lib-more"></span>
+                </summary>
+                <div class="lib-body"><code class="lib-package">contextfootprint</code><p class="lib-desc">Compare supplied assertions by identity and find conflicts. It does not decide which one is true.</p></div>
+              </details>
+              <nav class="lib-links" aria-label="ContextFootprint links"><a href="https://github.com/footprintjs/contextfootprint" target="_blank" rel="noreferrer" data-link-index="0">GitHub</a><a class="lk-npm" href="https://www.npmjs.com/package/contextfootprint" target="_blank" rel="noreferrer" data-link-index="1">npm</a></nav>
+            </article>
+            </div>
+            </section>
+          
+<!-- seo:libraries:end --></div>
         </div>
       </section>
 
@@ -441,6 +957,23 @@
               <span class="writing-kind">37-second demo ↗</span><span class="writing-title">HACI Footprint operating a live app</span>
             </a>
           </div>
+        </div>
+      </section>
+
+      <section class="faq" id="questions" aria-labelledby="faq-heading">
+        <div class="wrap">
+          <h2 id="faq-heading" class="section-title">Questions</h2>
+          <div class="faq-list"><!-- seo:faq:start -->
+            <details class="faq-item"><summary><h3>What is footprintjs?</h3></summary><p>footprintjs is a family of open source TypeScript libraries for execution provenance. Recorders capture the steps, tracked state and decisions behind a result as connected notes, so people and coding agents can walk back from it, replay it and audit it.</p></details>
+            <details class="faq-item"><summary><h3>What is execution provenance?</h3></summary><p>It is a record of how a result was produced: which steps ran, what they read and wrote, and which decisions they took, joined by the edges between them. Logs give you facts. Provenance also gives you the links between them.</p></details>
+            <details class="faq-item"><summary><h3>How is this different from logs and traces?</h3></summary><p>Logs record messages, and traces record order. A footprintjs record also keeps the decisions and the data behind them, so you can follow one result back through its dependencies instead of searching everything.</p></details>
+            <details class="faq-item"><summary><h3>How do I debug why an AI agent gave an answer?</h3></summary><p>Build the agent with AgentFootprint, which records its context, tool calls, model calls and decisions as it runs. Start at the answer and follow the recorded evidence backward, or inspect the run in Why Lens. An LLM can explain those findings, but it does not invent the history.</p></details>
+            <details class="faq-item"><summary><h3>Do I have to rewrite my app to use it?</h3></summary><p>No. Software built in the pattern is stitched by default. For what you cannot rebuild, you stitch in code: HACI Footprint and VizFootprint bind a framework's events into actions, Datapipeline does the same at the collector level, and footprintjs-ml coordinates workflows around your existing trainer.</p></details>
+            <details class="faq-item"><summary><h3>What happens when a link in the record is missing?</h3></summary><p>It stays a labelled gap with a reason, such as not-collected or no-match. When backward evidence is incomplete, Foottrace withholds the root cause and reports its gaps instead of guessing.</p></details>
+            <details class="faq-item"><summary><h3>Does recording need an LLM?</h3></summary><p>No. An ordinary application can keep an execution record without an LLM. You enable the recorders you need before the run.</p></details>
+            <details class="faq-item"><summary><h3>Can the record be used as an audit trail?</h3></summary><p>Yes, as a side effect. The same record that lets you walk back and replay gives security monitoring a trail to read. It is evidence of what was observed. It does not by itself prove correctness, compliance or the cause of an outside event.</p></details>
+          
+<!-- seo:faq:end --></div>
         </div>
       </section>
     </main>
