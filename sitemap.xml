@@ -36,6 +36,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://footprintjs.github.io/explainable-ui/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://footprintjs.github.io/agentThinkingUI/demo/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://footprintjs.github.io/footprint-playground/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://footprintjs.github.io/footprintjs-ml/</loc>
     <lastmod>2026-11-02</lastmod>
     <priority>0.7</priority>
