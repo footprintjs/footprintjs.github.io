@@ -5,7 +5,40 @@
       "label": "Product",
       "hero": {
         "title": "Build software you can investigate.",
-        "tagline": "Capture the connections. Keep the gaps visible."
+        "tagline": "Open-source TypeScript libraries that record the steps, state and decisions behind a result as connected notes, and keep the gaps visible.",
+        "line": [
+          {
+            "text": "Build software",
+            "on": [
+              "own",
+              "join",
+              "orbit",
+              "payoff"
+            ]
+          },
+          {
+            "text": "you can",
+            "on": [
+              "bind",
+              "hybrid",
+              "collect",
+              "stitch",
+              "join",
+              "orbit",
+              "payoff"
+            ]
+          },
+          {
+            "text": "investigate.",
+            "on": [
+              "walk",
+              "gap",
+              "lenses",
+              "orbit",
+              "payoff"
+            ]
+          }
+        ]
       },
       "film": {
         "mono": false,
@@ -188,7 +221,39 @@
       "label": "Technical",
       "hero": {
         "title": "Capture connections at runtime.",
-        "tagline": "Recorded dependency is evidence, not proof of real-world cause."
+        "tagline": "Open-source TypeScript libraries that capture connections as the run happens. Recorded dependency is evidence, not proof of real-world cause.",
+        "line": [
+          {
+            "text": "Capture",
+            "on": [
+              "bind",
+              "hybrid",
+              "collect",
+              "stitch",
+              "orbit",
+              "payoff"
+            ]
+          },
+          {
+            "text": "connections",
+            "on": [
+              "join",
+              "walk",
+              "gap",
+              "lenses",
+              "orbit",
+              "payoff"
+            ]
+          },
+          {
+            "text": "at runtime.",
+            "on": [
+              "own",
+              "orbit",
+              "payoff"
+            ]
+          }
+        ]
       },
       "film": {
         "mono": true,
@@ -371,7 +436,39 @@
       "label": "Business",
       "hero": {
         "title": "See the work behind an answer.",
-        "tagline": "Keep the work inspectable. Say what is still unknown."
+        "tagline": "Open-source TypeScript libraries that keep the work behind a result inspectable, and say what is still unknown.",
+        "line": [
+          {
+            "text": "See",
+            "on": [
+              "lenses",
+              "orbit",
+              "payoff"
+            ]
+          },
+          {
+            "text": "the work",
+            "on": [
+              "own",
+              "bind",
+              "hybrid",
+              "collect",
+              "stitch",
+              "join",
+              "orbit",
+              "payoff"
+            ]
+          },
+          {
+            "text": "behind an answer.",
+            "on": [
+              "walk",
+              "gap",
+              "orbit",
+              "payoff"
+            ]
+          }
+        ]
       },
       "film": {
         "mono": false,

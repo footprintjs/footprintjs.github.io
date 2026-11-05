@@ -13,6 +13,12 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const SITE = 'https://footprintjs.github.io/';
 const data = JSON.parse(readFileSync(root + 'ecosystem-views.json', 'utf8'));
+
+/* The line that heads the film has to read the same as the view's title. */
+for (const [key, view] of Object.entries(data.views)) {
+  const line = view.hero.line.map((part) => part.text).join(' ');
+  if (line !== view.hero.title) throw new Error(`${key}: hero.line reads "${line}", but hero.title is "${view.hero.title}"`);
+}
 const product = data.views[data.defaultView];
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');

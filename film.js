@@ -108,6 +108,8 @@
     auditA: 32.65, auditB: 33.45,
     end: 34.6
   };
+  /* the film time the opening's stretch of scroll covers */
+  const OPENING = 1;
   /* which caption is on screen when */
   const CHAPTERS = [
     ['hero', 0, 0.85], ['own', 1.05, 4.4], ['pile', 4.5, 7.2], ['bind', 7.25, 8.85], ['hybrid', 8.9, 10.5], ['collect', 10.55, 12.3],
@@ -2125,6 +2127,7 @@
       this.canvas = root.querySelector('#film-canvas');
       this.caps = Array.from(root.querySelectorAll('.cap'));
       this.hero = root.querySelector('.film-hero');
+      this.line = root.querySelector('.film-line');
       this.readout = root.querySelector('.film-readout');
       this.readN = this.readout.querySelector('b');
       this.readL = this.readout.querySelector('span');
@@ -2158,8 +2161,20 @@
     }
     setCopy() {
       writeCopy(this.root, this.data.views[this.view].film, true);
+      /* the view's one line heads the film, and each part lights while the film expands it */
+      this.line.textContent = '';
+      for (const { text, on } of this.data.views[this.view].hero.line) {
+        const word = document.createElement('span');
+        word.textContent = text;
+        word.dataset.lit = on.join(' ');
+        this.line.append(word, ' ');
+      }
+      this.lightLine();
       this.readL.textContent = this.data.views[this.view].film.readout;
       this.measureAnswers();
+    }
+    lightLine() {
+      for (const word of this.line.children) word.classList.toggle('lit', word.dataset.lit.split(' ').includes(this.lastChapter));
     }
     setView(view) {
       this.view = view;
@@ -2255,8 +2270,11 @@
     }
     measure() {
       const W = this.stage.clientWidth, H = this.stage.clientHeight;
-      const head = document.querySelector('.hd').offsetHeight;
       const portrait = W < 860 || W / H < 1.1;
+      /* the film's one line sits between the site header and the film */
+      const lineH = portrait ? 30 : 42;
+      const head = document.querySelector('.hd').offsetHeight + lineH;
+      this.stage.style.setProperty('--line-h', lineH + 'px');
       const capZone = portrait ? clamp(H * 0.34, 214, 300) : 0;
       const gutter = clamp(W * 0.035, 18, 56);
       const capW = portrait ? 0 : clamp(W * 0.3, 280, 450);
@@ -2269,6 +2287,7 @@
       this.film.resize(W, H, dpr, { head, capZone, gutter, capW, rail: 60 });
       this.layoutRail();
       this.scrollable = Math.max(1, this.root.offsetHeight - H);
+      this.lead = H * 0.35;
       this.rootTop = this.root.getBoundingClientRect().top + window.scrollY;
       const A = this.film.A;
       if (portrait) {
@@ -2281,11 +2300,15 @@
     measureAnswers() {
       this.film.ans = { x: this.honest.offsetLeft + this.answers.offsetLeft, y: this.honest.offsetTop + this.answers.offsetTop, w: this.honest.offsetWidth, h: this.honest.offsetHeight };
     }
+    /* The opening gets its own stretch of scroll, so the title rises at a pace you can read. */
     readScroll() {
-      return clamp((window.scrollY - this.rootTop) / this.scrollable) * T.end;
+      const y = clamp((window.scrollY - this.rootTop) / this.scrollable) * this.scrollable;
+      return y < this.lead ? (y / this.lead) * OPENING : OPENING + ((y - this.lead) / (this.scrollable - this.lead)) * (T.end - OPENING);
     }
     seek(t) {
-      window.scrollTo({ top: this.rootTop + (clamp(t, 0, T.end) / T.end) * this.scrollable, behavior: 'instant' });
+      const at = clamp(t, 0, T.end);
+      const y = at < OPENING ? (at / OPENING) * this.lead : this.lead + ((at - OPENING) / (T.end - OPENING)) * (this.scrollable - this.lead);
+      window.scrollTo({ top: this.rootTop + y, behavior: 'instant' });
     }
     play() {
       if (this.readScroll() > T.end - 0.05) this.seek(0);
@@ -2347,8 +2370,8 @@
       this.last = now;
       const clock = this.clock = (now - this.startAt) / 1000;
       if (this.playing) {
-        const speed = this.scrollable / (T.end * 1.6);
-        const next = window.scrollY + speed * dt;
+        const perBeat = this.readScroll() < OPENING ? this.lead / OPENING : (this.scrollable - this.lead) / (T.end - OPENING);
+        const next = window.scrollY + (perBeat / 1.6) * dt;
         window.scrollTo({ top: next, behavior: 'instant' });
         if (next >= this.rootTop + this.scrollable - 1) this.pause();
       }
@@ -2362,6 +2385,7 @@
       requestAnimationFrame((n) => this.frame(n));
     }
     syncDom(t) {
+      this.root.style.setProperty('--film-t', t.toFixed(3));
       /* caption */
       let chapter = null;
       for (const [id, a, b] of CHAPTERS) if (t >= a && t < b) chapter = id;
@@ -2370,6 +2394,7 @@
         this.caps.forEach((cap) => cap.classList.toggle('on', cap.dataset.chapter === chapter));
         this.hero.classList.toggle('on', chapter === 'hero');
         this.root.dataset.chapter = chapter || '';
+        this.lightLine();
         document.body.classList.toggle('lens-nudge', chapter === 'lenses');
         this.railSvg.dataset.active = TRACK_OF[chapter] || 'mid';
       }
