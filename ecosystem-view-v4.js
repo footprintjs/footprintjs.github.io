@@ -39,6 +39,16 @@
     if (text !== undefined) node.textContent = text;
     return node;
   }
+  var AGENT_BRIEF = [
+    'footprintjs is a family of open-source TypeScript libraries for execution provenance.',
+    'They record the steps, state and decisions behind a result as connected notes, so people and coding agents can walk back from it, replay it and audit it.',
+    'A record supports an investigation. It does not by itself prove correctness or the cause of an outside event.',
+    '',
+    'Library list, written for coding agents: https://footprintjs.github.io/llms.txt',
+    'A worked example: https://github.com/footprintjs/footPrint#one-workflow-one-recorded-investigation',
+    'Source: https://github.com/footprintjs'
+  ].join('\n');
+
   function setText(id, text) {
     var node = document.getElementById(id);
     if (node && text) node.textContent = text;
@@ -275,6 +285,23 @@
       applyView(buttons[next].dataset.view, true);
     });
     window.addEventListener('popstate', function () { applyView(initialView(state.data), false); });
+
+    /* "Share with your agent" copies a description for a reader's coding agent. It gives no orders,
+       because orders aimed at an agent read as prompt injection. Without a clipboard it stays a link to llms.txt. */
+    var share = document.getElementById('share-agent');
+    if (share && navigator.clipboard) {
+      var shareButton = element('button', share.className, 'Share with your agent');
+      shareButton.type = 'button';
+      shareButton.addEventListener('click', function () {
+        navigator.clipboard.writeText(AGENT_BRIEF).then(function () {
+          shareButton.textContent = 'Copied. Paste it to your agent';
+          window.setTimeout(function () { shareButton.textContent = 'Share with your agent'; }, 2400);
+        }, function () {
+          shareButton.replaceWith(share);
+        });
+      });
+      share.replaceWith(shareButton);
+    }
 
     /* a planet in the film's last shot opens its tile */
     document.addEventListener('film:body', function (event) {
