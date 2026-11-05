@@ -533,6 +533,7 @@ html.js .film-hero .hero-hint { animation: heroFade 0.7s var(--ease) 0.8s backwa
 /* ── libraries ────────────────────────────────────────────────────────────── */
 .libs { padding-block: clamp(56px, 8vw, 104px) clamp(40px, 6vw, 72px); }
 .libs-intro { max-width: 720px; margin: 14px 0 0; font-size: clamp(16px, 1.3vw, 18px); color: var(--fg-muted); text-wrap: pretty; }
+.libs-share { margin: 18px 0 0; }
 .libs-groups { margin-top: clamp(26px, 4vw, 48px); display: grid; gap: clamp(26px, 3.4vw, 42px); }
 .libs-cat { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; padding: 12px 0 0; margin-top: 8px; border-top: 2px solid var(--cat); }
 .libs-cat[data-category='default'] { --cat: var(--g-own); }
